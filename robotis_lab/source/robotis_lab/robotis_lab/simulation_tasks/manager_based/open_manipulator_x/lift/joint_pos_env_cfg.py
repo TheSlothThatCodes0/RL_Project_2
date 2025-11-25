@@ -28,39 +28,47 @@ class OpenManipulatorXCubeLiftEnvCfg(LiftEnvCfg):
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
-            joint_names=["gripper_left_joint"],
-            open_command_expr={"gripper_left_joint": 0.019},
-            close_command_expr={"gripper_left_joint": -0.01},
+            joint_names=["gripper_left_joint", "gripper_right_joint"],
+            open_command_expr={"gripper_left_joint": 0.019, "gripper_right_joint": 0.019},
+            close_command_expr={"gripper_left_joint": -0.01, "gripper_right_joint": -0.01},
         )
 
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "link5"
+        self.commands.object_pose.ranges.pos_x = (0.15, 0.25)
+        self.commands.object_pose.ranges.pos_y = (-0.15, 0.15)
+        self.commands.object_pose.ranges.pos_z = (0.15, 0.25)
 
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.3, 0, 0.055], rot=[1, 0, 0, 0]),
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.25, 0, 0.055], rot=[1, 0, 0, 0]),
             spawn=sim_utils.UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-                scale=(0.65, 0.65, 0.65),
+                scale=(0.8, 0.8, 0.8),
                 rigid_props=RigidBodyPropertiesCfg(
                     solver_position_iteration_count=16,
                     solver_velocity_iteration_count=1,
                     max_angular_velocity=1000.0,
                     max_linear_velocity=1000.0,
                     max_depenetration_velocity=5.0,
+                    disable_gravity=False,
                 ),
-                mass_props=sim_utils.MassPropertiesCfg(density=30.0),
+            
             ),
         )
 
+        # Adjust reset noise to keep object within reach
+        self.events.reset_object_position.params["pose_range"]["x"] = (-0.025, 0.025)
+        self.events.reset_object_position.params["pose_range"]["y"] = (-0.05, 0.05)
+
         # EE Frame
         self.scene.ee_frame = FrameTransformerCfg(
-            prim_path="{ENV_REGEX_NS}/open_manipulator_x/open_manipulator_x/link1", # Attach to base link (link1)
+            prim_path="{ENV_REGEX_NS}/open_manipulator_x/link1", # Attach to base link (link1)
             debug_vis=False,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/open_manipulator_x/open_manipulator_x/link5",
+                    prim_path="{ENV_REGEX_NS}/open_manipulator_x/link5",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.126, 0.0, 0.0],

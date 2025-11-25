@@ -46,6 +46,7 @@ parser.add_argument(
     help="Consolidate links that are connected by fixed joints.",
 )
 parser.add_argument("--fix-base", action="store_true", default=False, help="Fix the base to where it is imported.")
+parser.add_argument("--convert-mimic-joints-to-normal-joints", action="store_true", default=False, help="Convert mimic joints to normal joints.")
 parser.add_argument(
     "--joint-stiffness",
     type=float,
@@ -106,6 +107,7 @@ def main():
         asset_path=urdf_path,
         usd_dir=os.path.dirname(dest_path),
         usd_file_name=os.path.basename(dest_path),
+        convert_mimic_joints_to_normal_joints = args_cli.convert_mimic_joints_to_normal_joints, #Change this further
         fix_base=args_cli.fix_base,
         merge_fixed_joints=args_cli.merge_joints,
         force_usd_conversion=True,

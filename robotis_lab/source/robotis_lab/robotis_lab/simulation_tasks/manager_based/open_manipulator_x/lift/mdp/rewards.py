@@ -15,35 +15,24 @@ if TYPE_CHECKING:
 def object_is_lifted(
     env: ManagerBasedRLEnv,
     minimal_height: float,
-    distance_threshold: float,
+    distance_threshold: float = 0.06,
     object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
     ee_frame_cfg: SceneEntityCfg = SceneEntityCfg("ee_frame"),
 ) -> torch.Tensor:
-    """
-    Reward the agent for lifting the object above a minimal height.
-
-    *Only if* it is within a certain distance from the end-effector.
-    """
+    """Reward the agent for lifting the object above the minimal height."""
     object: RigidObject = env.scene[object_cfg.name]
     ee_frame: FrameTransformer = env.scene[ee_frame_cfg.name]
 
-    # Get object height (z position in world frame)
-    obj_height = object.data.root_pos_w[:, 2]  # (num_envs,)
+    # Check height
+    is_lifted = object.data.root_pos_w[:, 2] > minimal_height
 
-    # Get positions
-    obj_pos = object.data.root_pos_w  # (num_envs, 3)
-    ee_pos = ee_frame.data.target_pos_w[..., 0, :]  # (num_envs, 3)
+    # Check distance
+    object_pos = object.data.root_pos_w
+    ee_pos = ee_frame.data.target_pos_w[..., 0, :]
+    distance = torch.norm(object_pos - ee_pos, dim=1)
+    is_close = distance < distance_threshold
 
-    # Compute Euclidean distance between object and end-effector
-    dist = torch.norm(obj_pos - ee_pos, dim=1)  # (num_envs,)
-
-    # Reward is 1.0 if object is above minimal height AND within_reach to EE
-    lifted = obj_height > minimal_height
-    within_reach = dist < distance_threshold
-
-    reward = torch.where(lifted & within_reach, 1.0, 0.0)
-
-    return reward
+    return torch.where(is_lifted & is_close, 1.0, 0.0)
 
 
 def object_grasp(
@@ -51,15 +40,13 @@ def object_grasp(
     robot_cfg: SceneEntityCfg,
     ee_frame_cfg: SceneEntityCfg,
     object_cfg: SceneEntityCfg,
-    xy_diff_threshold: float = 0.03,
-    z_diff_threshold: float = 0.03,
-    gripper_close_threshold: float = 0.005,
-    gripper_fully_closed_threshold: float = -0.005,
+    diff_threshold: float = 0.03,
+    gripper_close_threshold: float = 0.01,
 ) -> torch.Tensor:
     """
     Reward function for detecting if the object is being grasped.
 
-    Combines end-effector proximity (in XY and Z) and gripper closure conditions.
+    Combines end-effector proximity and gripper closure conditions.
     """
     robot: Articulation = env.scene[robot_cfg.name]
     ee_frame: FrameTransformer = env.scene[ee_frame_cfg.name]
@@ -68,33 +55,17 @@ def object_grasp(
     # Compute the distance between end-effector and object
     object_pos = object.data.root_pos_w
     end_effector_pos = ee_frame.data.target_pos_w[:, 0, :]
+    pose_diff = torch.linalg.vector_norm(object_pos - end_effector_pos, dim=1)
 
-    # XY-plane distance
-    xy_dist = torch.linalg.vector_norm(object_pos[:, :2] - end_effector_pos[:, :2], dim=1)
-    # Z-axis distance
-    z_dist = torch.abs(object_pos[:, 2] - end_effector_pos[:, 2])
-
-    # Check if gripper joints are closed beyond threshold (i.e. not fully open)
-    # AND not fully closed (i.e. holding something)
-    # For OMX, closing means decreasing value (from 0.019 to -0.01)
-    
-    # Check if joints are less than "close threshold" (started closing)
-    gripper_closing = torch.logical_and(
+    # Check if gripper joints are closed beyond threshold
+    # For OMX, closing means decreasing value (0.019 -> -0.01)
+    gripper_closed = torch.logical_and(
         robot.data.joint_pos[:, -1] <= gripper_close_threshold,
         robot.data.joint_pos[:, -2] <= gripper_close_threshold,
     )
-    
-    # Check if joints are greater than "fully closed threshold" (didn't close all the way)
-    gripper_holding = torch.logical_and(
-        robot.data.joint_pos[:, -1] >= gripper_fully_closed_threshold,
-        robot.data.joint_pos[:, -2] >= gripper_fully_closed_threshold,
-    )
-    
-    valid_gripper_state = torch.logical_and(gripper_closing, gripper_holding)
 
-    # Combine all conditions
-    is_grasped = torch.logical_and(xy_dist < xy_diff_threshold, z_dist < z_diff_threshold)
-    is_grasped = torch.logical_and(is_grasped, valid_gripper_state)
+    # Combine both conditions
+    is_grasped = torch.logical_and(pose_diff < diff_threshold, gripper_closed)
 
     return is_grasped.float()
 
@@ -112,9 +83,7 @@ def object_ee_distance(
     ee_w = ee_frame.data.target_pos_w[..., 0, :]
     distance = torch.norm(cube_pos_w - ee_w, dim=1)
 
-    reward = torch.exp(-0.5 * (distance / std) ** 2)
-
-    return reward
+    return 1 - torch.tanh(distance / std)
 
 
 def object_goal_distance(

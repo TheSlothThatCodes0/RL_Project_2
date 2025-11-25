@@ -136,10 +136,10 @@ class RewardsCfg:
         func=mdp.object_is_lifted,
         params={
             "minimal_height": 0.04,
-            "distance_threshold": 0.05,
             "ee_frame_cfg": SceneEntityCfg("ee_frame"),
+            "distance_threshold": 0.05,
         },
-        weight=15.0,
+        weight=15,
     )
 
     object_grasped = RewTerm(
@@ -148,10 +148,8 @@ class RewardsCfg:
             "robot_cfg": SceneEntityCfg("robot"),
             "ee_frame_cfg": SceneEntityCfg("ee_frame"),
             "object_cfg": SceneEntityCfg("object"),
-            "xy_diff_threshold": 0.05,
-            "z_diff_threshold": 0.05,
-            "gripper_close_threshold": 0.018, # Slightly less than max open (0.019)
-            "gripper_fully_closed_threshold": -0.005, # Greater than min closed (-0.01)
+            "diff_threshold": 0.02,
+            "gripper_close_threshold": 0.015
         },
         weight=5.0,
     )
@@ -169,11 +167,11 @@ class RewardsCfg:
     )
 
     # action penalty
-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-0.005)
+    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
 
     joint_vel = RewTerm(
         func=mdp.joint_vel_l2,
-        weight=-0.001,
+        weight=1e-4,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
 
@@ -186,6 +184,11 @@ class TerminationsCfg:
 
     object_dropping = DoneTerm(
         func=mdp.root_height_below_minimum, params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")}
+    )
+
+    object_reached_goal = DoneTerm(
+        func=mdp.object_reached_goal,
+        params={"threshold": 0.02},
     )
 
 
@@ -234,5 +237,5 @@ class LiftEnvCfg(ManagerBasedRLEnvCfg):
 
         self.sim.physx.bounce_threshold_velocity = 0.01
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
-        self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
+        self.sim.physx.gpu_total_aggregate_pairs_capacity = 64 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625

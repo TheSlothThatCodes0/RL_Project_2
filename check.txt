@@ -1,0 +1,29 @@
+# clone a repository with URDF files
+git clone git@github.com:isaac-orbit/anymal_d_simple_description.git
+
+# go to top of the Isaac Lab repository
+cd IsaacLab
+# run the converter
+./isaaclab.sh -p scripts/tools/convert_urdf.py \
+  /home/pi0/RL_GOOD/open_manipulator/open_manipulator_x_description/urdf/open_manipulator_x_backup.urdf \
+  source/newRobot.usd \
+  --joint-stiffness 0.0 \
+  --joint-damping 0.0 \
+  --joint-target-type position \
+  --fix-base \
+
+
+  ./isaaclab.sh -p scripts/tools/convert_urdf.py \
+  /home/pi0/RL_GOOD/open_manipulator/open_manipulator_x_description/urdf/open_manipulator_x_backup.urdf \
+  source/by_code.usd \
+  --joint-stiffness 0.0 \
+  --joint-damping 0.0 \
+  --joint-target-type position \
+  --fix-base \
+
+ 
+
+
+
+
+  
