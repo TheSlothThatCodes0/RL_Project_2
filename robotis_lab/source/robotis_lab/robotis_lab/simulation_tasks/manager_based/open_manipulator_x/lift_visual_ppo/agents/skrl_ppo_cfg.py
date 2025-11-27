@@ -20,15 +20,15 @@ class LiftPPOAgentCfg:
     def __init__(self):
         self.config = PPO_DEFAULT_CONFIG.copy()
         self.config["rollouts"] = 24
-        self.config["learning_epochs"] = 8
+        self.config["learning_epochs"] = 5 # Aligned with RSL-RL
         self.config["mini_batches"] = 4
-        self.config["discount_factor"] = 0.99
+        self.config["discount_factor"] = 0.98 # Aligned with RSL-RL
         self.config["lambda"] = 0.95
-        self.config["learning_rate"] = 1e-3
+        self.config["learning_rate"] = 1.0e-4 # Aligned with RSL-RL
         self.config["learning_rate_scheduler"] = "KLAdaptiveLR"
-        self.config["learning_rate_scheduler_kwargs"] = {"kl_threshold": 0.008}
+        self.config["learning_rate_scheduler_kwargs"] = {"kl_threshold": 0.01} # Aligned with RSL-RL desired_kl
         self.config["grad_norm_clip"] = 1.0
         self.config["ratio_clip"] = 0.2
         self.config["value_loss_scale"] = 1.0
-        self.config["entropy_loss_scale"] = 0.0
+        self.config["entropy_loss_scale"] = 0.006 # Aligned with RSL-RL
         self.config["rewards_shaper"] = lambda rewards, timestep, timesteps: rewards * 0.1 # Scale rewards

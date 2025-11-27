@@ -98,26 +98,33 @@ class ObjectTableSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.DomeLightCfg(color=(0.75, 0.75, 0.75), intensity=3000.0),
     )
 
-    # Camera (RealSense D435 Simulation)
+    # Camera (RealSense D455 Simulation)
     camera = CameraCfg(
-        prim_path="{ENV_REGEX_NS}/Robot/link5/realsense_camera", # Mounted on wrist
+        prim_path="{ENV_REGEX_NS}/FixedCamera", # Fixed to the environment (Table view)
         update_period=0.1, # 10Hz
         height=84,
         width=84,
         data_types=["rgb", "distance_to_image_plane"],
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=19.3, # RealSense D435 approx
+        spawn=sim_utils.UsdFileCfg(
+            # Note: Isaac Sim assets usually include D455 or we use D435 visual as placeholder if D455 specific USD is missing
+            # But we MUST update the optical properties to match D455 specs
+            usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Sensors/RealSense/D455/D455.usd", 
+            visible=True,
+            activate_sensors=True,
+            func=sim_utils.PinholeCameraCfg,
+            # D455 Specs:
+            # Focal Length: ~1.93mm (Wide Angle) - effectively different due to sensor size
+            # Horizontal FOV: 87 degrees (RGB)
+            # We approximate focal length based on FOV and sensor width
+            focal_length=1.88, 
             focus_distance=400.0,
-            horizontal_aperture=20.955,
+            horizontal_aperture=9.0, # Smaller sensor/different optics than D435
             clipping_range=(0.1, 10.0),
-            # Noise Model for Sim2Real
-            noise=sim_utils.PinholeCameraCfg.NoiseCfg(
-                pixel_dropout_prob=0.01, # Simulate depth holes
-            )
+            noise=sim_utils.PinholeCameraCfg.NoiseCfg(pixel_dropout_prob=0.01),
         ),
         offset=CameraCfg.OffsetCfg(
-            pos=(0.05, 0.0, 0.05), # Offset from wrist
-            rot=(0.5, -0.5, -0.5, -0.5), # Look forward/down
+            pos=(0.4, 0.0, 0.6), 
+            rot=(1.0, 0.0, 0.0, 0.0), 
             convention="isaac",
         ),
     )
@@ -206,18 +213,51 @@ class EventCfg:
 @configclass
 class RewardsCfg:
     """Reward terms for the MDP."""
-    
-    # Dense Shaping Rewards
-    reaching_object = RewTerm(func=custom_mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
-    
+
+    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
+
     lifting_object = RewTerm(
-        func=custom_mdp.object_is_lifted,
-        params={"minimal_height": 0.04},
-        weight=2.0,
+        func=mdp.object_is_lifted,
+        params={
+            "minimal_height": 0.04,
+            "ee_frame_cfg": SceneEntityCfg("ee_frame"),
+            "distance_threshold": 0.05,
+        },
+        weight=15.0,
     )
 
-    # Penalties for smooth motion
-    action_rate = RewTerm(func=custom_mdp.action_rate_l2, weight=-0.01)
+    object_grasped = RewTerm(
+        func=mdp.object_grasp,
+        params={
+            "robot_cfg": SceneEntityCfg("robot"),
+            "ee_frame_cfg": SceneEntityCfg("ee_frame"),
+            "object_cfg": SceneEntityCfg("object"),
+            "diff_threshold": 0.02,
+            "gripper_close_threshold": 0.015
+        },
+        weight=5.0,
+    )
+
+    object_goal_tracking = RewTerm(
+        func=mdp.object_goal_distance,
+        params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
+        weight=16.0,
+    )
+
+    object_goal_tracking_fine_grained = RewTerm(
+        func=mdp.object_goal_distance,
+        params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
+        weight=5.0,
+    )
+
+    # action penalty
+    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+
+    joint_vel = RewTerm(
+        func=mdp.joint_vel_l2,
+        weight=1e-4,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
 
 @configclass
 class TerminationsCfg:
@@ -230,6 +270,23 @@ class TerminationsCfg:
         params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")}
     )
 
+    object_reached_goal = DoneTerm(
+        func=mdp.object_reached_goal,
+        params={"threshold": 0.02},
+    )
+
+@configclass
+class CurriculumCfg:
+    """Curriculum terms for the MDP."""
+
+    action_rate = CurrTerm(
+        func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": -1e-1, "num_steps": 10000}
+    )
+
+    joint_vel = CurrTerm(
+        func=mdp.modify_reward_weight, params={"term_name": "joint_vel", "weight": -1e-1, "num_steps": 10000}
+    )
+
 @configclass
 class OpenManipulatorXVisualLiftEnvCfg(ManagerBasedRLEnvCfg):
     """Configuration for the visual lifting environment."""
@@ -240,6 +297,7 @@ class OpenManipulatorXVisualLiftEnvCfg(ManagerBasedRLEnvCfg):
     rewards: RewardsCfg = RewardsCfg()
     terminations: TerminationsCfg = TerminationsCfg()
     events: EventCfg = EventCfg()
+    curriculum: CurriculumCfg = CurriculumCfg()
 
     def __post_init__(self):
         """Post initialization."""
@@ -247,3 +305,9 @@ class OpenManipulatorXVisualLiftEnvCfg(ManagerBasedRLEnvCfg):
         self.episode_length_s = 5.0
         self.sim.dt = 0.01
         self.sim.render_interval = self.decimation
+
+        # PhysX settings from proven state-based config
+        self.sim.physx.bounce_threshold_velocity = 0.01
+        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
+        self.sim.physx.gpu_total_aggregate_pairs_capacity = 64 * 1024
+        self.sim.physx.friction_correlation_distance = 0.00625
