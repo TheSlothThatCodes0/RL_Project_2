@@ -5,4 +5,4 @@
 
 """Configuration for Open Manipulator X tasks."""
 
-from .lift import *
+from .lift_visual_ppo import *
