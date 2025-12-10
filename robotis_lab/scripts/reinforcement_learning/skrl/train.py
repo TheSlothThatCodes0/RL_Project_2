@@ -93,7 +93,12 @@ from isaaclab.envs import (
 )
 from isaaclab.utils.assets import retrieve_file_path
 from isaaclab.utils.dict import print_dict
-from isaaclab.utils.io import dump_pickle, dump_yaml
+from isaaclab.utils.io import dump_yaml
+import pickle
+
+def dump_pickle(filename, data):
+    with open(filename, "wb") as f:
+        pickle.dump(data, f)
 
 from isaaclab_rl.skrl import SkrlVecEnvWrapper
 
@@ -112,6 +117,11 @@ agent_cfg_entry_point = "skrl_cfg_entry_point" if algorithm in ["ppo"] else f"sk
 @hydra_task_config(args_cli.task, agent_cfg_entry_point)
 def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agent_cfg: dict):
     """Train with skrl agent."""
+    
+
+
+
+    
     # override configurations with non-hydra CLI arguments
     env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else env_cfg.scene.num_envs
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
@@ -183,24 +193,96 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # wrap around environment for skrl
     env = SkrlVecEnvWrapper(env, ml_framework=args_cli.ml_framework)  # same as: `wrap_env(env, wrapper="auto")`
 
+    # [FIX] Detect PixelActionWrapper to get the correct Discrete action space
+    # SkrlVecEnvWrapper might report the base env's Box space, so we need to find the wrapper manually
+    actual_action_space = env.action_space
+    if isinstance(env.action_space, gym.spaces.Box):
+        # Try to find PixelActionWrapper in the chain
+        check_env = env
+        pixel_wrapper_found = False
+        while hasattr(check_env, "env"):
+            if hasattr(check_env, "num_actions"): # PixelActionWrapper has this attribute
+                print(f"[INFO] Found PixelActionWrapper with {check_env.num_actions} actions. Using Discrete action space for Agent.")
+                actual_action_space = gym.spaces.Discrete(check_env.num_actions)
+                pixel_wrapper_found = True
+                break
+            check_env = check_env.env
+            
+        if not pixel_wrapper_found:
+             print("[WARNING] Could not find PixelActionWrapper. Agent might receive Box action space.")
+
+    print(f"[DEBUG] Env Action Space: {env.action_space}")
+    print(f"[DEBUG] Agent Action Space: {actual_action_space}")
+
     # configure and instantiate the skrl runner
     # https://skrl.readthedocs.io/en/latest/api/utils/runner.html
-    runner = Runner(env, agent_cfg)
+    
+    # Check if we are using the custom RGBD_DQN
+    if "models" in agent_cfg and agent_cfg["models"]["policy"]["class"] == "RGBD_DQN":
+        from robotis_lab.simulation_tasks.manager_based.open_manipulator_x.lift_visual_dqn.agents.skrl_dqn_model import RGBD_DQN
+        from skrl.agents.torch.dqn import DQN
+        from skrl.trainers.torch import SequentialTrainer
+        from skrl.memories.torch import RandomMemory
+        
+        # Update config with actual class for Agent instantiation
+        agent_cfg["models"]["policy"]["class"] = RGBD_DQN
+        agent_cfg["models"]["target"]["class"] = RGBD_DQN
+        if "agent" in agent_cfg and "models" in agent_cfg["agent"]:
+             agent_cfg["agent"]["models"]["policy"]["class"] = RGBD_DQN
+             agent_cfg["agent"]["models"]["target"]["class"] = RGBD_DQN
+             
+        # Initialize models
+        models = {}
+        models["q_network"] = RGBD_DQN(env.observation_space, actual_action_space, env.device)
+        models["target_q_network"] = RGBD_DQN(env.observation_space, actual_action_space, env.device)
+        
+        # Initialize memory
+        # Config: {"class": "RandomMemory", "memory_size": 10000}
+        memory_size = agent_cfg["agent"]["memory"]["memory_size"]
+        memory = RandomMemory(memory_size=memory_size, num_envs=env.num_envs, device=env.device)
+        
+        # Initialize agent
+        agent = DQN(models=models,
+                    memory=memory,
+                    cfg=agent_cfg["agent"],
+                    observation_space=env.observation_space,
+                    action_space=actual_action_space,
+                    device=env.device)
+        
+        # Initialize Trainer manually to avoid Runner config parsing issues
+        trainer = SequentialTrainer(cfg=agent_cfg["trainer"], env=env, agents=agent)
+        
+        # load checkpoint (if specified)
+        if resume_path:
+            print(f"[INFO] Loading model checkpoint from: {resume_path}")
+            agent.load(resume_path)
+            
+        # run training
+        trainer.train()
+        
+    else:
+        runner = Runner(env, agent_cfg)
 
-    # load checkpoint (if specified)
-    if resume_path:
-        print(f"[INFO] Loading model checkpoint from: {resume_path}")
-        runner.agent.load(resume_path)
+        # load checkpoint (if specified)
+        if resume_path:
+            print(f"[INFO] Loading model checkpoint from: {resume_path}")
+            runner.agent.load(resume_path)
 
-    # run training
-    runner.run()
+        # run training
+        runner.run()
 
     # close the simulator
     env.close()
 
 
 if __name__ == "__main__":
-    # run the main function
-    main()
-    # close sim app
-    simulation_app.close()
+    try:
+        # run the main function
+        main()
+    except Exception as e:
+        print(f"[ERROR] Exception occurred: {e}")
+        raise e
+    finally:
+        # close sim app
+        print("[INFO] Closing simulation app...")
+        simulation_app.close()

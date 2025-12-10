@@ -3,3 +3,5 @@ python robotis_lab/scripts/reinforcement_learning/rsl_rl/train.py --task Robotis
 python robotis_lab/scripts/reinforcement_learning/rsl_rl/play.py --task RobotisLab-Lift-Cube-OpenManipulatorX-Play-v0 --num_envs 16
 
 cmd for testing cameras -> python robotis_lab/scripts/save_camera_images.py --task RobotisLab-Lift-Cube-OpenManipulatorX-Play-v0 --enable_cameras
+
+cmd for ik -> python robotis_lab/scripts/reinforcement_learning/rsl_rl/train.py --task RobotisLab-Lift-Cube-OpenManipulatorX-IK-Rel-v0 --num_envs 512 --headless
