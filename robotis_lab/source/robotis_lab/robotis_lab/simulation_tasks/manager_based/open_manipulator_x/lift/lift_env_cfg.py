@@ -15,6 +15,7 @@ from isaaclab.sensors.frame_transformer.frame_transformer_cfg import FrameTransf
 from isaaclab.sim.spawners.from_files.from_files_cfg import GroundPlaneCfg, UsdFileCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
+from isaaclab.sensors import TiledCameraCfg, patterns
 
 from . import mdp
 
@@ -57,6 +58,30 @@ class ObjectTableSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.DomeLightCfg(color=(0.75, 0.75, 0.75), intensity=3000.0),
     )
 
+    static_camera = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera", # Path in the USD stage
+        update_period=0.1,
+        height=224,
+        width=224,
+        data_types=["rgb", "distance_to_image_plane"], 
+        
+        # IMPORTANT: "spawn" creates the camera since it's not in the USD
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=24.0, 
+            focus_distance=400.0, 
+            horizontal_aperture=20.955, 
+            clipping_range=(0.01, 1.75)
+        ),
+        
+        # POSITIONING: Adjust 'pos' (x, y, z) and 'rot' (w, x, y, z) to look at the robot
+        # This example places it 1 meter in front, 0.6m up, looking slightly down
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=(1.4, 0.05, 0.4), 
+            rot=(0.54, 0.41, 0.44, 0.57), # Quaternion for looking roughly towards -X
+            convention="opengl"
+        ),
+    )
+
 
 ##
 # MDP settings
@@ -71,7 +96,7 @@ class CommandsCfg:
         asset_name="robot",
         body_name=MISSING,  # will be set by agent env cfg
         resampling_time_range=(5.0, 5.0),
-        debug_vis=True,
+        debug_vis=False,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
             pos_x=(0.3, 0.5), pos_y=(-0.2, 0.2), pos_z=(0.20, 0.40), roll=(0.0, 0.0), pitch=(0.0, 0.0), yaw=(0.0, 0.0)
         ),

@@ -1,0 +1,40 @@
+[2025-12-10 17:39:12,408][ogn_registration][INFO] - Looking for Python nodes to register in omni.physx.fabric-107.3.26
+[2025-12-10 17:39:12,409][ogn_registration][INFO] -  -> Registered nodes from module omni.physxfabric at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353
+[2025-12-10 17:39:12,409][ogn_registration][INFO] - Registering nodes in /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353 imported as omni.physxfabric with AutoNode config {}
+[2025-12-10 17:39:12,409][ogn_registration][INFO] - Registering Python Node Types from omni.physxfabric at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353 in omni.physx.fabric
+[2025-12-10 17:39:12,409][ogn_registration][INFO] - ========================================================================================================================
+[2025-12-10 17:39:12,410][ogn_registration][INFO] - No dependency on omni.graph, therefore no nodes to register in omni.physx.fabric
+[2025-12-10 17:39:12,411][ogn_registration][INFO] - ...None found, no registration to do
+[2025-12-10 17:39:12,411][ogn_registration][INFO] - ...Skipping: No OmniGraph presence in the module omni.physxfabric - No nodes in this module, do not remember it
+[2025-12-10 17:39:12,411][ogn_registration][INFO] - Destroying registration record for omni.physx.fabric
+[2025-12-10 17:39:12,411][ogn_registration][INFO] - OGN register omni.physx.fabric-107.3.26 took 2147057.000000
+[2025-12-10 17:45:13,368][omni.kit.registry.nucleus.registry_manager][INFO] - 'trusted' is not set for registry 'kit/default' in '/exts/omni.kit.registry.nucleus/registries'
+[2025-12-10 17:45:13,368][omni.kit.registry.nucleus.auth_manager][INFO] - switch auth for host: ovextensionsprod.blob.core.windows.net, account: :
+[2025-12-10 17:45:13,368][omni.kit.registry.nucleus.registry_manager][INFO] - 'trusted' is not set for registry 'kit/sdk' in '/exts/omni.kit.registry.nucleus/registries'
+[2025-12-10 17:45:13,369][omni.kit.registry.nucleus.registry_manager][INFO] - 'trusted' is not set for registry 'kit/community' in '/exts/omni.kit.registry.nucleus/registries'
+[2025-12-10 17:45:13,369][omni.kit.registry.nucleus.auth_manager][INFO] - switch auth for host: dw290v42wisod.cloudfront.net, account: :
+[2025-12-10 17:45:13,369][ogn_registration][INFO] - Looking for Python nodes to register in omni.kit.registry.nucleus-0.0.0
+[2025-12-10 17:45:13,369][ogn_registration][INFO] -  -> Registered nodes from module omni.kit.registry.nucleus at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/extscore/omni.kit.registry.nucleus
+[2025-12-10 17:45:13,369][ogn_registration][INFO] - Registering nodes in /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/extscore/omni.kit.registry.nucleus imported as omni.kit.registry.nucleus with AutoNode config {}
+[2025-12-10 17:45:13,370][ogn_registration][INFO] - Registering Python Node Types from omni.kit.registry.nucleus at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/extscore/omni.kit.registry.nucleus in omni.kit.registry.nucleus
+[2025-12-10 17:45:13,370][ogn_registration][INFO] - ========================================================================================================================
+[2025-12-10 17:45:13,370][ogn_registration][INFO] - No dependency on omni.graph, therefore no nodes to register in omni.kit.registry.nucleus
+[2025-12-10 17:45:13,370][ogn_registration][INFO] - ...None found, no registration to do
+[2025-12-10 17:45:13,371][ogn_registration][INFO] - ...Skipping: No OmniGraph presence in the module omni.kit.registry.nucleus - No nodes in this module, do not remember it
+[2025-12-10 17:45:13,371][ogn_registration][INFO] - Destroying registration record for omni.kit.registry.nucleus
+[2025-12-10 17:45:13,371][ogn_registration][INFO] - OGN register omni.kit.registry.nucleus-0.0.0 took 1297163.000000
+[2025-12-10 17:45:28,159][ogn_registration][INFO] - Looking for Python nodes to register in isaacsim.util.camera_inspector-1.0.16
+[2025-12-10 17:45:28,159][ogn_registration][INFO] -  -> Registered nodes from module isaacsim.util.camera_inspector at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector
+[2025-12-10 17:45:28,159][ogn_registration][INFO] - Registering nodes in /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector imported as isaacsim.util.camera_inspector with AutoNode config {}
+[2025-12-10 17:45:28,159][ogn_registration][INFO] - Registering Python Node Types from isaacsim.util.camera_inspector at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector in isaacsim.util.camera_inspector
+[2025-12-10 17:45:28,160][ogn_registration][INFO] - ========================================================================================================================
+[2025-12-10 17:45:28,165][ogn_registration][INFO] - Finding OmniGraph extension content manager for isaacsim.util.camera_inspector-1.0.16 in module isaacsim.util.camera_inspector at /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector
+[2025-12-10 17:45:28,165][ogn_registration][INFO] - -> New generated folder /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector/ogn/isaacsim.util.camera_inspector is not a directory
+[2025-12-10 17:45:28,165][ogn_registration][INFO] - -> Old ogn/ folder /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector/isaacsim/util/camera_inspector/ogn is not a directory
+[2025-12-10 17:45:28,165][ogn_registration][INFO] - _walk_with_excludes(start=/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector/isaacsim/util/camera_inspector, exclude=['__pycache__'])
+[2025-12-10 17:45:28,166][ogn_registration][INFO] -    ... walked /home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.util.camera_inspector/isaacsim/util/camera_inspector, [], ['__init__.py', 'extension.py']
+[2025-12-10 17:45:28,166][ogn_registration][INFO] - -> Extension contents not recognized as containing OmniGraph Python information
+[2025-12-10 17:45:28,166][ogn_registration][INFO] - ...None found, no registration to do
+[2025-12-10 17:45:28,166][ogn_registration][INFO] - ...Skipping: No OmniGraph presence in the module isaacsim.util.camera_inspector - No nodes in this module, do not remember it
+[2025-12-10 17:45:28,166][ogn_registration][INFO] - Destroying registration record for isaacsim.util.camera_inspector
+[2025-12-10 17:45:28,166][ogn_registration][INFO] - OGN register isaacsim.util.camera_inspector-1.0.16 took 6833210.000000
