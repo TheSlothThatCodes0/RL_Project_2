@@ -1,0 +1,2924 @@
+[INFO] Saving console logs to: /home/pi0/RL_GOOD/logs/skrl/2025-12-11_02-47-04_ppo_torch/output.log
+Setting seed: 42
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.01
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation : 4.311194 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 8
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 1.818447 seconds
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------+
+|           Active Command Terms           |
++-------+-------------+--------------------+
+| Index | Name        |        Type        |
++-------+-------------+--------------------+
+|   0   | object_pose | UniformPoseCommand |
++-------+-------------+--------------------+
+
+[INFO] Event Manager:  <EventManager> contains 1 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'reset'  |
++---------+----------------------------+
+|  Index  | Name                       |
++---------+----------------------------+
+|    0    | reset_all                  |
+|    1    | reset_object_position      |
++---------+----------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 2 active terms.
++------------------------------------+
+|   Active Action Terms (shape: 8)   |
++-------+----------------+-----------+
+| Index | Name           | Dimension |
++-------+----------------+-----------+
+|   0   | arm_action     |         7 |
+|   1   | gripper_action |         1 |
++-------+----------------+-----------+
+
+[INFO] Observation Manager: <ObservationManager> contains 1 groups.
++--------------------------------------------+
+| Active Observation Terms in Group: 'policy' |
++----------+----------+----------------------+
+|  Index   | Name     |        Shape         |
++----------+----------+----------------------+
+|    0     | rgb      |    (224, 224, 3)     |
+|    1     | depth    |    (224, 224, 1)     |
++----------+----------+----------------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 3 active terms.
++----------------------------------------+
+|        Active Termination Terms        |
++-------+---------------------+----------+
+| Index | Name                | Time Out |
++-------+---------------------+----------+
+|   0   | time_out            |   True   |
+|   1   | object_dropping     |  False   |
+|   2   | object_reached_goal |  False   |
++-------+---------------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 3 active terms.
++----------------------------------+
+|       Active Reward Terms        |
++-------+-----------------+--------+
+| Index | Name            | Weight |
++-------+-----------------+--------+
+|   0   | reaching_object |    1.0 |
+|   1   | lifting_object  |     15 |
+|   2   | object_grasped  |    5.0 |
++-------+-----------------+--------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 0 active terms.
++----------------------+
+| Active Curriculum Terms |
++-----------+----------+
+|   Index   | Name     |
++-----------+----------+
++-----------+----------+
+
+[INFO]: Completed setting up the environment...
+PixelActionWrapper initialized by:
+  File "/home/pi0/RL_GOOD/robotis_lab/scripts/reinforcement_learning/skrl/train.py", line 555, in <module>
+    main()
+  File "/home/pi0/RL_GOOD/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 104, in wrapper
+    hydra_main()
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/home/pi0/RL_GOOD/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/pi0/RL_GOOD/robotis_lab/scripts/reinforcement_learning/skrl/train.py", line 284, in main
+    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 734, in make
+    env = env_creator(**env_spec_kwargs)
+  File "/home/pi0/RL_GOOD/robotis_lab/source/robotis_lab/robotis_lab/simulation_tasks/manager_based/open_manipulator_x/lift_visual_dqn/env_wrapper.py", line 23, in make_wrapped_env
+    return PixelActionWrapper(env, camera_cfg)
+  File "/home/pi0/RL_GOOD/robotis_lab/source/robotis_lab/robotis_lab/simulation_tasks/manager_based/open_manipulator_x/lift_visual_dqn/pixel_wrapper.py", line 15, in __init__
+    traceback.print_stack()
+[INFO] PixelActionWrapper: Forced update of unwrapped env observation space.
+[INFO] PixelActionWrapper: Updated observation space to 34x69 (Keys: ['rgb', 'depth'])
+[DEBUG] Env Observation Space BEFORE Skrl Wrapper: Dict('policy': Dict('depth': Box(0.0, inf, (8, 69, 34, 1), float32), 'rgb': Box(0.0, 255.0, (8, 69, 34, 3), float32)))
+[DEBUG] Env Observation Space AFTER Skrl Wrapper: Dict('depth': Box(-inf, inf, (224, 224, 1), float32), 'rgb': Box(-inf, inf, (224, 224, 3), float32))
+[WARNING] Skrl Wrapper has incorrect shape for rgb: (224, 224, 3). Fixing it...
+[INFO] Fixed rgb space to: (69, 34, 3)
+[WARNING] Skrl Wrapper has incorrect shape for depth: (224, 224, 1). Fixing it...
+[INFO] Fixed depth space to: (69, 34, 1)
+[INFO] Found PixelActionWrapper with 2346 actions. Using Discrete action space for Agent.
+[DEBUG] Env Action Space: Box(-inf, inf, (8,), float32)
+[DEBUG] Agent Action Space: Discrete(2346)
+[INFO] RGBD_DQN initialized with ROI: 34x69
+[INFO] RGBD_DQN initialized with ROI: 34x69
+  0%|          | 0/10000 [00:00<?, ?it/s][INFO] Env 0: Pixel (Full): (130, 102), Depth: 2.0000
+       Cam: [0.1403, 0.0780, -2.0000]
+       World: [-0.5560, 0.0692, -0.0468]
+[Mean] Macro-Step Reward: 1.1070764064788818
+  0%|          | 1/10000 [00:03<8:30:38,  3.06s/it][INFO] Env 0: Pixel (Full): (133, 114), Depth: 1.5198
+       Cam: [0.1244, -0.0118, -1.5198]
+       World: [-0.0689, 0.0829, -0.0083]
+[Mean] Macro-Step Reward: 0.9989374876022339
+  0%|          | 2/10000 [00:05<6:48:55,  2.45s/it][INFO] Env 0: Pixel (Full): (123, 76), Depth: 1.3387
+       Cam: [0.0574, 0.1878, -1.3387]
+       World: [0.0577, 0.0253, 0.2322]
+[Mean] Macro-Step Reward: 0.8059722185134888
+  0%|          | 3/10000 [00:07<6:20:28,  2.28s/it][INFO] Env 0: Pixel (Full): (123, 125), Depth: 1.1793
+       Cam: [0.0506, -0.0598, -1.1793]
+       World: [0.2761, 0.0301, 0.0347]
+[Mean] Macro-Step Reward: 0.5335545539855957
+  0%|          | 4/10000 [00:09<6:18:30,  2.27s/it][INFO] Env 0: Pixel (Full): (116, 71), Depth: 2.0000
+       Cam: [0.0312, 0.3196, -2.0000]
+       World: [-0.6123, -0.0416, 0.1874]
+[Mean] Macro-Step Reward: 0.301305890083313
+  0%|          | 5/10000 [00:11<6:05:17,  2.19s/it][INFO] Env 0: Pixel (Full): (116, 111), Depth: 1.6061
+       Cam: [0.0250, 0.0063, -1.6061]
+       World: [-0.1508, -0.0216, -0.0125]
+[Mean] Macro-Step Reward: 0.5812302827835083
+  0%|          | 6/10000 [00:13<5:56:02,  2.14s/it][INFO] Env 0: Pixel (Full): (111, 98), Depth: 2.0000
+       Cam: [-0.0078, 0.1091, -2.0000]
+       World: [-0.5552, -0.0789, -0.0155]
+[Mean] Macro-Step Reward: 0.22829745709896088
+  0%|          | 7/10000 [00:15<5:41:23,  2.05s/it][INFO] Env 0: Pixel (Full): (131, 112), Depth: 1.5651
+       Cam: [0.1159, 0.0000, -1.5651]
+       World: [-0.1151, 0.0716, -0.0086]
+[Mean] Macro-Step Reward: 0.18497803807258606
+  0%|          | 8/10000 [00:17<5:31:05,  1.99s/it][INFO] Env 0: Pixel (Full): (128, 82), Depth: 2.0000
+       Cam: [0.1247, 0.2339, -2.0000]
+       World: [-0.5956, 0.0524, 0.1038]
+[Mean] Macro-Step Reward: 0.0683007687330246
+  0%|          | 9/10000 [00:19<5:25:54,  1.96s/it][INFO] Env 0: Pixel (Full): (112, 111), Depth: 1.5884
+       Cam: [0.0000, 0.0062, -1.5884]
+       World: [-0.1322, -0.0455, -0.0078]
+[Mean] Macro-Step Reward: 0.5401425957679749
+  0%|          | 10/10000 [00:21<5:26:12,  1.96s/it][INFO] Env 0: Pixel (Full): (103, 89), Depth: 2.0000
+       Cam: [-0.0702, 0.1793, -2.0000]
+       World: [-0.5697, -0.1417, 0.0527]
+[Mean] Macro-Step Reward: 0.29239511489868164
+  0%|          | 11/10000 [00:23<5:30:44,  1.99s/it][INFO] Env 0: Pixel (Full): (131, 132), Depth: 1.2134
+       Cam: [0.0899, -0.0946, -1.2134]
+       World: [0.2500, 0.0675, -0.0081]
+[Mean] Macro-Step Reward: 0.08114497363567352
+  0%|          | 12/10000 [00:25<5:30:32,  1.99s/it][INFO] Env 0: Pixel (Full): (106, 114), Depth: 1.5200
+       Cam: [-0.0355, -0.0118, -1.5200]
+       World: [-0.0594, -0.0768, -0.0071]
+[Mean] Macro-Step Reward: 0.1811978816986084
+  0%|          | 13/10000 [00:27<5:26:56,  1.96s/it][INFO] Env 0: Pixel (Full): (120, 125), Depth: 1.1804
+       Cam: [0.0368, -0.0598, -1.1804]
+       World: [0.2760, 0.0163, 0.0345]
+[Mean] Macro-Step Reward: 0.2814081907272339
+  0%|          | 14/10000 [00:29<5:29:55,  1.98s/it][INFO] Env 0: Pixel (Full): (122, 73), Depth: 2.0000
+       Cam: [0.0780, 0.3040, -2.0000]
+       World: [-0.6111, 0.0052, 0.1720]
+[Mean] Macro-Step Reward: 0.11099550127983093
+  0%|          | 15/10000 [00:30<5:27:48,  1.97s/it][INFO] Env 0: Pixel (Full): (114, 111), Depth: 1.6022
+       Cam: [0.0125, 0.0062, -1.6022]
+       World: [-0.1463, -0.0339, -0.0114]
+[Mean] Macro-Step Reward: 0.1926424503326416
+  0%|          | 16/10000 [00:32<5:25:42,  1.96s/it][INFO] Env 0: Pixel (Full): (116, 100), Depth: 2.0000
+       Cam: [0.0312, 0.0935, -2.0000]
+       World: [-0.5535, -0.0398, -0.0309]
+[Mean] Macro-Step Reward: 1.0983831882476807
+  0%|          | 17/10000 [00:34<5:29:00,  1.98s/it][INFO] Env 0: Pixel (Full): (110, 130), Depth: 1.2418
+       Cam: [-0.0097, -0.0871, -1.2418]
+       World: [0.2267, -0.0336, -0.0075]
+[Mean] Macro-Step Reward: 0.46197932958602905
+  0%|          | 18/10000 [00:36<5:26:29,  1.96s/it][INFO] Env 0: Pixel (Full): (106, 89), Depth: 2.0000
+       Cam: [-0.0468, 0.1793, -2.0000]
+       World: [-0.5711, -0.1183, 0.0525]
+[Mean] Macro-Step Reward: 0.09074157476425171
+  0%|          | 19/10000 [00:38<5:22:36,  1.94s/it][INFO] Env 0: Pixel (Full): (128, 110), Depth: 1.6125
+       Cam: [0.1006, 0.0126, -1.6125]
+       World: [-0.1631, 0.0534, -0.0087]
+[Mean] Macro-Step Reward: 0.17359887063503265
+  0%|          | 20/10000 [00:40<5:21:02,  1.93s/it][INFO] Env 0: Pixel (Full): (115, 112), Depth: 1.6063
+       Cam: [0.0188, 0.0000, -1.6063]
+       World: [-0.1489, -0.0278, -0.0185]
+[Mean] Macro-Step Reward: 0.13009443879127502
+  0%|          | 21/10000 [00:42<5:25:35,  1.96s/it][INFO] Env 0: Pixel (Full): (107, 119), Depth: 1.4183
+       Cam: [-0.0276, -0.0387, -1.4183]
+       World: [0.0450, -0.0625, -0.0066]
+[Mean] Macro-Step Reward: 0.04654201865196228
+  0%|          | 22/10000 [00:44<5:22:54,  1.94s/it][INFO] Env 0: Pixel (Full): (119, 97), Depth: 1.2348
+       Cam: [0.0337, 0.0722, -1.2348]
+       World: [0.1893, 0.0088, 0.1478]
+[Mean] Macro-Step Reward: 0.36953312158584595
+  0%|          | 23/10000 [00:46<5:25:07,  1.96s/it][INFO] Env 0: Pixel (Full): (128, 93), Depth: 2.0000
+       Cam: [0.1247, 0.1481, -2.0000]
+       World: [-0.5733, 0.0531, 0.0210]
+[Mean] Macro-Step Reward: 0.2686345875263214
+  0%|          | 24/10000 [00:48<5:29:37,  1.98s/it][INFO] Env 0: Pixel (Full): (125, 113), Depth: 1.7425
+       Cam: [0.0883, -0.0068, -1.7425]
+       World: [-0.2826, 0.0334, -0.0611]
+[Mean] Macro-Step Reward: 0.5716412663459778
+  0%|          | 25/10000 [00:50<5:33:18,  2.00s/it][INFO] Env 0: Pixel (Full): (108, 83), Depth: 2.0000
+       Cam: [-0.0312, 0.2261, -2.0000]
+       World: [-0.5842, -0.1031, 0.0976]
+[Mean] Macro-Step Reward: 0.5207056403160095
+  0%|          | 26/10000 [00:52<5:31:45,  2.00s/it][INFO] Env 0: Pixel (Full): (131, 117), Depth: 1.4571
+       Cam: [0.1079, -0.0284, -1.4571]
+       World: [-0.0031, 0.0704, -0.0078]
+[Mean] Macro-Step Reward: 0.7245594263076782
+  0%|          | 27/10000 [00:54<5:31:57,  2.00s/it][INFO] Env 0: Pixel (Full): (114, 76), Depth: 2.0000
+       Cam: [0.0156, 0.2806, -2.0000]
+       World: [-0.6013, -0.0569, 0.1499]
+[Mean] Macro-Step Reward: 0.36858800053596497
+  0%|          | 28/10000 [00:56<5:32:30,  2.00s/it][INFO] Env 0: Pixel (Full): (123, 75), Depth: 1.3298
+       Cam: [0.0570, 0.1918, -1.3298]
+       World: [0.0652, 0.0254, 0.2383]
+[Mean] Macro-Step Reward: 0.8543413877487183
+  0%|          | 29/10000 [00:58<5:29:02,  1.98s/it][INFO] Env 0: Pixel (Full): (116, 138), Depth: 1.1358
+       Cam: [0.0177, -0.1151, -1.1358]
+       World: [0.3344, 0.0003, -0.0071]
+[Mean] Macro-Step Reward: 1.4276180267333984
+  0%|          | 30/10000 [01:00<5:32:27,  2.00s/it][INFO] Env 0: Pixel (Full): (108, 121), Depth: 1.2079
+       Cam: [-0.0188, -0.0424, -1.2079]
+       World: [0.2482, -0.0411, 0.0446]
+[Mean] Macro-Step Reward: 1.1610769033432007
+  0%|          | 31/10000 [01:02<5:34:31,  2.01s/it][INFO] Env 0: Pixel (Full): (124, 99), Depth: 1.2691
+       Cam: [0.0594, 0.0643, -1.2691]
+       World: [0.1568, 0.0325, 0.1310]
+[Mean] Macro-Step Reward: 0.4882424473762512
+  0%|          | 32/10000 [01:04<5:29:44,  1.98s/it][INFO] Env 0: Pixel (Full): (100, 98), Depth: 2.0000
+       Cam: [-0.0935, 0.1091, -2.0000]
+       World: [-0.5500, -0.1645, -0.0148]
+[Mean] Macro-Step Reward: 0.19672313332557678
+  0%|          | 33/10000 [01:06<5:27:12,  1.97s/it][INFO] Env 0: Pixel (Full): (133, 99), Depth: 2.0000
+       Cam: [0.1637, 0.1013, -2.0000]
+       World: [-0.5635, 0.0924, -0.0244]
+[Mean] Macro-Step Reward: 0.06326787173748016
+  0%|          | 34/10000 [01:08<5:21:33,  1.94s/it][INFO] Env 0: Pixel (Full): (100, 87), Depth: 2.0000
+       Cam: [-0.0935, 0.1949, -2.0000]
+       World: [-0.5724, -0.1652, 0.0679]
+[Mean] Macro-Step Reward: 0.18286311626434326
+  0%|          | 35/10000 [01:10<5:18:28,  1.92s/it][INFO] Env 0: Pixel (Full): (124, 127), Depth: 1.2867
+       Cam: [0.0602, -0.0752, -1.2867]
+       World: [0.1761, 0.0333, -0.0083]
+[Mean] Macro-Step Reward: 0.3005630075931549
+  0%|          | 36/10000 [01:12<5:20:43,  1.93s/it][INFO] Env 0: Pixel (Full): (120, 88), Depth: 1.1788
+       Cam: [0.0368, 0.1103, -1.1788]
+       World: [0.2332, 0.0150, 0.1991]
+[Mean] Macro-Step Reward: 0.19367048144340515
+  0%|          | 37/10000 [01:14<5:19:44,  1.93s/it][INFO] Env 0: Pixel (Full): (101, 130), Depth: 1.2419
+       Cam: [-0.0532, -0.0871, -1.2419]
+       World: [0.2292, -0.0771, -0.0072]
+[Mean] Macro-Step Reward: 0.23475655913352966
+  0%|          | 38/10000 [01:16<5:18:48,  1.92s/it][INFO] Env 0: Pixel (Full): (122, 87), Depth: 2.0000
+       Cam: [0.0780, 0.1949, -2.0000]
+       World: [-0.5827, 0.0060, 0.0666]
+[Mean] Macro-Step Reward: 0.1584300994873047
+  0%|          | 39/10000 [01:17<5:17:43,  1.91s/it][INFO] Env 0: Pixel (Full): (115, 96), Depth: 2.0000
+       Cam: [0.0234, 0.1247, -2.0000]
+       World: [-0.5611, -0.0479, -0.0007]
+[Mean] Macro-Step Reward: 0.10053621977567673
+  0%|          | 40/10000 [01:19<5:21:33,  1.94s/it][INFO] Env 0: Pixel (Full): (111, 90), Depth: 2.0000
+       Cam: [-0.0078, 0.1715, -2.0000]
+       World: [-0.5714, -0.0794, 0.0447]
+[Mean] Macro-Step Reward: 0.2767072021961212
+  0%|          | 41/10000 [01:21<5:23:43,  1.95s/it][INFO] Env 0: Pixel (Full): (118, 119), Depth: 1.4182
+       Cam: [0.0332, -0.0387, -1.4182]
+       World: [0.0415, -0.0018, -0.0070]
+[Mean] Macro-Step Reward: 0.3865300416946411
+  0%|          | 42/10000 [01:23<5:25:32,  1.96s/it][INFO] Env 0: Pixel (Full): (107, 130), Depth: 1.2418
+       Cam: [-0.0242, -0.0871, -1.2418]
+       World: [0.2275, -0.0481, -0.0074]
+[Mean] Macro-Step Reward: 0.11213147640228271
+  0%|          | 43/10000 [01:25<5:22:28,  1.94s/it][INFO] Env 0: Pixel (Full): (101, 128), Depth: 1.2715
+       Cam: [-0.0545, -0.0793, -1.2715]
+       World: [0.1987, -0.0802, -0.0073]
+[Mean] Macro-Step Reward: 0.07714670896530151
+  0%|          | 44/10000 [01:27<5:17:35,  1.91s/it][INFO] Env 0: Pixel (Full): (117, 96), Depth: 1.1500
+       Cam: [0.0224, 0.0717, -1.1500]
+       World: [0.2718, 0.0027, 0.1695]
+[Mean] Macro-Step Reward: 0.5586289763450623
+  0%|          | 45/10000 [01:29<5:22:00,  1.94s/it][INFO] Env 0: Pixel (Full): (115, 85), Depth: 2.0000
+       Cam: [0.0234, 0.2105, -2.0000]
+       World: [-0.5834, -0.0486, 0.0821]
+[Mean] Macro-Step Reward: 0.4211391806602478
+  0%|          | 46/10000 [01:31<5:27:14,  1.97s/it][INFO] Env 0: Pixel (Full): (104, 126), Depth: 1.3026
+       Cam: [-0.0406, -0.0711, -1.3026]
+       World: [0.1658, -0.0683, -0.0076]
+[Mean] Macro-Step Reward: 0.22407588362693787
+  0%|          | 47/10000 [01:33<5:28:46,  1.98s/it][INFO] Env 0: Pixel (Full): (121, 132), Depth: 1.1886
+       Cam: [0.0417, -0.0927, -1.1886]
+       World: [0.2763, 0.0209, 0.0006]
+[Mean] Macro-Step Reward: 0.29250580072402954
+  0%|          | 48/10000 [01:35<5:29:23,  1.99s/it][INFO] Env 0: Pixel (Full): (127, 117), Depth: 1.4571
+       Cam: [0.0852, -0.0284, -1.4571]
+       World: [-0.0018, 0.0477, -0.0076]
+[Mean] Macro-Step Reward: 0.1561967432498932
+  0%|          | 49/10000 [01:37<5:31:19,  2.00s/it][INFO] Env 0: Pixel (Full): (128, 121), Depth: 1.3872
+       Cam: [0.0865, -0.0487, -1.3872]
+       World: [0.0707, 0.0534, -0.0090]
+[Mean] Macro-Step Reward: 0.1606585681438446
+  0%|          | 50/10000 [01:39<5:29:48,  1.99s/it][INFO] Env 0: Pixel (Full): (112, 90), Depth: 2.0000
+       Cam: [0.0000, 0.1715, -2.0000]
+       World: [-0.5719, -0.0716, 0.0446]
+[Mean] Macro-Step Reward: 0.8353353142738342
+  1%|          | 51/10000 [01:41<5:28:20,  1.98s/it][INFO] Env 0: Pixel (Full): (109, 99), Depth: 2.0000
+       Cam: [-0.0234, 0.1013, -2.0000]
+       World: [-0.5522, -0.0944, -0.0229]
+[Mean] Macro-Step Reward: 0.20325149595737457
+  1%|          | 52/10000 [01:43<5:30:11,  1.99s/it][INFO] Env 0: Pixel (Full): (111, 82), Depth: 2.0000
+       Cam: [-0.0078, 0.2339, -2.0000]
+       World: [-0.5877, -0.0799, 0.1049]
+[Mean] Macro-Step Reward: 0.04533924162387848
+  1%|          | 53/10000 [01:45<5:29:56,  1.99s/it][INFO] Env 0: Pixel (Full): (125, 73), Depth: 2.0000
+       Cam: [0.1013, 0.3040, -2.0000]
+       World: [-0.6125, 0.0285, 0.1718]
+[Mean] Macro-Step Reward: 0.24569621682167053
+  1%|          | 54/10000 [01:47<5:26:44,  1.97s/it][DEBUG] Random Act: Generated 8 candidates (SKRL will use these if epsilon check passes)
+[INFO] Env 0: Pixel (Full): (100, 104), Depth: 2.0000
+       Cam: [-0.0935, 0.0624, -2.0000]
+       World: [-0.5378, -0.1641, -0.0600]
+[Mean] Macro-Step Reward: 0.6726202368736267
+  1%|          | 55/10000 [01:49<5:30:37,  1.99s/it][INFO] Env 0: Pixel (Full): (108, 90), Depth: 2.0000
+       Cam: [-0.0312, 0.1715, -2.0000]
+       World: [-0.5700, -0.1027, 0.0449]
+[Mean] Macro-Step Reward: 0.5431109666824341
+  1%|          | 56/10000 [01:51<5:31:39,  2.00s/it][INFO] Env 0: Pixel (Full): (123, 125), Depth: 1.1793
+       Cam: [0.0506, -0.0598, -1.1793]
+       World: [0.2761, 0.0301, 0.0347]
+[Mean] Macro-Step Reward: 0.29725468158721924
+  1%|          | 57/10000 [01:53<5:24:12,  1.96s/it][INFO] Env 0: Pixel (Full): (104, 90), Depth: 2.0000
+       Cam: [-0.0624, 0.1715, -2.0000]
+       World: [-0.5681, -0.1338, 0.0451]
+[Mean] Macro-Step Reward: 0.20713305473327637
+  1%|          | 58/10000 [01:55<5:23:32,  1.95s/it][INFO] Env 0: Pixel (Full): (103, 120), Depth: 1.4058
+       Cam: [-0.0493, -0.0438, -1.4058]
+       World: [0.0598, -0.0834, -0.0081]
+[Mean] Macro-Step Reward: 0.13328112661838531
+  1%|          | 59/10000 [01:57<5:22:20,  1.95s/it][INFO] Env 0: Pixel (Full): (119, 116), Depth: 1.1524
+       Cam: [0.0314, -0.0180, -1.1524]
+       World: [0.2923, 0.0123, 0.0822]
+[Mean] Macro-Step Reward: 0.5258377194404602
+  1%|          | 60/10000 [01:59<5:20:19,  1.93s/it][INFO] Env 0: Pixel (Full): (119, 88), Depth: 2.0000
+       Cam: [0.0546, 0.1871, -2.0000]
+       World: [-0.5792, -0.0172, 0.0592]
+[Mean] Macro-Step Reward: 0.8066729307174683
+  1%|          | 61/10000 [02:01<5:25:44,  1.97s/it][INFO] Env 0: Pixel (Full): (106, 90), Depth: 2.0000
+       Cam: [-0.0468, 0.1715, -2.0000]
+       World: [-0.5691, -0.1183, 0.0450]
+[Mean] Macro-Step Reward: 0.1860678493976593
+  1%|          | 62/10000 [02:03<5:24:14,  1.96s/it][INFO] Env 0: Pixel (Full): (126, 98), Depth: 2.0000
+       Cam: [0.1091, 0.1091, -2.0000]
+       World: [-0.5622, 0.0378, -0.0165]
+[Mean] Macro-Step Reward: 0.12310238182544708
+  1%|          | 63/10000 [02:05<5:19:53,  1.93s/it][INFO] Env 0: Pixel (Full): (132, 119), Depth: 1.4181
+       Cam: [0.1106, -0.0387, -1.4181]
+       World: [0.0369, 0.0754, -0.0076]
+[Mean] Macro-Step Reward: 0.11864873766899109
+  1%|          | 64/10000 [02:07<5:21:57,  1.94s/it][INFO] Env 0: Pixel (Full): (122, 92), Depth: 1.2984
+       Cam: [0.0506, 0.1012, -1.2984]
+       World: [0.1194, 0.0217, 0.1591]
+[Mean] Macro-Step Reward: 0.20761623978614807
+  1%|          | 65/10000 [02:09<5:25:14,  1.96s/it][INFO] Env 0: Pixel (Full): (132, 135), Depth: 1.1733
+       Cam: [0.0915, -0.1052, -1.1733]
+       World: [0.2913, 0.0716, -0.0079]
+[Mean] Macro-Step Reward: 0.2758612036705017
+  1%|          | 66/10000 [02:11<5:24:03,  1.96s/it][INFO] Env 0: Pixel (Full): (124, 91), Depth: 2.0000
+       Cam: [0.0935, 0.1637, -2.0000]
+       World: [-0.5755, 0.0219, 0.0364]
+[Mean] Macro-Step Reward: 0.09620049595832825
+  1%|          | 67/10000 [02:12<5:17:58,  1.92s/it][INFO] Env 0: Pixel (Full): (103, 123), Depth: 1.3522
+       Cam: [-0.0474, -0.0580, -1.3522]
+       World: [0.1149, -0.0782, -0.0078]
+[Mean] Macro-Step Reward: 0.696731448173523
+  1%|          | 68/10000 [02:14<5:16:53,  1.91s/it][INFO] Env 0: Pixel (Full): (124, 83), Depth: 1.2393
+       Cam: [0.0580, 0.1401, -1.2393]
+       World: [0.1659, 0.0322, 0.2120]
+[Mean] Macro-Step Reward: 0.3923042118549347
+  1%|          | 69/10000 [02:16<5:16:49,  1.91s/it][INFO] Env 0: Pixel (Full): (102, 91), Depth: 2.0000
+       Cam: [-0.0780, 0.1637, -2.0000]
+       World: [-0.5652, -0.1493, 0.0377]
+[Mean] Macro-Step Reward: 0.1425100713968277
+  1%|          | 70/10000 [02:18<5:16:43,  1.91s/it][INFO] Env 0: Pixel (Full): (130, 75), Depth: 2.0000
+       Cam: [0.1403, 0.2884, -2.0000]
+       World: [-0.6108, 0.0675, 0.1564]
+[Mean] Macro-Step Reward: 0.12280235439538956
+  1%|          | 71/10000 [02:20<5:18:47,  1.93s/it][INFO] Env 0: Pixel (Full): (107, 109), Depth: 1.6308
+       Cam: [-0.0318, 0.0191, -1.6308]
+       World: [-0.1745, -0.0799, -0.0061]
+[Mean] Macro-Step Reward: 0.2747915983200073
+  1%|          | 72/10000 [02:22<5:23:08,  1.95s/it][INFO] Env 0: Pixel (Full): (127, 101), Depth: 2.0000
+       Cam: [0.1169, 0.0858, -2.0000]
+       World: [-0.5566, 0.0458, -0.0391]
+[Mean] Macro-Step Reward: 0.14121907949447632
+  1%|          | 73/10000 [02:24<5:18:31,  1.93s/it][INFO] Env 0: Pixel (Full): (125, 72), Depth: 1.4010
+       Cam: [0.0710, 0.2184, -1.4010]
+       World: [-0.0112, 0.0349, 0.2454]
+[Mean] Macro-Step Reward: 0.19699612259864807
+  1%|          | 74/10000 [02:26<5:18:08,  1.92s/it][INFO] Env 0: Pixel (Full): (128, 133), Depth: 1.1997
+       Cam: [0.0748, -0.0982, -1.1997]
+       World: [0.2650, 0.0534, -0.0079]
+[Mean] Macro-Step Reward: 0.28252366185188293
+  1%|          | 75/10000 [02:28<5:21:03,  1.94s/it][INFO] Env 0: Pixel (Full): (129, 71), Depth: 2.0000
+       Cam: [0.1325, 0.3196, -2.0000]
+       World: [-0.6184, 0.0595, 0.1866]
+[Mean] Macro-Step Reward: 0.5857479572296143
+  1%|          | 76/10000 [02:30<5:20:46,  1.94s/it][INFO] Env 0: Pixel (Full): (118, 131), Depth: 1.1884
+       Cam: [0.0278, -0.0880, -1.1884]
+       World: [0.2761, 0.0070, 0.0053]
+[Mean] Macro-Step Reward: 0.9188019037246704
+  1%|          | 77/10000 [02:32<5:23:51,  1.96s/it][INFO] Env 0: Pixel (Full): (102, 96), Depth: 2.0000
+       Cam: [-0.0780, 0.1247, -2.0000]
+       World: [-0.5550, -0.1490, 0.0001]
+[Mean] Macro-Step Reward: 0.19674858450889587
+  1%|          | 78/10000 [02:34<5:25:03,  1.97s/it][INFO] Env 0: Pixel (Full): (109, 127), Depth: 1.2868
+       Cam: [-0.0150, -0.0752, -1.2868]
+       World: [0.1805, -0.0418, -0.0077]
+[Mean] Macro-Step Reward: 1.0990288257598877
+  1%|          | 79/10000 [02:36<5:24:37,  1.96s/it][INFO] Env 0: Pixel (Full): (111, 133), Depth: 1.1998
+       Cam: [-0.0047, -0.0982, -1.1998]
+       World: [0.2697, -0.0260, -0.0073]
+[Mean] Macro-Step Reward: 1.2259783744812012
+  1%|          | 80/10000 [02:38<5:27:00,  1.98s/it][INFO] Env 0: Pixel (Full): (125, 123), Depth: 1.3520
+       Cam: [0.0685, -0.0580, -1.3520]
+       World: [0.1081, 0.0376, -0.0087]
+[Mean] Macro-Step Reward: 0.1646992266178131
+  1%|          | 81/10000 [02:40<5:26:14,  1.97s/it][INFO] Env 0: Pixel (Full): (116, 90), Depth: 1.2521
+       Cam: [0.0195, 0.1074, -1.2521]
+       World: [0.1643, -0.0066, 0.1774]
+[Mean] Macro-Step Reward: 0.22227677702903748
+  1%|          | 82/10000 [02:42<5:21:33,  1.95s/it][INFO] Env 0: Pixel (Full): (133, 87), Depth: 2.0000
+       Cam: [0.1637, 0.1949, -2.0000]
+       World: [-0.5878, 0.0916, 0.0659]
+[Mean] Macro-Step Reward: 0.23266494274139404
+  1%|          | 83/10000 [02:44<5:27:01,  1.98s/it][INFO] Env 0: Pixel (Full): (116, 88), Depth: 2.0000
+       Cam: [0.0312, 0.1871, -2.0000]
+       World: [-0.5778, -0.0406, 0.0594]
+[Mean] Macro-Step Reward: 0.12663549184799194
+  1%|          | 84/10000 [02:46<5:26:09,  1.97s/it][INFO] Env 0: Pixel (Full): (108, 103), Depth: 2.0000
+       Cam: [-0.0312, 0.0702, -2.0000]
+       World: [-0.5436, -0.1019, -0.0530]
+[Mean] Macro-Step Reward: 0.24580229818820953
+  1%|          | 85/10000 [02:48<5:22:08,  1.95s/it][INFO] Env 0: Pixel (Full): (127, 105), Depth: 2.0000
+       Cam: [0.1169, 0.0546, -2.0000]
+       World: [-0.5485, 0.0461, -0.0692]
+[Mean] Macro-Step Reward: 0.17464089393615723
+  1%|          | 86/10000 [02:49<5:22:43,  1.95s/it][INFO] Env 0: Pixel (Full): (116, 129), Depth: 1.1866
+       Cam: [0.0185, -0.0786, -1.1866]
+       World: [0.2759, -0.0022, 0.0148]
+[Mean] Macro-Step Reward: 0.08200575411319733
+  1%|          | 87/10000 [02:51<5:22:31,  1.95s/it][INFO] Env 0: Pixel (Full): (119, 134), Depth: 1.1864
+       Cam: [0.0324, -0.1017, -1.1864]
+       World: [0.2813, 0.0118, -0.0075]
+[Mean] Macro-Step Reward: 0.23287606239318848
+  1%|          | 88/10000 [02:53<5:21:12,  1.94s/it][INFO] Env 0: Pixel (Full): (114, 108), Depth: 1.1769
+       Cam: [0.0092, 0.0183, -1.1769]
+       World: [0.2606, -0.0117, 0.1111]
+[Mean] Macro-Step Reward: 0.261238157749176
+  1%|          | 89/10000 [02:55<5:23:23,  1.96s/it][INFO] Env 0: Pixel (Full): (101, 96), Depth: 2.0000
+       Cam: [-0.0858, 0.1247, -2.0000]
+       World: [-0.5545, -0.1568, 0.0001]
+[Mean] Macro-Step Reward: 0.27647864818573
+  1%|          | 90/10000 [02:57<5:24:51,  1.97s/it][INFO] Env 0: Pixel (Full): (110, 112), Depth: 1.5652
+       Cam: [-0.0122, 0.0000, -1.5652]
+       World: [-0.1075, -0.0563, -0.0076]
+[Mean] Macro-Step Reward: 0.3788314163684845
+  1%|          | 91/10000 [02:59<5:23:09,  1.96s/it][INFO] Env 0: Pixel (Full): (118, 138), Depth: 1.1358
+       Cam: [0.0266, -0.1151, -1.1358]
+       World: [0.3339, 0.0092, -0.0072]
+[Mean] Macro-Step Reward: 0.3531084358692169
+  1%|          | 92/10000 [03:01<5:25:14,  1.97s/it][INFO] Env 0: Pixel (Full): (107, 79), Depth: 1.1841
+       Cam: [-0.0231, 0.1523, -1.1841]
+       World: [0.2207, -0.0454, 0.2388]
+[Mean] Macro-Step Reward: 0.20763367414474487
+  1%|          | 93/10000 [03:03<5:28:33,  1.99s/it][INFO] Env 0: Pixel (Full): (116, 118), Depth: 1.4375
+       Cam: [0.0224, -0.0336, -1.4375]
+       World: [0.0223, -0.0138, -0.0071]
+[Mean] Macro-Step Reward: 0.17823804914951324
+  1%|          | 94/10000 [03:05<5:25:31,  1.97s/it][INFO] Env 0: Pixel (Full): (103, 137), Depth: 1.1481
+       Cam: [-0.0403, -0.1119, -1.1481]
+       World: [0.3252, -0.0583, -0.0068]
+[Mean] Macro-Step Reward: 0.14550289511680603
+  1%|          | 95/10000 [03:07<5:25:39,  1.97s/it][INFO] Env 0: Pixel (Full): (111, 113), Depth: 1.5445
+       Cam: [-0.0060, -0.0060, -1.5445]
+       World: [-0.0864, -0.0488, -0.0081]
+[Mean] Macro-Step Reward: 0.256399005651474
+  1%|          | 96/10000 [03:09<5:24:39,  1.97s/it][INFO] Env 0: Pixel (Full): (133, 70), Depth: 2.0000
+       Cam: [0.1637, 0.3274, -2.0000]
+       World: [-0.6223, 0.0906, 0.1938]
+[Mean] Macro-Step Reward: 0.222337543964386
+  1%|          | 97/10000 [03:11<5:24:10,  1.96s/it][INFO] Env 0: Pixel (Full): (119, 124), Depth: 1.1803
+       Cam: [0.0322, -0.0552, -1.1803]
+       World: [0.2751, 0.0116, 0.0390]
+[Mean] Macro-Step Reward: 0.2546752393245697
+  1%|          | 98/10000 [03:13<5:26:43,  1.98s/it][INFO] Env 0: Pixel (Full): (117, 114), Depth: 1.7482
+       Cam: [0.0341, -0.0136, -1.7482]
+       World: [-0.2831, -0.0210, -0.0688]
+[Mean] Macro-Step Reward: 0.2646869122982025
+  1%|          | 99/10000 [03:15<5:29:19,  2.00s/it][INFO] Env 0: Pixel (Full): (121, 78), Depth: 1.3757
+       Cam: [0.0483, 0.1823, -1.3757]
+       World: [0.0239, 0.0140, 0.2173]
+[Mean] Macro-Step Reward: 0.1465446650981903
+  1%|1         | 100/10000 [03:17<5:29:04,  1.99s/it][INFO] Env 0: Pixel (Full): (129, 97), Depth: 2.0000
+       Cam: [0.1325, 0.1169, -2.0000]
+       World: [-0.5656, 0.0611, -0.0091]
+[Mean] Macro-Step Reward: 0.4070715308189392
+  1%|1         | 101/10000 [03:19<5:27:51,  1.99s/it][INFO] Env 0: Pixel (Full): (116, 91), Depth: 1.3538
+       Cam: [0.0211, 0.1108, -1.3538]
+       World: [0.0653, -0.0112, 0.1542]
+[Mean] Macro-Step Reward: 0.3144596517086029
+  1%|1         | 102/10000 [03:21<5:30:46,  2.01s/it][INFO] Env 0: Pixel (Full): (129, 138), Depth: 1.1358
+       Cam: [0.0753, -0.1151, -1.1358]
+       World: [0.3310, 0.0578, -0.0076]
+[Mean] Macro-Step Reward: 0.0962776243686676
+  1%|1         | 103/10000 [03:23<5:29:46,  2.00s/it][INFO] Env 0: Pixel (Full): (125, 116), Depth: 1.2811
+       Cam: [0.0649, -0.0200, -1.2811]
+       World: [0.1668, 0.0379, 0.0465]
+[Mean] Macro-Step Reward: 0.17241187393665314
+  1%|1         | 104/10000 [03:25<5:22:31,  1.96s/it][INFO] Env 0: Pixel (Full): (102, 109), Depth: 1.6445
+       Cam: [-0.0641, 0.0192, -1.6445]
+       World: [-0.1858, -0.1130, -0.0093]
+[Mean] Macro-Step Reward: 0.06098496541380882
+  1%|1         | 105/10000 [03:27<5:20:06,  1.94s/it][INFO] Env 0: Pixel (Full): (125, 86), Depth: 2.0000
+       Cam: [0.1013, 0.2027, -2.0000]
+       World: [-0.5861, 0.0293, 0.0739]
+[Mean] Macro-Step Reward: 0.10482561588287354
+  1%|1         | 106/10000 [03:29<5:25:06,  1.97s/it][INFO] Env 0: Pixel (Full): (123, 101), Depth: 1.4160
+       Cam: [0.0607, 0.0607, -1.4160]
+       World: [0.0161, 0.0250, 0.0893]
+[Mean] Macro-Step Reward: 0.4798772633075714
+  1%|1         | 107/10000 [03:31<5:24:14,  1.97s/it][INFO] Env 0: Pixel (Full): (123, 71), Depth: 2.0000
+       Cam: [0.0858, 0.3196, -2.0000]
+       World: [-0.6156, 0.0128, 0.1869]
+[Mean] Macro-Step Reward: 0.34667637944221497
+  1%|1         | 108/10000 [03:33<5:23:57,  1.96s/it][INFO] Env 0: Pixel (Full): (131, 90), Depth: 2.0000
+       Cam: [0.1481, 0.1715, -2.0000]
+       World: [-0.5808, 0.0763, 0.0434]
+[Mean] Macro-Step Reward: 0.22497640550136566
+  1%|1         | 109/10000 [03:35<5:24:03,  1.97s/it][INFO] Env 0: Pixel (Full): (106, 110), Depth: 1.6124
+       Cam: [-0.0377, 0.0126, -1.6124]
+       World: [-0.1548, -0.0847, -0.0076]
+[Mean] Macro-Step Reward: 0.15142373740673065
+  1%|1         | 110/10000 [03:37<5:17:09,  1.92s/it][INFO] Env 0: Pixel (Full): (106, 132), Depth: 1.2135
+       Cam: [-0.0284, -0.0946, -1.2135]
+       World: [0.2570, -0.0505, -0.0072]
+[Mean] Macro-Step Reward: 0.12825411558151245
+  1%|1         | 111/10000 [03:39<5:20:28,  1.94s/it][INFO] Env 0: Pixel (Full): (123, 133), Depth: 1.1998
+       Cam: [0.0514, -0.0982, -1.1998]
+       World: [0.2664, 0.0300, -0.0077]
+[Mean] Macro-Step Reward: 0.7866507768630981
+  1%|1         | 112/10000 [03:41<5:24:46,  1.97s/it][INFO] Env 0: Pixel (Full): (123, 122), Depth: 1.2106
+       Cam: [0.0519, -0.0472, -1.2106]
+       World: [0.2426, 0.0294, 0.0387]
+[Mean] Macro-Step Reward: 0.5363333821296692
+  1%|1         | 113/10000 [03:43<5:26:15,  1.98s/it][INFO] Env 0: Pixel (Full): (102, 117), Depth: 1.4574
+       Cam: [-0.0568, -0.0284, -1.4574]
+       World: [0.0065, -0.0941, -0.0066]
+[Mean] Macro-Step Reward: 1.066673755645752
+  1%|1         | 114/10000 [03:45<5:30:24,  2.01s/it][INFO] Env 0: Pixel (Full): (133, 110), Depth: 1.6121
+       Cam: [0.1320, 0.0126, -1.6121]
+       World: [-0.1647, 0.0847, -0.0088]
+[Mean] Macro-Step Reward: 0.4178648293018341
+  1%|1         | 115/10000 [03:47<5:35:37,  2.04s/it][INFO] Env 0: Pixel (Full): (125, 88), Depth: 2.0000
+       Cam: [0.1013, 0.1871, -2.0000]
+       World: [-0.5820, 0.0294, 0.0589]
+[Mean] Macro-Step Reward: 0.19985005259513855
+  1%|1         | 116/10000 [03:49<5:32:53,  2.02s/it][INFO] Env 0: Pixel (Full): (129, 98), Depth: 2.0000
+       Cam: [0.1325, 0.1091, -2.0000]
+       World: [-0.5636, 0.0612, -0.0166]
+[Mean] Macro-Step Reward: 0.13504713773727417
+  1%|1         | 117/10000 [03:51<5:25:53,  1.98s/it][INFO] Env 0: Pixel (Full): (118, 128), Depth: 1.1847
+       Cam: [0.0277, -0.0739, -1.1847]
+       World: [0.2760, 0.0070, 0.0199]
+[Mean] Macro-Step Reward: 0.2731814384460449
+  1%|1         | 118/10000 [03:53<5:26:21,  1.98s/it][INFO] Env 0: Pixel (Full): (105, 88), Depth: 2.0000
+       Cam: [-0.0546, 0.1871, -2.0000]
+       World: [-0.5727, -0.1262, 0.0601]
+[Mean] Macro-Step Reward: 0.24173714220523834
+  1%|1         | 119/10000 [03:55<5:24:42,  1.97s/it][INFO] Env 0: Pixel (Full): (114, 130), Depth: 1.1885
+       Cam: [0.0093, -0.0834, -1.1885]
+       World: [0.2759, -0.0115, 0.0098]
+[Mean] Macro-Step Reward: 1.014040470123291
+  1%|1         | 120/10000 [03:57<5:26:10,  1.98s/it][INFO] Env 0: Pixel (Full): (127, 77), Depth: 2.0000
+       Cam: [0.1169, 0.2729, -2.0000]
+       World: [-0.6053, 0.0443, 0.1415]
+[Mean] Macro-Step Reward: 0.9143218398094177
+  1%|1         | 121/10000 [03:59<5:29:37,  2.00s/it][INFO] Env 0: Pixel (Full): (114, 71), Depth: 1.3767
+       Cam: [0.0107, 0.2200, -1.3767]
+       World: [0.0154, -0.0238, 0.2537]
+[Mean] Macro-Step Reward: 0.3164783716201782
+  1%|1         | 122/10000 [04:01<5:30:02,  2.00s/it][INFO] Env 0: Pixel (Full): (111, 112), Depth: 1.5651
+       Cam: [-0.0061, 0.0000, -1.5651]
+       World: [-0.1077, -0.0502, -0.0076]
+[Mean] Macro-Step Reward: 0.17014731466770172
+  1%|1         | 123/10000 [04:03<5:26:53,  1.99s/it][INFO] Env 0: Pixel (Full): (127, 111), Depth: 1.5986
+       Cam: [0.0935, 0.0062, -1.5986]
+       World: [-0.1477, 0.0472, -0.0111]
+[Mean] Macro-Step Reward: 0.11667706072330475
+  1%|1         | 124/10000 [04:05<5:25:40,  1.98s/it][INFO] Env 0: Pixel (Full): (112, 74), Depth: 2.0000
+       Cam: [0.0000, 0.2962, -2.0000]
+       World: [-0.6044, -0.0726, 0.1650]
+[Mean] Macro-Step Reward: 0.12352178990840912
+  1%|1         | 125/10000 [04:07<5:27:29,  1.99s/it][INFO] Env 0: Pixel (Full): (117, 97), Depth: 1.5284
+       Cam: [0.0298, 0.0894, -1.5284]
+       World: [-0.0979, -0.0129, 0.0879]
+[Mean] Macro-Step Reward: 0.35253697633743286
+  1%|1         | 126/10000 [04:09<5:25:58,  1.98s/it][INFO] Env 0: Pixel (Full): (103, 119), Depth: 1.4246
+       Cam: [-0.0500, -0.0389, -1.4246]
+       World: [0.0404, -0.0852, -0.0082]
+[Mean] Macro-Step Reward: 0.31549519300460815
+  1%|1         | 127/10000 [04:11<5:29:44,  2.00s/it][INFO] Env 0: Pixel (Full): (111, 124), Depth: 1.3352
+       Cam: [-0.0052, -0.0625, -1.3352]
+       World: [0.1300, -0.0350, -0.0080]
+[Mean] Macro-Step Reward: 0.15690332651138306
+  1%|1         | 128/10000 [04:13<5:26:01,  1.98s/it][INFO] Env 0: Pixel (Full): (113, 82), Depth: 2.0000
+       Cam: [0.0078, 0.2339, -2.0000]
+       World: [-0.5886, -0.0643, 0.1048]
+[Mean] Macro-Step Reward: 0.7622632384300232
+  1%|1         | 129/10000 [04:15<5:23:16,  1.97s/it][INFO] Env 0: Pixel (Full): (131, 134), Depth: 1.1863
+       Cam: [0.0879, -0.1017, -1.1863]
+       World: [0.2780, 0.0672, -0.0079]
+[Mean] Macro-Step Reward: 0.8384721279144287
+  1%|1         | 130/10000 [04:17<5:25:25,  1.98s/it][INFO] Env 0: Pixel (Full): (130, 106), Depth: 1.7241
+       Cam: [0.1210, 0.0403, -1.7241]
+       World: [-0.2791, 0.0668, -0.0111]
+[Mean] Macro-Step Reward: 0.8211026191711426
+  1%|1         | 131/10000 [04:19<5:25:01,  1.98s/it][INFO] Env 0: Pixel (Full): (107, 118), Depth: 1.4375
+       Cam: [-0.0280, -0.0336, -1.4375]
+       World: [0.0252, -0.0641, -0.0067]
+[Mean] Macro-Step Reward: 0.2506479024887085
+  1%|1         | 132/10000 [04:20<5:20:22,  1.95s/it][INFO] Env 0: Pixel (Full): (127, 75), Depth: 2.0000
+       Cam: [0.1169, 0.2884, -2.0000]
+       World: [-0.6094, 0.0442, 0.1566]
+[Mean] Macro-Step Reward: 0.16702140867710114
+  1%|1         | 133/10000 [04:22<5:22:15,  1.96s/it][INFO] Env 0: Pixel (Full): (131, 118), Depth: 1.4373
+       Cam: [0.1064, -0.0336, -1.4373]
+       World: [0.0173, 0.0701, -0.0077]
+[Mean] Macro-Step Reward: 0.14154626429080963
+  1%|1         | 134/10000 [04:24<5:27:53,  1.99s/it][INFO] Env 0: Pixel (Full): (125, 129), Depth: 1.2564
+       Cam: [0.0637, -0.0833, -1.2564]
+       World: [0.2072, 0.0387, -0.0081]
+[Mean] Macro-Step Reward: 0.2550993859767914
+  1%|1         | 135/10000 [04:26<5:24:35,  1.97s/it][INFO] Env 0: Pixel (Full): (107, 137), Depth: 1.1481
+       Cam: [-0.0224, -0.1119, -1.1481]
+       World: [0.3242, -0.0405, -0.0069]
+[Mean] Macro-Step Reward: 0.4511275291442871
+  1%|1         | 136/10000 [04:28<5:27:08,  1.99s/it][INFO] Env 0: Pixel (Full): (130, 123), Depth: 1.3520
+       Cam: [0.0949, -0.0580, -1.3520]
+       World: [0.1066, 0.0639, -0.0089]
+[Mean] Macro-Step Reward: 0.41935300827026367
+  1%|1         | 137/10000 [04:30<5:27:10,  1.99s/it][INFO] Env 0: Pixel (Full): (105, 120), Depth: 1.2427
+       Cam: [-0.0339, -0.0388, -1.2427]
+       World: [0.2147, -0.0582, 0.0392]
+[Mean] Macro-Step Reward: 0.377970814704895
+  1%|1         | 138/10000 [04:32<5:23:52,  1.97s/it][INFO] Env 0: Pixel (Full): (100, 130), Depth: 1.2419
+       Cam: [-0.0581, -0.0871, -1.2419]
+       World: [0.2295, -0.0819, -0.0071]
+[Mean] Macro-Step Reward: 0.3487786054611206
+  1%|1         | 139/10000 [04:34<5:18:28,  1.94s/it][INFO] Env 0: Pixel (Full): (122, 114), Depth: 1.1865
+       Cam: [0.0462, -0.0092, -1.1865]
+       World: [0.2563, 0.0249, 0.0816]
+[Mean] Macro-Step Reward: 0.3392285704612732
+  1%|1         | 140/10000 [04:36<5:20:21,  1.95s/it][INFO] Env 0: Pixel (Full): (118, 71), Depth: 2.0000
+       Cam: [0.0468, 0.3196, -2.0000]
+       World: [-0.6133, -0.0261, 0.1873]
+[Mean] Macro-Step Reward: 0.4259546995162964
+  1%|1         | 141/10000 [04:38<5:22:05,  1.96s/it][INFO] Env 0: Pixel (Full): (125, 109), Depth: 1.3393
+       Cam: [0.0679, 0.0157, -1.3393]
+       World: [0.1012, 0.0371, 0.0657]
+[Mean] Macro-Step Reward: 0.3526049554347992
+  1%|1         | 142/10000 [04:40<5:19:56,  1.95s/it][INFO] Env 0: Pixel (Full): (101, 107), Depth: 1.6970
+       Cam: [-0.0728, 0.0331, -1.6970]
+       World: [-0.2394, -0.1249, -0.0095]
+[Mean] Macro-Step Reward: 0.5156012773513794
+  1%|1         | 143/10000 [04:42<5:24:26,  1.97s/it][INFO] Env 0: Pixel (Full): (127, 74), Depth: 2.0000
+       Cam: [0.1169, 0.2962, -2.0000]
+       World: [-0.6114, 0.0441, 0.1641]
+[Mean] Macro-Step Reward: 0.13720837235450745
+  1%|1         | 144/10000 [04:44<5:24:09,  1.97s/it][INFO] Env 0: Pixel (Full): (100, 103), Depth: 2.0000
+       Cam: [-0.0935, 0.0702, -2.0000]
+       World: [-0.5399, -0.1642, -0.0525]
+[Mean] Macro-Step Reward: 1.016005277633667
+  1%|1         | 145/10000 [04:46<5:26:25,  1.99s/it][INFO] Env 0: Pixel (Full): (107, 101), Depth: 2.0000
+       Cam: [-0.0390, 0.0858, -2.0000]
+       World: [-0.5472, -0.1098, -0.0379]
+[Mean] Macro-Step Reward: 0.27848702669143677
+  1%|1         | 146/10000 [04:48<5:26:54,  1.99s/it][INFO] Env 0: Pixel (Full): (130, 133), Depth: 1.1997
+       Cam: [0.0842, -0.0982, -1.1997]
+       World: [0.2645, 0.0627, -0.0080]
+[Mean] Macro-Step Reward: 0.3975396156311035
+  1%|1         | 147/10000 [04:50<5:24:42,  1.98s/it][INFO] Env 0: Pixel (Full): (125, 129), Depth: 1.2564
+       Cam: [0.0637, -0.0833, -1.2564]
+       World: [0.2072, 0.0387, -0.0081]
+[Mean] Macro-Step Reward: 0.14393307268619537
+  1%|1         | 148/10000 [04:52<5:22:16,  1.96s/it][INFO] Env 0: Pixel (Full): (116, 84), Depth: 1.1643
+       Cam: [0.0182, 0.1271, -1.1643]
+       World: [0.2439, -0.0029, 0.2193]
+[Mean] Macro-Step Reward: 0.6824662685394287
+  1%|1         | 149/10000 [04:54<5:23:59,  1.97s/it][INFO] Env 0: Pixel (Full): (123, 81), Depth: 1.1809
+       Cam: [0.0506, 0.1427, -1.1809]
+       World: [0.2219, 0.0284, 0.2298]
+[Mean] Macro-Step Reward: 0.8414827585220337
+  2%|1         | 150/10000 [04:56<5:25:39,  1.98s/it][INFO] Env 0: Pixel (Full): (116, 83), Depth: 1.1633
+       Cam: [0.0181, 0.1315, -1.1633]
+       World: [0.2437, -0.0029, 0.2238]
+[Mean] Macro-Step Reward: 1.285546064376831
+  2%|1         | 151/10000 [04:58<5:24:06,  1.97s/it][INFO] Env 0: Pixel (Full): (113, 115), Depth: 1.7520
+       Cam: [0.0068, -0.0205, -1.7520]
+       World: [-0.2833, -0.0483, -0.0762]
+[Mean] Macro-Step Reward: 0.724996030330658
+  2%|1         | 152/10000 [05:00<5:28:51,  2.00s/it][INFO] Env 0: Pixel (Full): (103, 133), Depth: 1.1999
+       Cam: [-0.0421, -0.0982, -1.1999]
+       World: [0.2719, -0.0634, -0.0070]
+[Mean] Macro-Step Reward: 0.3027244210243225
+  2%|1         | 153/10000 [05:02<5:30:07,  2.01s/it][INFO] Env 0: Pixel (Full): (127, 77), Depth: 2.0000
+       Cam: [0.1169, 0.2729, -2.0000]
+       World: [-0.6053, 0.0443, 0.1415]
+[Mean] Macro-Step Reward: 1.0612555742263794
+  2%|1         | 154/10000 [05:04<5:27:04,  1.99s/it][INFO] Env 0: Pixel (Full): (113, 105), Depth: 1.3437
+       Cam: [0.0052, 0.0367, -1.3437]
+       World: [0.0953, -0.0258, 0.0853]
+[Mean] Macro-Step Reward: 1.015702247619629
+  2%|1         | 155/10000 [05:06<5:28:50,  2.00s/it][DEBUG] Random Act: Generated 8 candidates (SKRL will use these if epsilon check passes)
+[INFO] Env 0: Pixel (Full): (133, 101), Depth: 2.0000
+       Cam: [0.1637, 0.0858, -2.0000]
+       World: [-0.5594, 0.0925, -0.0395]
+[Mean] Macro-Step Reward: 0.5506182312965393
+  2%|1         | 156/10000 [05:08<5:31:28,  2.02s/it][INFO] Env 0: Pixel (Full): (124, 100), Depth: 1.4271
+       Cam: [0.0667, 0.0667, -1.4271]
+       World: [0.0035, 0.0303, 0.0922]
+[Mean] Macro-Step Reward: 0.21272332966327667
+  2%|1         | 157/10000 [05:10<5:24:11,  1.98s/it][INFO] Env 0: Pixel (Full): (112, 133), Depth: 1.1998
+       Cam: [0.0000, -0.0982, -1.1998]
+       World: [0.2694, -0.0213, -0.0073]
+[Mean] Macro-Step Reward: 0.18095609545707703
+  2%|1         | 158/10000 [05:12<5:24:28,  1.98s/it][INFO] Env 0: Pixel (Full): (125, 105), Depth: 1.1950
+       Cam: [0.0606, 0.0326, -1.1950]
+       World: [0.2363, 0.0383, 0.1197]
+[Mean] Macro-Step Reward: 0.23284567892551422
+  2%|1         | 159/10000 [05:14<5:24:39,  1.98s/it][INFO] Env 0: Pixel (Full): (133, 103), Depth: 2.0000
+       Cam: [0.1637, 0.0702, -2.0000]
+       World: [-0.5553, 0.0926, -0.0545]
+[Mean] Macro-Step Reward: 0.7939507961273193
+  2%|1         | 160/10000 [05:16<5:22:20,  1.97s/it][INFO] Env 0: Pixel (Full): (108, 137), Depth: 1.1481
+       Cam: [-0.0179, -0.1119, -1.1481]
+       World: [0.3239, -0.0360, -0.0069]
+[Mean] Macro-Step Reward: 0.40468811988830566
+  2%|1         | 161/10000 [05:18<5:23:59,  1.98s/it][INFO] Env 0: Pixel (Full): (129, 75), Depth: 2.0000
+       Cam: [0.1325, 0.2884, -2.0000]
+       World: [-0.6103, 0.0598, 0.1565]
+[Mean] Macro-Step Reward: 0.6307345628738403
+  2%|1         | 162/10000 [05:20<5:24:05,  1.98s/it][INFO] Env 0: Pixel (Full): (115, 101), Depth: 2.0000
+       Cam: [0.0234, 0.0858, -2.0000]
+       World: [-0.5510, -0.0476, -0.0384]
+[Mean] Macro-Step Reward: 0.21280190348625183
+  2%|1         | 163/10000 [05:22<5:19:02,  1.95s/it][INFO] Env 0: Pixel (Full): (130, 122), Depth: 1.3694
+       Cam: [0.0961, -0.0534, -1.3694]
+       World: [0.0886, 0.0640, -0.0090]
+[Mean] Macro-Step Reward: 0.1785796582698822
+  2%|1         | 164/10000 [05:24<5:16:37,  1.93s/it][INFO] Env 0: Pixel (Full): (128, 77), Depth: 2.0000
+       Cam: [0.1247, 0.2729, -2.0000]
+       World: [-0.6058, 0.0521, 0.1415]
+[Mean] Macro-Step Reward: 0.07715456187725067
+  2%|1         | 165/10000 [05:25<5:15:28,  1.92s/it][INFO] Env 0: Pixel (Full): (110, 76), Depth: 2.0000
+       Cam: [-0.0156, 0.2806, -2.0000]
+       World: [-0.5994, -0.0880, 0.1501]
+[Mean] Macro-Step Reward: 0.16621898114681244
+  2%|1         | 166/10000 [05:27<5:16:32,  1.93s/it][INFO] Env 0: Pixel (Full): (129, 115), Depth: 1.7441
+       Cam: [0.1156, -0.0204, -1.7441]
+       World: [-0.2823, 0.0607, -0.0749]
+[Mean] Macro-Step Reward: 0.1188008263707161
+  2%|1         | 167/10000 [05:29<5:16:18,  1.93s/it][INFO] Env 0: Pixel (Full): (104, 72), Depth: 2.0000
+       Cam: [-0.0624, 0.3118, -2.0000]
+       World: [-0.6047, -0.1350, 0.1806]
+[Mean] Macro-Step Reward: 0.12220881134271622
+  2%|1         | 168/10000 [05:31<5:17:12,  1.94s/it][INFO] Env 0: Pixel (Full): (114, 101), Depth: 2.0000
+       Cam: [0.0156, 0.0858, -2.0000]
+       World: [-0.5505, -0.0553, -0.0383]
+[Mean] Macro-Step Reward: 0.24270014464855194
+  2%|1         | 169/10000 [05:33<5:16:38,  1.93s/it][INFO] Env 0: Pixel (Full): (126, 96), Depth: 2.0000
+       Cam: [0.1091, 0.1247, -2.0000]
+       World: [-0.5663, 0.0377, -0.0014]
+[Mean] Macro-Step Reward: 0.24241599440574646
+  2%|1         | 170/10000 [05:35<5:19:52,  1.95s/it][INFO] Env 0: Pixel (Full): (107, 90), Depth: 2.0000
+       Cam: [-0.0390, 0.1715, -2.0000]
+       World: [-0.5695, -0.1105, 0.0449]
+[Mean] Macro-Step Reward: 0.15272051095962524
+  2%|1         | 171/10000 [05:37<5:22:16,  1.97s/it][INFO] Env 0: Pixel (Full): (127, 109), Depth: 1.6371
+       Cam: [0.0957, 0.0191, -1.6371]
+       World: [-0.1882, 0.0470, -0.0087]
+[Mean] Macro-Step Reward: 0.31067395210266113
+  2%|1         | 172/10000 [05:39<5:20:36,  1.96s/it][INFO] Env 0: Pixel (Full): (122, 102), Depth: 1.4047
+       Cam: [0.0548, 0.0548, -1.4047]
+       World: [0.0289, 0.0198, 0.0865]
+[Mean] Macro-Step Reward: 0.72843998670578
+  2%|1         | 173/10000 [05:41<5:21:59,  1.97s/it][INFO] Env 0: Pixel (Full): (102, 91), Depth: 2.0000
+       Cam: [-0.0780, 0.1637, -2.0000]
+       World: [-0.5652, -0.1493, 0.0377]
+[Mean] Macro-Step Reward: 0.7612553834915161
+  2%|1         | 174/10000 [05:43<5:28:09,  2.00s/it][INFO] Env 0: Pixel (Full): (116, 110), Depth: 1.6123
+       Cam: [0.0251, 0.0126, -1.6123]
+       World: [-0.1584, -0.0219, -0.0080]
+[Mean] Macro-Step Reward: 0.32454031705856323
+  2%|1         | 175/10000 [05:45<5:28:54,  2.01s/it][INFO] Env 0: Pixel (Full): (121, 107), Depth: 1.4058
+       Cam: [0.0493, 0.0274, -1.4058]
+       World: [0.0353, 0.0145, 0.0599]
+[Mean] Macro-Step Reward: 0.2659115791320801
+  2%|1         | 176/10000 [05:47<5:24:47,  1.98s/it][INFO] Env 0: Pixel (Full): (124, 113), Depth: 1.7430
+       Cam: [0.0815, -0.0068, -1.7430]
+       World: [-0.2827, 0.0267, -0.0612]
+[Mean] Macro-Step Reward: 0.10757315903902054
+  2%|1         | 177/10000 [05:49<5:22:19,  1.97s/it][INFO] Env 0: Pixel (Full): (107, 138), Depth: 1.1359
+       Cam: [-0.0221, -0.1151, -1.1359]
+       World: [0.3368, -0.0395, -0.0068]
+[Mean] Macro-Step Reward: 0.09397327899932861
+  2%|1         | 178/10000 [05:51<5:21:47,  1.97s/it][INFO] Env 0: Pixel (Full): (115, 90), Depth: 2.0000
+       Cam: [0.0234, 0.1715, -2.0000]
+       World: [-0.5733, -0.0482, 0.0444]
+[Mean] Macro-Step Reward: 0.3991270065307617
+  2%|1         | 179/10000 [05:53<5:19:33,  1.95s/it][INFO] Env 0: Pixel (Full): (115, 132), Depth: 1.1907
+       Cam: [0.0139, -0.0928, -1.1907]
+       World: [0.2760, -0.0069, 0.0001]
+[Mean] Macro-Step Reward: 0.9930018186569214
+  2%|1         | 180/10000 [05:55<5:22:54,  1.97s/it][INFO] Env 0: Pixel (Full): (105, 107), Depth: 1.6969
+       Cam: [-0.0463, 0.0331, -1.6969]
+       World: [-0.2410, -0.0985, -0.0097]
+[Mean] Macro-Step Reward: 0.33026236295700073
+  2%|1         | 181/10000 [05:57<5:25:26,  1.99s/it][INFO] Env 0: Pixel (Full): (116, 137), Depth: 1.1481
+       Cam: [0.0179, -0.1119, -1.1481]
+       World: [0.3218, -0.0003, -0.0072]
+[Mean] Macro-Step Reward: 0.29276329278945923
+  2%|1         | 182/10000 [05:59<5:19:07,  1.95s/it][INFO] Env 0: Pixel (Full): (115, 93), Depth: 1.1657
+       Cam: [0.0136, 0.0863, -1.1657]
+       World: [0.2534, -0.0072, 0.1796]
+[Mean] Macro-Step Reward: 0.13595037162303925
+  2%|1         | 183/10000 [06:01<5:18:58,  1.95s/it][INFO] Env 0: Pixel (Full): (120, 105), Depth: 1.1464
+       Cam: [0.0357, 0.0313, -1.1464]
+       World: [0.2850, 0.0165, 0.1313]
+[Mean] Macro-Step Reward: 0.070156991481781
+  2%|1         | 184/10000 [06:03<5:17:44,  1.94s/it][INFO] Env 0: Pixel (Full): (100, 86), Depth: 2.0000
+       Cam: [-0.0935, 0.2027, -2.0000]
+       World: [-0.5744, -0.1652, 0.0755]
+[Mean] Macro-Step Reward: 0.17805837094783783
+  2%|1         | 185/10000 [06:05<5:14:55,  1.93s/it][INFO] Env 0: Pixel (Full): (121, 92), Depth: 1.5166
+       Cam: [0.0532, 0.1182, -1.5166]
+       World: [-0.0954, 0.0110, 0.1187]
+[Mean] Macro-Step Reward: 0.21279162168502808
+  2%|1         | 186/10000 [06:07<5:19:02,  1.95s/it][INFO] Env 0: Pixel (Full): (107, 103), Depth: 2.0000
+       Cam: [-0.0390, 0.0702, -2.0000]
+       World: [-0.5431, -0.1097, -0.0529]
+[Mean] Macro-Step Reward: 0.13315239548683167
+  2%|1         | 187/10000 [06:09<5:21:41,  1.97s/it][INFO] Env 0: Pixel (Full): (126, 96), Depth: 2.0000
+       Cam: [0.1091, 0.1247, -2.0000]
+       World: [-0.5663, 0.0377, -0.0014]
+[Mean] Macro-Step Reward: 0.2659360468387604
+  2%|1         | 188/10000 [06:11<5:18:01,  1.94s/it][INFO] Env 0: Pixel (Full): (115, 128), Depth: 1.1857
+       Cam: [0.0139, -0.0739, -1.1857]
+       World: [0.2759, -0.0068, 0.0196]
+[Mean] Macro-Step Reward: 0.40705373883247375
+  2%|1         | 189/10000 [06:13<5:18:03,  1.95s/it][INFO] Env 0: Pixel (Full): (100, 82), Depth: 2.0000
+       Cam: [-0.0935, 0.2339, -2.0000]
+       World: [-0.5825, -0.1655, 0.1056]
+[Mean] Macro-Step Reward: 0.313301146030426
+  2%|1         | 190/10000 [06:15<5:19:20,  1.95s/it][INFO] Env 0: Pixel (Full): (124, 97), Depth: 2.0000
+       Cam: [0.0935, 0.1169, -2.0000]
+       World: [-0.5633, 0.0222, -0.0088]
+[Mean] Macro-Step Reward: 0.3127686381340027
+  2%|1         | 191/10000 [06:16<5:17:03,  1.94s/it][INFO] Env 0: Pixel (Full): (111, 85), Depth: 2.0000
+       Cam: [-0.0078, 0.2105, -2.0000]
+       World: [-0.5816, -0.0797, 0.0823]
+[Mean] Macro-Step Reward: 0.16566069424152374
+  2%|1         | 192/10000 [06:18<5:17:01,  1.94s/it][INFO] Env 0: Pixel (Full): (123, 95), Depth: 1.5184
+       Cam: [0.0651, 0.1006, -1.5184]
+       World: [-0.0933, 0.0229, 0.1011]
+[Mean] Macro-Step Reward: 0.13759112358093262
+  2%|1         | 193/10000 [06:20<5:22:50,  1.98s/it][INFO] Env 0: Pixel (Full): (130, 110), Depth: 1.6122
+       Cam: [0.1131, 0.0126, -1.6122]
+       World: [-0.1636, 0.0659, -0.0087]
+[Mean] Macro-Step Reward: 0.14471274614334106
+  2%|1         | 194/10000 [06:22<5:25:13,  1.99s/it][INFO] Env 0: Pixel (Full): (133, 95), Depth: 2.0000
+       Cam: [0.1637, 0.1325, -2.0000]
+       World: [-0.5716, 0.0921, 0.0057]
+[Mean] Macro-Step Reward: 0.1184038370847702
+  2%|1         | 195/10000 [06:24<5:23:50,  1.98s/it][INFO] Env 0: Pixel (Full): (131, 88), Depth: 1.7042
+       Cam: [0.1262, 0.1594, -1.7042]
+       World: [-0.2913, 0.0723, 0.1090]
+[Mean] Macro-Step Reward: 0.027844592928886414
+  2%|1         | 196/10000 [06:27<5:30:49,  2.02s/it][INFO] Env 0: Pixel (Full): (121, 94), Depth: 1.5163
+       Cam: [0.0532, 0.1064, -1.5163]
+       World: [-0.0920, 0.0111, 0.1073]
+[Mean] Macro-Step Reward: 0.06219862774014473
+  2%|1         | 197/10000 [06:29<5:35:12,  2.05s/it][INFO] Env 0: Pixel (Full): (122, 121), Depth: 1.3873
+       Cam: [0.0541, -0.0487, -1.3873]
+       World: [0.0726, 0.0210, -0.0088]
+[Mean] Macro-Step Reward: 0.21768411993980408
+  2%|1         | 198/10000 [06:31<5:32:58,  2.04s/it][INFO] Env 0: Pixel (Full): (105, 108), Depth: 1.6703
+       Cam: [-0.0456, 0.0260, -1.6703]
+       World: [-0.2135, -0.0961, -0.0096]
+[Mean] Macro-Step Reward: 0.3115355372428894
+  2%|1         | 199/10000 [06:33<5:35:36,  2.05s/it][INFO] Env 0: Pixel (Full): (123, 103), Depth: 1.4093
+       Cam: [0.0604, 0.0494, -1.4093]
+       World: [0.0254, 0.0252, 0.0801]
+[Mean] Macro-Step Reward: 0.12934832274913788
+  2%|2         | 200/10000 [06:36<6:27:56,  2.38s/it][INFO] Env 0: Pixel (Full): (127, 135), Depth: 1.1733
+       Cam: [0.0686, -0.1052, -1.1733]
+       World: [0.2927, 0.0488, -0.0077]
+[Mean] Macro-Step Reward: 0.31606605648994446
+  2%|2         | 201/10000 [06:38<6:15:48,  2.30s/it][INFO] Env 0: Pixel (Full): (112, 99), Depth: 2.0000
+       Cam: [0.0000, 0.1013, -2.0000]
+       World: [-0.5536, -0.0710, -0.0231]
+[Mean] Macro-Step Reward: 0.2828858196735382
+  2%|2         | 202/10000 [06:40<6:11:38,  2.28s/it][INFO] Env 0: Pixel (Full): (131, 83), Depth: 2.0000
+       Cam: [0.1481, 0.2261, -2.0000]
+       World: [-0.5950, 0.0758, 0.0961]
+[Mean] Macro-Step Reward: 0.6657626628875732
+  2%|2         | 203/10000 [06:42<6:05:07,  2.24s/it][INFO] Env 0: Pixel (Full): (123, 88), Depth: 1.6033
+       Cam: [0.0687, 0.1500, -1.6033]
+       World: [-0.1881, 0.0210, 0.1266]
+[Mean] Macro-Step Reward: 1.3902908563613892
+  2%|2         | 204/10000 [06:45<6:00:58,  2.21s/it][INFO] Env 0: Pixel (Full): (114, 135), Depth: 1.1734
+       Cam: [0.0091, -0.1052, -1.1734]
+       World: [0.2962, -0.0106, -0.0073]
+[Mean] Macro-Step Reward: 0.18166309595108032
+  2%|2         | 205/10000 [06:47<5:57:06,  2.19s/it][INFO] Env 0: Pixel (Full): (127, 93), Depth: 2.0000
+       Cam: [0.1169, 0.1481, -2.0000]
+       World: [-0.5728, 0.0453, 0.0211]
+[Mean] Macro-Step Reward: 0.036783598363399506
+  2%|2         | 206/10000 [06:49<5:55:42,  2.18s/it][INFO] Env 0: Pixel (Full): (108, 74), Depth: 2.0000
+       Cam: [-0.0312, 0.2962, -2.0000]
+       World: [-0.6025, -0.1037, 0.1653]
+[Mean] Macro-Step Reward: 0.10074228048324585
+  2%|2         | 207/10000 [06:51<5:48:08,  2.13s/it][INFO] Env 0: Pixel (Full): (130, 85), Depth: 2.0000
+       Cam: [0.1403, 0.2105, -2.0000]
+       World: [-0.5905, 0.0682, 0.0811]
+[Mean] Macro-Step Reward: 0.1315072923898697
+  2%|2         | 208/10000 [06:53<5:52:40,  2.16s/it][INFO] Env 0: Pixel (Full): (124, 128), Depth: 1.2714
+       Cam: [0.0595, -0.0793, -1.2714]
+       World: [0.1920, 0.0336, -0.0082]
+[Mean] Macro-Step Reward: 0.14239200949668884
+  2%|2         | 209/10000 [06:55<5:49:01,  2.14s/it][INFO] Env 0: Pixel (Full): (117, 124), Depth: 1.1803
+       Cam: [0.0230, -0.0552, -1.1803]
+       World: [0.2757, 0.0025, 0.0391]
+[Mean] Macro-Step Reward: 0.264594703912735
+  2%|2         | 210/10000 [06:57<5:46:22,  2.12s/it][INFO] Env 0: Pixel (Full): (118, 107), Depth: 1.1483
+       Cam: [0.0269, 0.0224, -1.1483]
+       World: [0.2861, 0.0076, 0.1223]
+[Mean] Macro-Step Reward: 0.3524661064147949
+  2%|2         | 211/10000 [06:59<5:49:01,  2.14s/it][DEBUG] Random Act: Generated 8 candidates (SKRL will use these if epsilon check passes)
+[INFO] Env 0: Pixel (Full): (132, 86), Depth: 2.0000
+       Cam: [0.1559, 0.2027, -2.0000]
+       World: [-0.5894, 0.0838, 0.0735]
+[Mean] Macro-Step Reward: 0.8116011619567871
+  2%|2         | 212/10000 [07:02<5:51:48,  2.16s/it][INFO] Env 0: Pixel (Full): (102, 87), Depth: 2.0000
+       Cam: [-0.0780, 0.1949, -2.0000]
+       World: [-0.5733, -0.1496, 0.0678]
+[Mean] Macro-Step Reward: 0.29830148816108704
+  2%|2         | 213/10000 [07:04<5:41:47,  2.10s/it][INFO] Env 0: Pixel (Full): (100, 103), Depth: 2.0000
+       Cam: [-0.0935, 0.0702, -2.0000]
+       World: [-0.5399, -0.1642, -0.0525]
+[Mean] Macro-Step Reward: 0.561768651008606
+  2%|2         | 214/10000 [07:06<5:43:34,  2.11s/it][INFO] Env 0: Pixel (Full): (108, 77), Depth: 2.0000
+       Cam: [-0.0312, 0.2729, -2.0000]
+       World: [-0.5964, -0.1035, 0.1427]
+[Mean] Macro-Step Reward: 0.08137147128582001
+  2%|2         | 215/10000 [07:08<5:41:59,  2.10s/it][INFO] Env 0: Pixel (Full): (127, 98), Depth: 2.0000
+       Cam: [0.1169, 0.1091, -2.0000]
+       World: [-0.5627, 0.0456, -0.0165]
+[Mean] Macro-Step Reward: 0.3229806423187256
+  2%|2         | 216/10000 [07:10<5:39:17,  2.08s/it][INFO] Env 0: Pixel (Full): (104, 92), Depth: 2.0000
+       Cam: [-0.0624, 0.1559, -2.0000]
+       World: [-0.5641, -0.1337, 0.0301]
+[Mean] Macro-Step Reward: 0.09731575846672058
+  2%|2         | 217/10000 [07:12<5:38:31,  2.08s/it][INFO] Env 0: Pixel (Full): (112, 80), Depth: 1.6943
+       Cam: [0.0000, 0.2113, -1.6943]
+       World: [-0.2877, -0.0535, 0.1627]
+[Mean] Macro-Step Reward: 0.042994894087314606
+  2%|2         | 218/10000 [07:14<5:35:38,  2.06s/it][INFO] Env 0: Pixel (Full): (118, 86), Depth: 1.6035
+       Cam: [0.0375, 0.1625, -1.6035]
+       World: [-0.1897, -0.0103, 0.1389]
+[Mean] Macro-Step Reward: 0.1166510060429573
+  2%|2         | 219/10000 [07:16<5:31:17,  2.03s/it][INFO] Env 0: Pixel (Full): (100, 86), Depth: 2.0000
+       Cam: [-0.0935, 0.2027, -2.0000]
+       World: [-0.5744, -0.1652, 0.0755]
+[Mean] Macro-Step Reward: 0.19661663472652435
+  2%|2         | 220/10000 [07:18<5:29:09,  2.02s/it][INFO] Env 0: Pixel (Full): (116, 80), Depth: 1.6411
+       Cam: [0.0256, 0.2047, -1.6411]
+       World: [-0.2362, -0.0247, 0.1700]
+[Mean] Macro-Step Reward: 0.20138581097126007
+  2%|2         | 221/10000 [07:20<5:30:05,  2.03s/it][INFO] Env 0: Pixel (Full): (113, 127), Depth: 1.1849
+       Cam: [0.0046, -0.0693, -1.1849]
+       World: [0.2760, -0.0161, 0.0244]
+[Mean] Macro-Step Reward: 0.3044644892215729
+  2%|2         | 222/10000 [07:22<5:32:11,  2.04s/it][INFO] Env 0: Pixel (Full): (112, 114), Depth: 1.7507
+       Cam: [0.0000, -0.0136, -1.7507]
+       World: [-0.2834, -0.0551, -0.0692]
+[Mean] Macro-Step Reward: 0.10022075474262238
+  2%|2         | 223/10000 [07:24<5:27:57,  2.01s/it][INFO] Env 0: Pixel (Full): (124, 136), Depth: 1.1605
+       Cam: [0.0543, -0.1086, -1.1605]
+       World: [0.3067, 0.0353, -0.0075]
+[Mean] Macro-Step Reward: 0.13649718463420868
+  2%|2         | 224/10000 [07:26<5:26:04,  2.00s/it][INFO] Env 0: Pixel (Full): (119, 107), Depth: 1.1588
+       Cam: [0.0316, 0.0226, -1.1588]
+       World: [0.2756, 0.0117, 0.1197]
+[Mean] Macro-Step Reward: 0.3427695035934448
+  2%|2         | 225/10000 [07:28<5:30:31,  2.03s/it][INFO] Env 0: Pixel (Full): (114, 106), Depth: 1.1740
+       Cam: [0.0092, 0.0275, -1.1740]
+       World: [0.2611, -0.0117, 0.1206]
+[Mean] Macro-Step Reward: 0.7323161959648132
+  2%|2         | 226/10000 [07:30<5:37:25,  2.07s/it][INFO] Env 0: Pixel (Full): (111, 100), Depth: 2.0000
+       Cam: [-0.0078, 0.0935, -2.0000]
+       World: [-0.5511, -0.0787, -0.0306]
+[Mean] Macro-Step Reward: 0.13175088167190552
+  2%|2         | 227/10000 [07:32<5:43:11,  2.11s/it][INFO] Env 0: Pixel (Full): (107, 109), Depth: 1.6308
+       Cam: [-0.0318, 0.0191, -1.6308]
+       World: [-0.1745, -0.0799, -0.0061]
+[Mean] Macro-Step Reward: 0.12515409290790558
+  2%|2         | 228/10000 [07:35<5:51:09,  2.16s/it][INFO] Env 0: Pixel (Full): (104, 124), Depth: 1.3353
+       Cam: [-0.0416, -0.0625, -1.3353]
+       World: [0.1321, -0.0713, -0.0078]
+[Mean] Macro-Step Reward: 0.8026186227798462
+  2%|2         | 229/10000 [07:37<5:54:08,  2.17s/it][INFO] Env 0: Pixel (Full): (109, 113), Depth: 1.5422
+       Cam: [-0.0180, -0.0060, -1.5422]
+       World: [-0.0834, -0.0607, -0.0074]
+[Mean] Macro-Step Reward: 0.2463514357805252
+  2%|2         | 230/10000 [07:39<5:56:11,  2.19s/it][INFO] Env 0: Pixel (Full): (116, 92), Depth: 1.3432
+       Cam: [0.0209, 0.1047, -1.3432]
+       World: [0.0772, -0.0107, 0.1511]
+[Mean] Macro-Step Reward: 0.13394668698310852
+  2%|2         | 231/10000 [07:41<5:51:52,  2.16s/it][INFO] Env 0: Pixel (Full): (103, 127), Depth: 1.2869
+       Cam: [-0.0451, -0.0752, -1.2869]
+       World: [0.1823, -0.0718, -0.0075]
+[Mean] Macro-Step Reward: 1.0516681671142578
+  2%|2         | 232/10000 [07:43<5:49:40,  2.15s/it][INFO] Env 0: Pixel (Full): (104, 127), Depth: 1.2869
+       Cam: [-0.0401, -0.0752, -1.2869]
+       World: [0.1820, -0.0668, -0.0075]
+[Mean] Macro-Step Reward: 0.5654183030128479
+  2%|2         | 233/10000 [07:45<5:49:09,  2.14s/it][INFO] Env 0: Pixel (Full): (103, 115), Depth: 1.4985
+       Cam: [-0.0526, -0.0175, -1.4985]
+       World: [-0.0363, -0.0924, -0.0068]
+[Mean] Macro-Step Reward: 0.7854511141777039
+  2%|2         | 234/10000 [07:48<5:50:00,  2.15s/it][INFO] Env 0: Pixel (Full): (112, 107), Depth: 1.6968
+       Cam: [0.0000, 0.0331, -1.6968]
+       World: [-0.2437, -0.0523, -0.0101]
+[Mean] Macro-Step Reward: 0.4054943323135376
+  2%|2         | 235/10000 [07:50<5:43:31,  2.11s/it][INFO] Env 0: Pixel (Full): (117, 74), Depth: 2.0000
+       Cam: [0.0390, 0.2962, -2.0000]
+       World: [-0.6067, -0.0337, 0.1647]
+[Mean] Macro-Step Reward: 0.31521928310394287
+  2%|2         | 236/10000 [07:52<5:44:10,  2.12s/it][INFO] Env 0: Pixel (Full): (125, 137), Depth: 1.1480
+       Cam: [0.0582, -0.1119, -1.1480]
+       World: [0.3194, 0.0400, -0.0075]
+[Mean] Macro-Step Reward: 0.1106179803609848
+  2%|2         | 237/10000 [07:54<5:39:02,  2.08s/it][INFO] Env 0: Pixel (Full): (104, 118), Depth: 1.4376
+       Cam: [-0.0448, -0.0336, -1.4376]
+       World: [0.0262, -0.0809, -0.0066]
+[Mean] Macro-Step Reward: 0.15361662209033966
+  2%|2         | 238/10000 [07:56<5:33:52,  2.05s/it][INFO] Env 0: Pixel (Full): (116, 128), Depth: 1.1854
+       Cam: [0.0185, -0.0739, -1.1854]
+       World: [0.2759, -0.0022, 0.0197]
+[Mean] Macro-Step Reward: 0.3236311078071594
+  2%|2         | 239/10000 [07:58<5:44:49,  2.12s/it][INFO] Env 0: Pixel (Full): (117, 73), Depth: 2.0000
+       Cam: [0.0390, 0.3040, -2.0000]
+       World: [-0.6088, -0.0337, 0.1723]
+[Mean] Macro-Step Reward: 0.24195465445518494
+  2%|2         | 240/10000 [08:00<5:41:48,  2.10s/it][INFO] Env 0: Pixel (Full): (111, 82), Depth: 2.0000
+       Cam: [-0.0078, 0.2339, -2.0000]
+       World: [-0.5877, -0.0799, 0.1049]
+[Mean] Macro-Step Reward: 0.3023112416267395
+  2%|2         | 241/10000 [08:02<5:40:07,  2.09s/it][INFO] Env 0: Pixel (Full): (130, 127), Depth: 1.2867
+       Cam: [0.0903, -0.0752, -1.2867]
+       World: [0.1743, 0.0634, -0.0085]
+[Mean] Macro-Step Reward: 0.17581453919410706
+  2%|2         | 242/10000 [08:04<5:43:29,  2.11s/it][INFO] Env 0: Pixel (Full): (107, 121), Depth: 1.3874
+       Cam: [-0.0270, -0.0487, -1.3874]
+       World: [0.0774, -0.0600, -0.0082]
+[Mean] Macro-Step Reward: 0.1564331203699112
+  2%|2         | 243/10000 [08:06<5:48:37,  2.14s/it][INFO] Env 0: Pixel (Full): (120, 135), Depth: 1.1733
+       Cam: [0.0366, -0.1052, -1.1733]
+       World: [0.2946, 0.0168, -0.0075]
+[Mean] Macro-Step Reward: 0.08824612945318222
+  2%|2         | 244/10000 [08:09<5:47:31,  2.14s/it][INFO] Env 0: Pixel (Full): (103, 114), Depth: 1.5200
+       Cam: [-0.0533, -0.0118, -1.5200]
+       World: [-0.0584, -0.0945, -0.0069]
+[Mean] Macro-Step Reward: 0.30330216884613037
+  2%|2         | 245/10000 [08:11<5:46:39,  2.13s/it][INFO] Env 0: Pixel (Full): (108, 84), Depth: 2.0000
+       Cam: [-0.0312, 0.2183, -2.0000]
+       World: [-0.5822, -0.1031, 0.0900]
+[Mean] Macro-Step Reward: 0.18555304408073425
+  2%|2         | 246/10000 [08:13<5:48:47,  2.15s/it][INFO] Env 0: Pixel (Full): (111, 136), Depth: 1.1606
+       Cam: [-0.0045, -0.1086, -1.1606]
+       World: [0.3102, -0.0234, -0.0071]
+[Mean] Macro-Step Reward: 0.3228725492954254
+  2%|2         | 247/10000 [08:15<5:45:09,  2.12s/it][INFO] Env 0: Pixel (Full): (118, 131), Depth: 1.1884
+       Cam: [0.0278, -0.0880, -1.1884]
+       World: [0.2761, 0.0070, 0.0053]
+[Mean] Macro-Step Reward: 0.15318842232227325
+  2%|2         | 248/10000 [08:17<5:46:27,  2.13s/it][INFO] Env 0: Pixel (Full): (122, 121), Depth: 1.3873
+       Cam: [0.0541, -0.0487, -1.3873]
+       World: [0.0726, 0.0210, -0.0088]
+[Mean] Macro-Step Reward: 0.21715690195560455
+  2%|2         | 249/10000 [08:19<5:50:33,  2.16s/it][INFO] Env 0: Pixel (Full): (129, 117), Depth: 1.1125
+       Cam: [0.0737, -0.0217, -1.1125]
+       World: [0.3292, 0.0569, 0.0887]
+[Mean] Macro-Step Reward: 0.3486081063747406
+  2%|2         | 250/10000 [08:22<5:53:25,  2.17s/it][INFO] Env 0: Pixel (Full): (117, 117), Depth: 1.4572
+       Cam: [0.0284, -0.0284, -1.4572]
+       World: [0.0015, -0.0090, -0.0072]
+[Mean] Macro-Step Reward: 0.41501539945602417
+  3%|2         | 251/10000 [08:24<5:50:35,  2.16s/it][INFO] Env 0: Pixel (Full): (121, 116), Depth: 1.4295
+       Cam: [0.0501, -0.0223, -1.4295]
+       World: [0.0253, 0.0143, 0.0057]
+[Mean] Macro-Step Reward: 0.17423415184020996
+  3%|2         | 252/10000 [08:26<5:51:56,  2.17s/it][INFO] Env 0: Pixel (Full): (131, 129), Depth: 1.2563
+       Cam: [0.0930, -0.0832, -1.2563]
+       World: [0.2055, 0.0680, -0.0084]
+[Mean] Macro-Step Reward: 0.2001384049654007
+  3%|2         | 253/10000 [08:28<5:56:40,  2.20s/it][INFO] Env 0: Pixel (Full): (131, 129), Depth: 1.2563
+       Cam: [0.0930, -0.0832, -1.2563]
+       World: [0.2055, 0.0680, -0.0084]
+[Mean] Macro-Step Reward: 0.4774928092956543
+  3%|2         | 254/10000 [08:30<5:50:44,  2.16s/it][INFO] Env 0: Pixel (Full): (132, 115), Depth: 1.4983
+       Cam: [0.1168, -0.0175, -1.4983]
+       World: [-0.0462, 0.0767, -0.0081]
+[Mean] Macro-Step Reward: 0.7106777429580688
+  3%|2         | 255/10000 [08:32<5:53:29,  2.18s/it][INFO] Env 0: Pixel (Full): (114, 105), Depth: 2.0000
+       Cam: [0.0156, 0.0546, -2.0000]
+       World: [-0.5424, -0.0551, -0.0684]
+[Mean] Macro-Step Reward: 0.9854812622070312
+  3%|2         | 256/10000 [08:35<5:51:55,  2.17s/it][INFO] Env 0: Pixel (Full): (119, 75), Depth: 1.4582
+       Cam: [0.0398, 0.2103, -1.4582]
+       World: [-0.0623, 0.0004, 0.2229]
+[Mean] Macro-Step Reward: 0.32623714208602905
+  3%|2         | 257/10000 [08:37<5:46:08,  2.13s/it][INFO] Env 0: Pixel (Full): (110, 93), Depth: 2.0000
+       Cam: [-0.0156, 0.1481, -2.0000]
+       World: [-0.5649, -0.0870, 0.0222]
+[Mean] Macro-Step Reward: 0.12895876169204712
+  3%|2         | 258/10000 [08:39<5:47:35,  2.14s/it][INFO] Env 0: Pixel (Full): (127, 91), Depth: 2.0000
+       Cam: [0.1169, 0.1637, -2.0000]
+       World: [-0.5769, 0.0452, 0.0362]
+[Mean] Macro-Step Reward: 0.1017710417509079
+  3%|2         | 259/10000 [08:41<5:47:02,  2.14s/it][INFO] Env 0: Pixel (Full): (123, 79), Depth: 2.0000
+       Cam: [0.0858, 0.2573, -2.0000]
+       World: [-0.5994, 0.0133, 0.1267]
+[Mean] Macro-Step Reward: 1.0950630903244019
+  3%|2         | 260/10000 [08:43<5:47:46,  2.14s/it][INFO] Env 0: Pixel (Full): (128, 119), Depth: 1.4181
+       Cam: [0.0884, -0.0387, -1.4181]
+       World: [0.0382, 0.0533, -0.0075]
+[Mean] Macro-Step Reward: 0.33155497908592224
+  3%|2         | 261/10000 [08:45<5:50:11,  2.16s/it][INFO] Env 0: Pixel (Full): (119, 90), Depth: 1.3109
+       Cam: [0.0358, 0.1124, -1.3109]
+       World: [0.1054, 0.0060, 0.1668]
+[Mean] Macro-Step Reward: 0.2221245914697647
+  3%|2         | 262/10000 [08:47<5:50:38,  2.16s/it][INFO] Env 0: Pixel (Full): (116, 70), Depth: 2.0000
+       Cam: [0.0312, 0.3274, -2.0000]
+       World: [-0.6144, -0.0417, 0.1949]
+[Mean] Macro-Step Reward: 0.22181318700313568
+  3%|2         | 263/10000 [08:50<5:49:36,  2.15s/it][INFO] Env 0: Pixel (Full): (100, 79), Depth: 2.0000
+       Cam: [-0.0935, 0.2573, -2.0000]
+       World: [-0.5886, -0.1656, 0.1282]
+[Mean] Macro-Step Reward: 0.31084248423576355
+  3%|2         | 264/10000 [08:52<5:50:29,  2.16s/it][INFO] Env 0: Pixel (Full): (116, 98), Depth: 2.0000
+       Cam: [0.0312, 0.1091, -2.0000]
+       World: [-0.5575, -0.0400, -0.0158]
+[Mean] Macro-Step Reward: 0.30301985144615173
+  3%|2         | 265/10000 [08:54<5:49:06,  2.15s/it][INFO] Env 0: Pixel (Full): (123, 74), Depth: 2.0000
+       Cam: [0.0858, 0.2962, -2.0000]
+       World: [-0.6095, 0.0130, 0.1644]
+[Mean] Macro-Step Reward: 0.33290377259254456
+  3%|2         | 266/10000 [08:56<5:44:43,  2.12s/it][INFO] Env 0: Pixel (Full): (109, 110), Depth: 1.6125
+       Cam: [-0.0189, 0.0126, -1.6125]
+       World: [-0.1559, -0.0658, -0.0077]
+[Mean] Macro-Step Reward: 0.9343383312225342
+  3%|2         | 267/10000 [08:58<5:50:02,  2.16s/it][INFO] Env 0: Pixel (Full): (120, 93), Depth: 1.4638
+       Cam: [0.0456, 0.1084, -1.4638]
+       World: [-0.0415, 0.0067, 0.1230]
+[Mean] Macro-Step Reward: 0.26038941740989685
+  3%|2         | 268/10000 [09:00<5:50:46,  2.16s/it][INFO] Env 0: Pixel (Full): (122, 86), Depth: 1.3290
+       Cam: [0.0518, 0.1347, -1.3290]
+       World: [0.0811, 0.0207, 0.1834]
+[Mean] Macro-Step Reward: 0.0605480894446373
+  3%|2         | 269/10000 [09:02<5:44:43,  2.13s/it][INFO] Env 0: Pixel (Full): (112, 120), Depth: 1.4031
+       Cam: [0.0000, -0.0438, -1.4031]
+       World: [0.0594, -0.0340, -0.0077]
+[Mean] Macro-Step Reward: 1.9444622993469238
+  3%|2         | 270/10000 [09:04<5:44:36,  2.12s/it][INFO] Env 0: Pixel (Full): (104, 102), Depth: 2.0000
+       Cam: [-0.0624, 0.0780, -2.0000]
+       World: [-0.5438, -0.1331, -0.0452]
+[Mean] Macro-Step Reward: 0.5312776565551758
+  3%|2         | 271/10000 [09:07<5:45:39,  2.13s/it][INFO] Env 0: Pixel (Full): (113, 73), Depth: 2.0000
+       Cam: [0.0078, 0.3040, -2.0000]
+       World: [-0.6069, -0.0649, 0.1725]
+[Mean] Macro-Step Reward: 0.10350126028060913
+  3%|2         | 272/10000 [09:09<5:41:46,  2.11s/it][INFO] Env 0: Pixel (Full): (129, 128), Depth: 1.2713
+       Cam: [0.0842, -0.0793, -1.2713]
+       World: [0.1905, 0.0583, -0.0084]
+[Mean] Macro-Step Reward: 0.37691229581832886
+  3%|2         | 273/10000 [09:11<5:43:52,  2.12s/it][INFO] Env 0: Pixel (Full): (117, 112), Depth: 1.4222
+       Cam: [0.0277, 0.0000, -1.4222]
+       World: [0.0279, -0.0078, 0.0293]
+[Mean] Macro-Step Reward: 0.9879543781280518
+  3%|2         | 274/10000 [09:13<5:46:52,  2.14s/it][INFO] Env 0: Pixel (Full): (100, 84), Depth: 2.0000
+       Cam: [-0.0935, 0.2183, -2.0000]
+       World: [-0.5784, -0.1653, 0.0905]
+[Mean] Macro-Step Reward: 1.0124971866607666
+  3%|2         | 275/10000 [09:15<5:47:32,  2.14s/it][INFO] Env 0: Pixel (Full): (103, 71), Depth: 2.0000
+       Cam: [-0.0702, 0.3196, -2.0000]
+       World: [-0.6063, -0.1428, 0.1882]
+[Mean] Macro-Step Reward: 0.28332406282424927
+  3%|2         | 276/10000 [09:17<5:41:34,  2.11s/it][INFO] Env 0: Pixel (Full): (125, 92), Depth: 2.0000
+       Cam: [0.1013, 0.1559, -2.0000]
+       World: [-0.5739, 0.0297, 0.0288]
+[Mean] Macro-Step Reward: 0.2048194259405136
+  3%|2         | 277/10000 [09:19<5:42:07,  2.11s/it][INFO] Env 0: Pixel (Full): (112, 77), Depth: 2.0000
+       Cam: [0.0000, 0.2729, -2.0000]
+       World: [-0.5983, -0.0724, 0.1425]
+[Mean] Macro-Step Reward: 0.11040554940700531
+  3%|2         | 278/10000 [09:21<5:39:26,  2.09s/it][INFO] Env 0: Pixel (Full): (101, 138), Depth: 1.1359
+       Cam: [-0.0487, -0.1151, -1.1359]
+       World: [0.3383, -0.0660, -0.0066]
+[Mean] Macro-Step Reward: 0.4000728130340576
+  3%|2         | 279/10000 [09:23<5:39:38,  2.10s/it][INFO] Env 0: Pixel (Full): (132, 73), Depth: 2.0000
+       Cam: [0.1559, 0.3040, -2.0000]
+       World: [-0.6158, 0.0830, 0.1713]
+[Mean] Macro-Step Reward: 0.14379510283470154
+  3%|2         | 280/10000 [09:26<5:40:44,  2.10s/it][INFO] Env 0: Pixel (Full): (105, 118), Depth: 1.4376
+       Cam: [-0.0392, -0.0336, -1.4376]
+       World: [0.0259, -0.0753, -0.0066]
+[Mean] Macro-Step Reward: 0.11006323993206024
+  3%|2         | 281/10000 [09:28<5:48:45,  2.15s/it][INFO] Env 0: Pixel (Full): (132, 116), Depth: 1.4774
+       Cam: [0.1152, -0.0230, -1.4774]
+       World: [-0.0245, 0.0763, -0.0080]
+[Mean] Macro-Step Reward: 0.7584583759307861
+  3%|2         | 282/10000 [09:30<5:52:13,  2.17s/it][INFO] Env 0: Pixel (Full): (133, 123), Depth: 1.3520
+       Cam: [0.1107, -0.0580, -1.3520]
+       World: [0.1057, 0.0797, -0.0090]
+[Mean] Macro-Step Reward: 0.2412063032388687
+  3%|2         | 283/10000 [09:32<5:55:56,  2.20s/it][INFO] Env 0: Pixel (Full): (105, 112), Depth: 1.5648
+       Cam: [-0.0427, 0.0000, -1.5648]
+       World: [-0.1053, -0.0867, -0.0073]
+[Mean] Macro-Step Reward: 0.13348951935768127
+  3%|2         | 284/10000 [09:35<5:57:45,  2.21s/it][INFO] Env 0: Pixel (Full): (112, 81), Depth: 2.0000
+       Cam: [0.0000, 0.2417, -2.0000]
+       World: [-0.5902, -0.0721, 0.1124]
+[Mean] Macro-Step Reward: 0.1942751705646515
+  3%|2         | 285/10000 [09:37<5:54:53,  2.19s/it][INFO] Env 0: Pixel (Full): (108, 70), Depth: 2.0000
+       Cam: [-0.0312, 0.3274, -2.0000]
+       World: [-0.6106, -0.1040, 0.1954]
+[Mean] Macro-Step Reward: 0.25526100397109985
+  3%|2         | 286/10000 [09:39<5:58:09,  2.21s/it][INFO] Env 0: Pixel (Full): (108, 121), Depth: 1.3874
+       Cam: [-0.0216, -0.0487, -1.3874]
+       World: [0.0771, -0.0546, -0.0082]
+[Mean] Macro-Step Reward: 0.3117672801017761
+  3%|2         | 287/10000 [09:41<6:00:15,  2.23s/it][INFO] Env 0: Pixel (Full): (132, 119), Depth: 1.4181
+       Cam: [0.1106, -0.0387, -1.4181]
+       World: [0.0369, 0.0754, -0.0076]
+[Mean] Macro-Step Reward: 0.20999181270599365
+  3%|2         | 288/10000 [09:43<5:54:56,  2.19s/it][INFO] Env 0: Pixel (Full): (119, 115), Depth: 1.4289
+       Cam: [0.0390, -0.0167, -1.4289]
+       World: [0.0251, 0.0032, 0.0114]
+[Mean] Macro-Step Reward: 0.09843172132968903
+  3%|2         | 289/10000 [09:46<5:52:46,  2.18s/it][INFO] Env 0: Pixel (Full): (103, 100), Depth: 2.0000
+       Cam: [-0.0702, 0.0935, -2.0000]
+       World: [-0.5474, -0.1410, -0.0301]
+[Mean] Macro-Step Reward: 0.01957046613097191
+  3%|2         | 290/10000 [09:48<5:50:07,  2.16s/it][INFO] Env 0: Pixel (Full): (127, 99), Depth: 1.3422
+       Cam: [0.0785, 0.0680, -1.3422]
+       World: [0.0842, 0.0471, 0.1154]
+[Mean] Macro-Step Reward: 0.07631279528141022
+  3%|2         | 291/10000 [09:50<5:45:48,  2.14s/it][INFO] Env 0: Pixel (Full): (128, 82), Depth: 1.2142
+       Cam: [0.0757, 0.1420, -1.2142]
+       World: [0.1885, 0.0515, 0.2202]
+[Mean] Macro-Step Reward: 0.29816147685050964
+  3%|2         | 292/10000 [09:52<5:52:21,  2.18s/it][INFO] Env 0: Pixel (Full): (123, 86), Depth: 2.0000
+       Cam: [0.0858, 0.2027, -2.0000]
+       World: [-0.5852, 0.0138, 0.0740]
+[Mean] Macro-Step Reward: 0.20042338967323303
+  3%|2         | 293/10000 [09:54<5:53:59,  2.19s/it][INFO] Env 0: Pixel (Full): (102, 130), Depth: 1.2419
+       Cam: [-0.0484, -0.0871, -1.2419]
+       World: [0.2289, -0.0723, -0.0072]
+[Mean] Macro-Step Reward: 0.10512343049049377
+  3%|2         | 294/10000 [09:56<5:51:50,  2.18s/it][INFO] Env 0: Pixel (Full): (109, 84), Depth: 2.0000
+       Cam: [-0.0234, 0.2183, -2.0000]
+       World: [-0.5827, -0.0953, 0.0900]
+[Mean] Macro-Step Reward: 0.25336137413978577
+  3%|2         | 295/10000 [09:59<5:54:16,  2.19s/it][INFO] Env 0: Pixel (Full): (116, 79), Depth: 2.0000
+       Cam: [0.0312, 0.2573, -2.0000]
+       World: [-0.5961, -0.0411, 0.1272]
+[Mean] Macro-Step Reward: 0.25692954659461975
+  3%|2         | 296/10000 [10:01<5:56:06,  2.20s/it][INFO] Env 0: Pixel (Full): (121, 89), Depth: 1.4494
+       Cam: [0.0508, 0.1299, -1.4494]
+       World: [-0.0335, 0.0126, 0.1475]
+[Mean] Macro-Step Reward: 0.3229089677333832
+  3%|2         | 297/10000 [10:03<5:50:41,  2.17s/it][INFO] Env 0: Pixel (Full): (130, 100), Depth: 2.0000
+       Cam: [0.1403, 0.0935, -2.0000]
+       World: [-0.5600, 0.0691, -0.0318]
+[Mean] Macro-Step Reward: 0.15897239744663239
+  3%|2         | 298/10000 [10:05<5:42:36,  2.12s/it][INFO] Env 0: Pixel (Full): (114, 90), Depth: 2.0000
+       Cam: [0.0156, 0.1715, -2.0000]
+       World: [-0.5728, -0.0560, 0.0445]
+[Mean] Macro-Step Reward: 0.2430148720741272
+  3%|2         | 299/10000 [10:07<5:41:09,  2.11s/it][INFO] Env 0: Pixel (Full): (118, 81), Depth: 1.7156
+       Cam: [0.0401, 0.2073, -1.7156]
+       World: [-0.3095, -0.0147, 0.1529]
+[Mean] Macro-Step Reward: 0.13904690742492676
+  3%|3         | 300/10000 [10:09<5:38:02,  2.09s/it][INFO] Env 0: Pixel (Full): (106, 108), Depth: 1.6703
+       Cam: [-0.0391, 0.0260, -1.6703]
+       World: [-0.2139, -0.0896, -0.0096]
+[Mean] Macro-Step Reward: 0.1905168741941452
+  3%|3         | 301/10000 [10:11<5:28:36,  2.03s/it][INFO] Env 0: Pixel (Full): (123, 116), Depth: 1.4775
+       Cam: [0.0633, -0.0230, -1.4775]
+       World: [-0.0215, 0.0246, -0.0076]
+[Mean] Macro-Step Reward: 0.16788049042224884
+  3%|3         | 302/10000 [10:13<5:28:35,  2.03s/it][INFO] Env 0: Pixel (Full): (113, 124), Depth: 1.1815
+       Cam: [0.0046, -0.0553, -1.1815]
+       World: [0.2756, -0.0160, 0.0389]
+[Mean] Macro-Step Reward: 0.3911561369895935
+  3%|3         | 303/10000 [10:15<5:33:53,  2.07s/it][INFO] Env 0: Pixel (Full): (123, 99), Depth: 1.1544
+       Cam: [0.0495, 0.0585, -1.1544]
+       World: [0.2694, 0.0295, 0.1554]
+[Mean] Macro-Step Reward: 0.6368343830108643
+  3%|3         | 304/10000 [10:17<5:34:42,  2.07s/it][INFO] Env 0: Pixel (Full): (131, 89), Depth: 2.0000
+       Cam: [0.1481, 0.1793, -2.0000]
+       World: [-0.5828, 0.0762, 0.0510]
+[Mean] Macro-Step Reward: 0.2718784511089325
+  3%|3         | 305/10000 [10:19<5:33:52,  2.07s/it][INFO] Env 0: Pixel (Full): (117, 111), Depth: 1.4222
+       Cam: [0.0277, 0.0055, -1.4222]
+       World: [0.0264, -0.0079, 0.0347]
+[Mean] Macro-Step Reward: 0.14258581399917603
+  3%|3         | 306/10000 [10:21<5:30:55,  2.05s/it][INFO] Env 0: Pixel (Full): (105, 89), Depth: 2.0000
+       Cam: [-0.0546, 0.1793, -2.0000]
+       World: [-0.5706, -0.1261, 0.0526]
+[Mean] Macro-Step Reward: 0.11400942504405975
+  3%|3         | 307/10000 [10:23<5:23:35,  2.00s/it][INFO] Env 0: Pixel (Full): (124, 75), Depth: 2.0000
+       Cam: [0.0935, 0.2884, -2.0000]
+       World: [-0.6080, 0.0209, 0.1568]
+[Mean] Macro-Step Reward: 0.18852002918720245
+  3%|3         | 308/10000 [10:25<5:26:27,  2.02s/it][INFO] Env 0: Pixel (Full): (112, 134), Depth: 1.1865
+       Cam: [0.0000, -0.1017, -1.1865]
+       World: [0.2832, -0.0205, -0.0073]
+[Mean] Macro-Step Reward: 0.32120299339294434
+  3%|3         | 309/10000 [10:27<5:29:44,  2.04s/it][INFO] Env 0: Pixel (Full): (118, 106), Depth: 1.1488
+       Cam: [0.0269, 0.0269, -1.1488]
+       World: [0.2844, 0.0075, 0.1265]
+[Mean] Macro-Step Reward: 0.44790345430374146
+  3%|3         | 310/10000 [10:29<5:31:12,  2.05s/it][INFO] Env 0: Pixel (Full): (115, 72), Depth: 2.0000
+       Cam: [0.0234, 0.3118, -2.0000]
+       World: [-0.6098, -0.0494, 0.1799]
+[Mean] Macro-Step Reward: 0.16184303164482117
+  3%|3         | 311/10000 [10:31<5:31:06,  2.05s/it][INFO] Env 0: Pixel (Full): (118, 97), Depth: 1.4481
+       Cam: [0.0339, 0.0847, -1.4481]
+       World: [-0.0195, -0.0039, 0.1043]
+[Mean] Macro-Step Reward: 0.20987354218959808
+  3%|3         | 312/10000 [10:34<5:37:25,  2.09s/it][INFO] Env 0: Pixel (Full): (128, 82), Depth: 2.0000
+       Cam: [0.1247, 0.2339, -2.0000]
+       World: [-0.5956, 0.0524, 0.1038]
+[Mean] Macro-Step Reward: 0.21087713539600372
+  3%|3         | 313/10000 [10:36<5:44:23,  2.13s/it][INFO] Env 0: Pixel (Full): (130, 91), Depth: 2.0000
+       Cam: [0.1403, 0.1637, -2.0000]
+       World: [-0.5783, 0.0685, 0.0360]
+[Mean] Macro-Step Reward: 0.7406034469604492
+  3%|3         | 314/10000 [10:38<5:56:01,  2.21s/it][INFO] Env 0: Pixel (Full): (110, 101), Depth: 2.0000
+       Cam: [-0.0156, 0.0858, -2.0000]
+       World: [-0.5486, -0.0865, -0.0380]
+[Mean] Macro-Step Reward: 0.37800318002700806
+  3%|3         | 315/10000 [10:41<6:04:41,  2.26s/it][INFO] Env 0: Pixel (Full): (117, 74), Depth: 2.0000
+       Cam: [0.0390, 0.2962, -2.0000]
+       World: [-0.6067, -0.0337, 0.1647]
+[Mean] Macro-Step Reward: 0.19384226202964783
+  3%|3         | 316/10000 [10:43<6:05:07,  2.26s/it][INFO] Env 0: Pixel (Full): (128, 100), Depth: 2.0000
+       Cam: [0.1247, 0.0935, -2.0000]
+       World: [-0.5591, 0.0535, -0.0316]
+[Mean] Macro-Step Reward: 0.19417551159858704
+  3%|3         | 317/10000 [10:45<6:02:40,  2.25s/it][INFO] Env 0: Pixel (Full): (115, 132), Depth: 1.1907
+       Cam: [0.0139, -0.0928, -1.1907]
+       World: [0.2760, -0.0069, 0.0001]
+[Mean] Macro-Step Reward: 0.24573789536952972
+  3%|3         | 318/10000 [10:47<6:03:47,  2.25s/it][INFO] Env 0: Pixel (Full): (111, 124), Depth: 1.1452
+       Cam: [-0.0045, -0.0536, -1.1452]
+       World: [0.3107, -0.0229, 0.0500]
+[Mean] Macro-Step Reward: 0.3385313153266907
+  3%|3         | 319/10000 [10:50<6:00:46,  2.24s/it][INFO] Env 0: Pixel (Full): (105, 84), Depth: 2.0000
+       Cam: [-0.0546, 0.2183, -2.0000]
+       World: [-0.5808, -0.1264, 0.0902]
+[Mean] Macro-Step Reward: 0.6709861755371094
+  3%|3         | 320/10000 [10:52<5:59:52,  2.23s/it][INFO] Env 0: Pixel (Full): (120, 132), Depth: 1.1890
+       Cam: [0.0371, -0.0927, -1.1890]
+       World: [0.2762, 0.0163, 0.0005]
+[Mean] Macro-Step Reward: 0.3201925754547119
+  3%|3         | 321/10000 [10:54<5:57:13,  2.21s/it][INFO] Env 0: Pixel (Full): (125, 107), Depth: 1.1952
+       Cam: [0.0606, 0.0233, -1.1952]
+       World: [0.2386, 0.0384, 0.1107]
+[Mean] Macro-Step Reward: 0.5418995022773743
+  3%|3         | 322/10000 [10:56<5:53:02,  2.19s/it][INFO] Env 0: Pixel (Full): (118, 117), Depth: 1.4322
+       Cam: [0.0335, -0.0279, -1.4322]
+       World: [0.0252, -0.0024, -0.0003]
+[Mean] Macro-Step Reward: 0.24528323113918304
+  3%|3         | 323/10000 [10:58<5:43:23,  2.13s/it][INFO] Env 0: Pixel (Full): (117, 135), Depth: 1.1734
+       Cam: [0.0229, -0.1052, -1.1734]
+       World: [0.2954, 0.0031, -0.0074]
+[Mean] Macro-Step Reward: 0.43734562397003174
+  3%|3         | 324/10000 [11:00<5:45:28,  2.14s/it][INFO] Env 0: Pixel (Full): (124, 118), Depth: 1.1909
+       Cam: [0.0557, -0.0279, -1.1909]
+       World: [0.2563, 0.0342, 0.0625]
+[Mean] Macro-Step Reward: 0.6469401717185974
+  3%|3         | 325/10000 [11:02<5:44:34,  2.14s/it][INFO] Env 0: Pixel (Full): (107, 96), Depth: 2.0000
+       Cam: [-0.0390, 0.1247, -2.0000]
+       World: [-0.5574, -0.1101, -0.0002]
+[Mean] Macro-Step Reward: 1.3027064800262451
+  3%|3         | 326/10000 [11:04<5:42:45,  2.13s/it][INFO] Env 0: Pixel (Full): (101, 100), Depth: 2.0000
+       Cam: [-0.0858, 0.0935, -2.0000]
+       World: [-0.5464, -0.1566, -0.0300]
+[Mean] Macro-Step Reward: 0.7725932002067566
+  3%|3         | 327/10000 [11:07<5:45:23,  2.14s/it][INFO] Env 0: Pixel (Full): (132, 117), Depth: 1.4571
+       Cam: [0.1136, -0.0284, -1.4571]
+       World: [-0.0035, 0.0760, -0.0079]
+[Mean] Macro-Step Reward: 0.15620474517345428
+  3%|3         | 328/10000 [11:09<5:41:25,  2.12s/it][INFO] Env 0: Pixel (Full): (103, 74), Depth: 2.0000
+       Cam: [-0.0702, 0.2962, -2.0000]
+       World: [-0.6002, -0.1426, 0.1656]
+[Mean] Macro-Step Reward: 0.4561159014701843
+  3%|3         | 329/10000 [11:11<5:40:17,  2.11s/it][INFO] Env 0: Pixel (Full): (113, 80), Depth: 2.0000
+       Cam: [0.0078, 0.2495, -2.0000]
+       World: [-0.5927, -0.0644, 0.1198]
+[Mean] Macro-Step Reward: 0.17261117696762085
+  3%|3         | 330/10000 [11:13<5:38:55,  2.10s/it][INFO] Env 0: Pixel (Full): (122, 137), Depth: 1.1480
+       Cam: [0.0447, -0.1119, -1.1480]
+       World: [0.3202, 0.0265, -0.0074]
+[Mean] Macro-Step Reward: 0.21066853404045105
+  3%|3         | 331/10000 [11:15<5:39:31,  2.11s/it][INFO] Env 0: Pixel (Full): (101, 134), Depth: 1.1865
+       Cam: [-0.0509, -0.1017, -1.1865]
+       World: [0.2862, -0.0713, -0.0069]
+[Mean] Macro-Step Reward: 0.36008012294769287
+  3%|3         | 332/10000 [11:17<5:36:08,  2.09s/it][INFO] Env 0: Pixel (Full): (118, 77), Depth: 2.0000
+       Cam: [0.0468, 0.2729, -2.0000]
+       World: [-0.6011, -0.0257, 0.1421]
+[Mean] Macro-Step Reward: 0.38319796323776245
+  3%|3         | 333/10000 [11:19<5:38:49,  2.10s/it][INFO] Env 0: Pixel (Full): (111, 114), Depth: 1.3495
+       Cam: [-0.0053, -0.0105, -1.3495]
+       World: [0.1027, -0.0363, 0.0384]
+[Mean] Macro-Step Reward: 0.3292938470840454
+  3%|3         | 334/10000 [11:21<5:38:29,  2.10s/it][INFO] Env 0: Pixel (Full): (121, 108), Depth: 1.4148
+       Cam: [0.0496, 0.0221, -1.4148]
+       World: [0.0279, 0.0143, 0.0524]
+[Mean] Macro-Step Reward: 0.19626614451408386
+  3%|3         | 335/10000 [11:23<5:34:09,  2.07s/it][INFO] Env 0: Pixel (Full): (127, 97), Depth: 1.3337
+       Cam: [0.0780, 0.0780, -1.3337]
+       World: [0.0899, 0.0470, 0.1273]
+[Mean] Macro-Step Reward: 0.14739710092544556
+  3%|3         | 336/10000 [11:25<5:39:26,  2.11s/it][INFO] Env 0: Pixel (Full): (107, 106), Depth: 1.7244
+       Cam: [-0.0336, 0.0403, -1.7244]
+       World: [-0.2701, -0.0875, -0.0100]
+[Mean] Macro-Step Reward: 0.3376423120498657
+  3%|3         | 337/10000 [11:28<5:41:19,  2.12s/it][INFO] Env 0: Pixel (Full): (112, 136), Depth: 1.1606
+       Cam: [0.0000, -0.1086, -1.1606]
+       World: [0.3099, -0.0189, -0.0071]
+[Mean] Macro-Step Reward: 0.4560742974281311
+  3%|3         | 338/10000 [11:30<5:40:39,  2.12s/it][INFO] Env 0: Pixel (Full): (104, 74), Depth: 2.0000
+       Cam: [-0.0624, 0.2962, -2.0000]
+       World: [-0.6006, -0.1348, 0.1655]
+[Mean] Macro-Step Reward: 0.26928266882896423
+  3%|3         | 339/10000 [11:32<5:42:41,  2.13s/it][INFO] Env 0: Pixel (Full): (133, 79), Depth: 2.0000
+       Cam: [0.1637, 0.2573, -2.0000]
+       World: [-0.6041, 0.0911, 0.1261]
+[Mean] Macro-Step Reward: 0.14803335070610046
+  3%|3         | 340/10000 [11:34<5:38:18,  2.10s/it][INFO] Env 0: Pixel (Full): (131, 82), Depth: 2.0000
+       Cam: [0.1481, 0.2339, -2.0000]
+       World: [-0.5970, 0.0758, 0.1037]
+[Mean] Macro-Step Reward: 0.20976243913173676
+  3%|3         | 341/10000 [11:36<5:34:27,  2.08s/it][INFO] Env 0: Pixel (Full): (104, 129), Depth: 1.2565
+       Cam: [-0.0392, -0.0833, -1.2565]
+       World: [0.2133, -0.0640, -0.0074]
+[Mean] Macro-Step Reward: 0.3573533296585083
+  3%|3         | 342/10000 [11:38<5:39:07,  2.11s/it][INFO] Env 0: Pixel (Full): (105, 96), Depth: 2.0000
+       Cam: [-0.0546, 0.1247, -2.0000]
+       World: [-0.5564, -0.1257, -0.0001]
+[Mean] Macro-Step Reward: 0.2638206481933594
+  3%|3         | 343/10000 [11:40<5:44:36,  2.14s/it][INFO] Env 0: Pixel (Full): (121, 119), Depth: 1.4182
+       Cam: [0.0498, -0.0387, -1.4182]
+       World: [0.0405, 0.0147, -0.0072]
+[Mean] Macro-Step Reward: 0.39370197057724
+  3%|3         | 344/10000 [11:43<5:50:05,  2.18s/it][INFO] Env 0: Pixel (Full): (100, 90), Depth: 2.0000
+       Cam: [-0.0935, 0.1715, -2.0000]
+       World: [-0.5663, -0.1650, 0.0454]
+[Mean] Macro-Step Reward: 0.2933579683303833
+  3%|3         | 345/10000 [11:45<5:55:08,  2.21s/it][INFO] Env 0: Pixel (Full): (131, 136), Depth: 1.1605
+       Cam: [0.0859, -0.1086, -1.1605]
+       World: [0.3049, 0.0669, -0.0078]
+[Mean] Macro-Step Reward: 0.29181969165802
+  3%|3         | 346/10000 [11:47<5:48:24,  2.17s/it][INFO] Env 0: Pixel (Full): (127, 80), Depth: 2.0000
+       Cam: [0.1169, 0.2495, -2.0000]
+       World: [-0.5992, 0.0445, 0.1190]
+[Mean] Macro-Step Reward: 0.09806060045957565
+  3%|3         | 347/10000 [11:49<5:36:45,  2.09s/it][INFO] Env 0: Pixel (Full): (119, 137), Depth: 1.1481
+       Cam: [0.0313, -0.1119, -1.1481]
+       World: [0.3210, 0.0131, -0.0073]
+[Mean] Macro-Step Reward: 0.20606602728366852
+  3%|3         | 348/10000 [11:51<5:28:51,  2.04s/it][INFO] Env 0: Pixel (Full): (126, 95), Depth: 2.0000
+       Cam: [0.1091, 0.1325, -2.0000]
+       World: [-0.5683, 0.0377, 0.0061]
+[Mean] Macro-Step Reward: 0.4668227434158325
+  3%|3         | 349/10000 [11:53<5:37:18,  2.10s/it][INFO] Env 0: Pixel (Full): (107, 126), Depth: 1.1011
+       Cam: [-0.0215, -0.0601, -1.1011]
+       World: [0.3559, -0.0371, 0.0553]
+[Mean] Macro-Step Reward: 1.3319779634475708
+  4%|3         | 350/10000 [11:55<5:37:08,  2.10s/it][INFO] Env 0: Pixel (Full): (132, 113), Depth: 1.5421
+       Cam: [0.1202, -0.0060, -1.5421]
+       World: [-0.0917, 0.0773, -0.0084]
+[Mean] Macro-Step Reward: 0.3261318504810333
+  4%|3         | 351/10000 [11:57<5:40:32,  2.12s/it][INFO] Env 0: Pixel (Full): (101, 94), Depth: 2.0000
+       Cam: [-0.0858, 0.1403, -2.0000]
+       World: [-0.5586, -0.1569, 0.0152]
+[Mean] Macro-Step Reward: 0.23693159222602844
+  4%|3         | 352/10000 [11:59<5:45:15,  2.15s/it][INFO] Env 0: Pixel (Full): (101, 89), Depth: 2.0000
+       Cam: [-0.0858, 0.1793, -2.0000]
+       World: [-0.5688, -0.1572, 0.0528]
+[Mean] Macro-Step Reward: 0.13508866727352142
+  4%|3         | 353/10000 [12:02<5:46:02,  2.15s/it][INFO] Env 0: Pixel (Full): (109, 122), Depth: 1.3696
+       Cam: [-0.0160, -0.0534, -1.3696]
+       World: [0.0952, -0.0479, -0.0082]
+[Mean] Macro-Step Reward: 0.47697269916534424
+  4%|3         | 354/10000 [12:04<5:40:22,  2.12s/it][INFO] Env 0: Pixel (Full): (129, 134), Depth: 1.1864
+       Cam: [0.0786, -0.1017, -1.1864]
+       World: [0.2786, 0.0580, -0.0079]
+[Mean] Macro-Step Reward: 0.21364040672779083
+  4%|3         | 355/10000 [12:06<5:43:41,  2.14s/it][INFO] Env 0: Pixel (Full): (103, 83), Depth: 2.0000
+       Cam: [-0.0702, 0.2261, -2.0000]
+       World: [-0.5819, -0.1421, 0.0979]
+[Mean] Macro-Step Reward: 0.2742327153682709
+  4%|3         | 356/10000 [12:08<5:39:44,  2.11s/it][INFO] Env 0: Pixel (Full): (122, 83), Depth: 1.4502
+       Cam: [0.0565, 0.1639, -1.4502]
+       World: [-0.0435, 0.0179, 0.1801]
+[Mean] Macro-Step Reward: 0.24080590903759003
+  4%|3         | 357/10000 [12:10<5:35:20,  2.09s/it][INFO] Env 0: Pixel (Full): (117, 132), Depth: 1.1900
+       Cam: [0.0232, -0.0928, -1.1900]
+       World: [0.2761, 0.0024, 0.0003]
+[Mean] Macro-Step Reward: 0.23641449213027954
+  4%|3         | 358/10000 [12:12<5:42:01,  2.13s/it][INFO] Env 0: Pixel (Full): (116, 81), Depth: 2.0000
+       Cam: [0.0312, 0.2417, -2.0000]
+       World: [-0.5920, -0.0410, 0.1121]
+[Mean] Macro-Step Reward: 0.1988322138786316
+  4%|3         | 359/10000 [12:14<5:40:46,  2.12s/it][INFO] Env 0: Pixel (Full): (111, 91), Depth: 2.0000
+       Cam: [-0.0078, 0.1637, -2.0000]
+       World: [-0.5694, -0.0793, 0.0372]
+[Mean] Macro-Step Reward: 0.814985454082489
+  4%|3         | 360/10000 [12:16<5:34:55,  2.08s/it][INFO] Env 0: Pixel (Full): (113, 85), Depth: 2.0000
+       Cam: [0.0078, 0.2105, -2.0000]
+       World: [-0.5825, -0.0641, 0.0822]
+[Mean] Macro-Step Reward: 0.3225792944431305
+  4%|3         | 361/10000 [12:18<5:38:33,  2.11s/it][INFO] Env 0: Pixel (Full): (110, 106), Depth: 1.7243
+       Cam: [-0.0134, 0.0403, -1.7243]
+       World: [-0.2713, -0.0674, -0.0101]
+[Mean] Macro-Step Reward: 0.2764100134372711
+  4%|3         | 362/10000 [12:21<5:39:15,  2.11s/it][INFO] Env 0: Pixel (Full): (129, 86), Depth: 1.7013
+       Cam: [0.1127, 0.1724, -1.7013]
+       World: [-0.2911, 0.0589, 0.1224]
+[Mean] Macro-Step Reward: 0.31104791164398193
+  4%|3         | 363/10000 [12:23<5:36:37,  2.10s/it][INFO] Env 0: Pixel (Full): (116, 117), Depth: 1.4572
+       Cam: [0.0227, -0.0284, -1.4572]
+       World: [0.0018, -0.0147, -0.0072]
+[Mean] Macro-Step Reward: 0.28290462493896484
+  4%|3         | 364/10000 [12:25<5:36:02,  2.09s/it][INFO] Env 0: Pixel (Full): (102, 92), Depth: 2.0000
+       Cam: [-0.0780, 0.1559, -2.0000]
+       World: [-0.5631, -0.1493, 0.0302]
+[Mean] Macro-Step Reward: 0.42951467633247375
+  4%|3         | 365/10000 [12:27<5:37:21,  2.10s/it][INFO] Env 0: Pixel (Full): (129, 106), Depth: 1.7241
+       Cam: [0.1142, 0.0403, -1.7241]
+       World: [-0.2787, 0.0601, -0.0111]
+[Mean] Macro-Step Reward: 0.3704177141189575
+  4%|3         | 366/10000 [12:29<5:31:27,  2.06s/it][INFO] Env 0: Pixel (Full): (113, 97), Depth: 2.0000
+       Cam: [0.0078, 0.1169, -2.0000]
+       World: [-0.5581, -0.0634, -0.0081]
+[Mean] Macro-Step Reward: 0.946404755115509
+  4%|3         | 367/10000 [12:31<5:30:21,  2.06s/it][INFO] Env 0: Pixel (Full): (100, 74), Depth: 2.0000
+       Cam: [-0.0935, 0.2962, -2.0000]
+       World: [-0.5988, -0.1660, 0.1658]
+[Mean] Macro-Step Reward: 0.15817558765411377
+  4%|3         | 368/10000 [12:33<5:25:10,  2.03s/it][INFO] Env 0: Pixel (Full): (101, 108), Depth: 1.6703
+       Cam: [-0.0716, 0.0260, -1.6703]
+       World: [-0.2120, -0.1221, -0.0094]
+[Mean] Macro-Step Reward: 0.11303316056728363
+  4%|3         | 369/10000 [12:35<5:18:45,  1.99s/it][INFO] Env 0: Pixel (Full): (111, 103), Depth: 2.0000
+       Cam: [-0.0078, 0.0702, -2.0000]
+       World: [-0.5450, -0.0786, -0.0532]
+[Mean] Macro-Step Reward: 0.12456836551427841
+  4%|3         | 370/10000 [12:37<5:12:43,  1.95s/it][INFO] Env 0: Pixel (Full): (108, 82), Depth: 2.0000
+       Cam: [-0.0312, 0.2339, -2.0000]
+       World: [-0.5863, -0.1032, 0.1051]
+[Mean] Macro-Step Reward: 0.23654614388942719
+  4%|3         | 371/10000 [12:39<5:19:22,  1.99s/it][INFO] Env 0: Pixel (Full): (115, 129), Depth: 1.1870
+       Cam: [0.0139, -0.0787, -1.1870]
+       World: [0.2759, -0.0069, 0.0148]
+[Mean] Macro-Step Reward: 0.14397838711738586
+  4%|3         | 372/10000 [12:41<5:20:02,  1.99s/it][INFO] Env 0: Pixel (Full): (124, 78), Depth: 2.0000
+       Cam: [0.0935, 0.2651, -2.0000]
+       World: [-0.6019, 0.0210, 0.1342]
+[Mean] Macro-Step Reward: 0.11740554869174957
+  4%|3         | 373/10000 [12:43<5:21:32,  2.00s/it][INFO] Env 0: Pixel (Full): (107, 121), Depth: 1.3874
+       Cam: [-0.0270, -0.0487, -1.3874]
+       World: [0.0774, -0.0600, -0.0082]
+[Mean] Macro-Step Reward: 0.06566167622804642
+  4%|3         | 374/10000 [12:45<5:18:44,  1.99s/it][INFO] Env 0: Pixel (Full): (115, 91), Depth: 1.3196
+       Cam: [0.0154, 0.1080, -1.3196]
+       World: [0.0994, -0.0148, 0.1604]
+[Mean] Macro-Step Reward: 0.02359921485185623
+  4%|3         | 375/10000 [12:47<5:16:59,  1.98s/it][INFO] Env 0: Pixel (Full): (108, 111), Depth: 1.5886
+       Cam: [-0.0248, 0.0062, -1.5886]
+       World: [-0.1309, -0.0703, -0.0076]
+[Mean] Macro-Step Reward: 0.1127931997179985
+  4%|3         | 376/10000 [12:48<5:14:50,  1.96s/it][INFO] Env 0: Pixel (Full): (131, 88), Depth: 2.0000
+       Cam: [0.1481, 0.1871, -2.0000]
+       World: [-0.5849, 0.0761, 0.0585]
+[Mean] Macro-Step Reward: 0.13865947723388672
+  4%|3         | 377/10000 [12:50<5:14:33,  1.96s/it][INFO] Env 0: Pixel (Full): (117, 138), Depth: 1.1358
+       Cam: [0.0221, -0.1151, -1.1358]
+       World: [0.3342, 0.0047, -0.0072]
+[Mean] Macro-Step Reward: 0.012887703254818916
+  4%|3         | 378/10000 [12:52<5:13:04,  1.95s/it][INFO] Env 0: Pixel (Full): (119, 87), Depth: 1.6033
+       Cam: [0.0437, 0.1562, -1.6033]
+       World: [-0.1883, -0.0040, 0.1329]
+[Mean] Macro-Step Reward: 0.14105020463466644
+  4%|3         | 379/10000 [12:54<5:06:44,  1.91s/it][INFO] Env 0: Pixel (Full): (116, 91), Depth: 2.0000
+       Cam: [0.0312, 0.1637, -2.0000]
+       World: [-0.5717, -0.0404, 0.0368]
+[Mean] Macro-Step Reward: 0.09641450643539429
+  4%|3         | 380/10000 [12:56<5:09:38,  1.93s/it][INFO] Env 0: Pixel (Full): (126, 110), Depth: 1.6122
+       Cam: [0.0880, 0.0126, -1.6122]
+       World: [-0.1621, 0.0408, -0.0085]
+[Mean] Macro-Step Reward: 0.18809618055820465
+  4%|3         | 381/10000 [12:58<5:20:56,  2.00s/it][INFO] Env 0: Pixel (Full): (121, 138), Depth: 1.1358
+       Cam: [0.0398, -0.1151, -1.1358]
+       World: [0.3331, 0.0224, -0.0073]
+[Mean] Macro-Step Reward: 0.3194946050643921
+  4%|3         | 382/10000 [13:00<5:15:59,  1.97s/it][INFO] Env 0: Pixel (Full): (113, 87), Depth: 2.0000
+       Cam: [0.0078, 0.1949, -2.0000]
+       World: [-0.5784, -0.0640, 0.0671]
+[Mean] Macro-Step Reward: 0.17069585621356964
+  4%|3         | 383/10000 [13:02<5:23:56,  2.02s/it][DEBUG] Random Act: Generated 8 candidates (SKRL will use these if epsilon check passes)
+[INFO] Env 0: Pixel (Full): (103, 91), Depth: 2.0000
+       Cam: [-0.0702, 0.1637, -2.0000]
+       World: [-0.5656, -0.1416, 0.0377]
+[Mean] Macro-Step Reward: 0.27161598205566406
+  4%|3         | 384/10000 [13:05<5:32:47,  2.08s/it][INFO] Env 0: Pixel (Full): (133, 123), Depth: 1.3520
+       Cam: [0.1107, -0.0580, -1.3520]
+       World: [0.1057, 0.0797, -0.0090]
+[Mean] Macro-Step Reward: 0.4095904231071472
+  4%|3         | 385/10000 [13:07<5:25:32,  2.03s/it][INFO] Env 0: Pixel (Full): (128, 132), Depth: 1.2134
+       Cam: [0.0757, -0.0946, -1.2134]
+       World: [0.2509, 0.0534, -0.0080]
+[Mean] Macro-Step Reward: 0.8100379705429077
+  4%|3         | 386/10000 [13:09<5:26:44,  2.04s/it][INFO] Env 0: Pixel (Full): (115, 102), Depth: 1.1649
+       Cam: [0.0136, 0.0454, -1.1649]
+       World: [0.2648, -0.0068, 0.1403]
+[Mean] Macro-Step Reward: 0.5789322853088379
+  4%|3         | 387/10000 [13:11<5:26:32,  2.04s/it][INFO] Env 0: Pixel (Full): (107, 95), Depth: 2.0000
+       Cam: [-0.0390, 0.1325, -2.0000]
+       World: [-0.5594, -0.1102, 0.0073]
+[Mean] Macro-Step Reward: 0.30142056941986084
+  4%|3         | 388/10000 [13:13<5:21:42,  2.01s/it][INFO] Env 0: Pixel (Full): (127, 131), Depth: 1.2274
+       Cam: [0.0718, -0.0909, -1.2274]
+       World: [0.2366, 0.0486, -0.0080]
+[Mean] Macro-Step Reward: 0.1617143303155899
+  4%|3         | 389/10000 [13:15<5:25:12,  2.03s/it][INFO] Env 0: Pixel (Full): (105, 128), Depth: 1.2715
+       Cam: [-0.0347, -0.0793, -1.2715]
+       World: [0.1975, -0.0604, -0.0075]
+[Mean] Macro-Step Reward: 0.07950679212808609
+  4%|3         | 390/10000 [13:17<5:20:51,  2.00s/it][INFO] Env 0: Pixel (Full): (126, 91), Depth: 2.0000
+       Cam: [0.1091, 0.1637, -2.0000]
+       World: [-0.5764, 0.0374, 0.0362]
+[Mean] Macro-Step Reward: 0.23247821629047394
+  4%|3         | 391/10000 [13:19<5:20:46,  2.00s/it][INFO] Env 0: Pixel (Full): (103, 119), Depth: 1.4246
+       Cam: [-0.0500, -0.0389, -1.4246]
+       World: [0.0404, -0.0852, -0.0082]
+[Mean] Macro-Step Reward: 0.791789174079895
+  4%|3         | 392/10000 [13:21<5:22:31,  2.01s/it][INFO] Env 0: Pixel (Full): (127, 84), Depth: 2.0000
+       Cam: [0.1169, 0.2183, -2.0000]
+       World: [-0.5911, 0.0448, 0.0888]
+[Mean] Macro-Step Reward: 0.46835291385650635
+  4%|3         | 393/10000 [13:23<5:19:30,  2.00s/it][INFO] Env 0: Pixel (Full): (133, 119), Depth: 1.4181
+       Cam: [0.1161, -0.0387, -1.4181]
+       World: [0.0366, 0.0809, -0.0077]
+[Mean] Macro-Step Reward: 0.24493902921676636
+  4%|3         | 394/10000 [13:25<5:25:09,  2.03s/it][INFO] Env 0: Pixel (Full): (133, 96), Depth: 2.0000
+       Cam: [0.1637, 0.1247, -2.0000]
+       World: [-0.5695, 0.0922, -0.0018]
+[Mean] Macro-Step Reward: 0.1456921100616455
+  4%|3         | 395/10000 [13:27<5:23:51,  2.02s/it][INFO] Env 0: Pixel (Full): (101, 112), Depth: 1.5717
+       Cam: [-0.0674, 0.0000, -1.5717]
+       World: [-0.1105, -0.1117, -0.0089]
+[Mean] Macro-Step Reward: 0.15597495436668396
+  4%|3         | 396/10000 [13:29<5:24:29,  2.03s/it][INFO] Env 0: Pixel (Full): (129, 83), Depth: 2.0000
+       Cam: [0.1325, 0.2261, -2.0000]
+       World: [-0.5941, 0.0603, 0.0963]
+[Mean] Macro-Step Reward: 0.2032480686903
+  4%|3         | 397/10000 [13:31<5:29:08,  2.06s/it][INFO] Env 0: Pixel (Full): (123, 86), Depth: 1.2204
+       Cam: [0.0523, 0.1237, -1.2204]
+       World: [0.1887, 0.0279, 0.2011]
+[Mean] Macro-Step Reward: 0.8028246164321899
+  4%|3         | 398/10000 [13:33<5:33:07,  2.08s/it][INFO] Env 0: Pixel (Full): (112, 91), Depth: 2.0000
+       Cam: [0.0000, 0.1637, -2.0000]
+       World: [-0.5699, -0.0715, 0.0371]
+[Mean] Macro-Step Reward: 0.28350040316581726
+  4%|3         | 399/10000 [13:35<5:37:12,  2.11s/it][INFO] Env 0: Pixel (Full): (116, 132), Depth: 1.1030
+       Cam: [0.0172, -0.0860, -1.1030]
+       World: [0.3585, 0.0016, 0.0296]
+[Mean] Macro-Step Reward: 0.2181229442358017
+  4%|4         | 400/10000 [13:38<5:55:32,  2.22s/it][INFO] Env 0: Pixel (Full): (130, 99), Depth: 2.0000
+       Cam: [0.1403, 0.1013, -2.0000]
+       World: [-0.5620, 0.0690, -0.0242]
+[Mean] Macro-Step Reward: 0.5407706499099731
+  4%|4         | 401/10000 [13:40<5:51:30,  2.20s/it][INFO] Env 0: Pixel (Full): (111, 128), Depth: 1.2714
+       Cam: [-0.0050, -0.0793, -1.2714]
+       World: [0.1958, -0.0307, -0.0077]
+[Mean] Macro-Step Reward: 0.47595247626304626
+  4%|4         | 402/10000 [13:42<5:45:45,  2.16s/it][INFO] Env 0: Pixel (Full): (131, 84), Depth: 2.0000
+       Cam: [0.1481, 0.2183, -2.0000]
+       World: [-0.5930, 0.0759, 0.0886]
+[Mean] Macro-Step Reward: 0.3344848155975342
+  4%|4         | 403/10000 [13:44<5:49:29,  2.19s/it][INFO] Env 0: Pixel (Full): (109, 76), Depth: 2.0000
+       Cam: [-0.0234, 0.2806, -2.0000]
+       World: [-0.5989, -0.0958, 0.1502]
+[Mean] Macro-Step Reward: 0.5591813921928406
+  4%|4         | 404/10000 [13:46<5:47:39,  2.17s/it][INFO] Env 0: Pixel (Full): (100, 131), Depth: 1.2276
+       Cam: [-0.0574, -0.0909, -1.2276]
+       World: [0.2442, -0.0804, -0.0071]
+[Mean] Macro-Step Reward: 1.2796974182128906
+  4%|4         | 405/10000 [13:49<5:53:23,  2.21s/it][INFO] Env 0: Pixel (Full): (105, 135), Depth: 1.1734
+       Cam: [-0.0320, -0.1052, -1.1734]
+       World: [0.2986, -0.0517, -0.0070]
+[Mean] Macro-Step Reward: 0.3849821984767914
+  4%|4         | 406/10000 [13:51<6:01:15,  2.26s/it][INFO] Env 0: Pixel (Full): (102, 124), Depth: 1.3353
+       Cam: [-0.0520, -0.0625, -1.3353]
+       World: [0.1327, -0.0817, -0.0077]
+[Mean] Macro-Step Reward: 0.26744216680526733
+  4%|4         | 407/10000 [13:53<5:57:45,  2.24s/it][INFO] Env 0: Pixel (Full): (120, 88), Depth: 1.2113
+       Cam: [0.0378, 0.1133, -1.2113]
+       World: [0.2010, 0.0140, 0.1936]
+[Mean] Macro-Step Reward: 0.32353198528289795
+  4%|4         | 408/10000 [13:55<5:56:18,  2.23s/it][INFO] Env 0: Pixel (Full): (120, 110), Depth: 1.1532
+       Cam: [0.0360, 0.0090, -1.1532]
+       World: [0.2843, 0.0165, 0.1080]
+[Mean] Macro-Step Reward: 0.8654338717460632
+  4%|4         | 409/10000 [13:57<5:51:34,  2.20s/it][INFO] Env 0: Pixel (Full): (129, 85), Depth: 2.0000
+       Cam: [0.1325, 0.2105, -2.0000]
+       World: [-0.5900, 0.0604, 0.0812]
+[Mean] Macro-Step Reward: 0.28459054231643677
+  4%|4         | 410/10000 [13:59<5:42:29,  2.14s/it][INFO] Env 0: Pixel (Full): (124, 136), Depth: 1.1605
+       Cam: [0.0543, -0.1086, -1.1605]
+       World: [0.3067, 0.0353, -0.0075]
+[Mean] Macro-Step Reward: 0.28013181686401367
+  4%|4         | 411/10000 [14:02<5:40:37,  2.13s/it][INFO] Env 0: Pixel (Full): (124, 80), Depth: 2.0000
+       Cam: [0.0935, 0.2495, -2.0000]
+       World: [-0.5978, 0.0212, 0.1191]
+[Mean] Macro-Step Reward: 0.14956606924533844
+  4%|4         | 412/10000 [14:04<5:39:14,  2.12s/it][INFO] Env 0: Pixel (Full): (103, 107), Depth: 1.6969
+       Cam: [-0.0595, 0.0331, -1.6969]
+       World: [-0.2402, -0.1117, -0.0096]
+[Mean] Macro-Step Reward: 0.12816545367240906
+  4%|4         | 413/10000 [14:06<5:31:53,  2.08s/it][INFO] Env 0: Pixel (Full): (126, 137), Depth: 1.1480
+       Cam: [0.0626, -0.1119, -1.1480]
+       World: [0.3191, 0.0444, -0.0075]
+[Mean] Macro-Step Reward: 0.28593119978904724
+  4%|4         | 414/10000 [14:08<5:29:03,  2.06s/it][INFO] Env 0: Pixel (Full): (111, 101), Depth: 2.0000
+       Cam: [-0.0078, 0.0858, -2.0000]
+       World: [-0.5491, -0.0787, -0.0381]
+[Mean] Macro-Step Reward: 0.16020572185516357
+  4%|4         | 415/10000 [14:10<5:28:50,  2.06s/it][INFO] Env 0: Pixel (Full): (108, 107), Depth: 1.3581
+       Cam: [-0.0212, 0.0265, -1.3581]
+       World: [0.0857, -0.0530, 0.0720]
+[Mean] Macro-Step Reward: 0.31218159198760986
+  4%|4         | 416/10000 [14:12<5:32:42,  2.08s/it][INFO] Env 0: Pixel (Full): (130, 134), Depth: 1.1864
+       Cam: [0.0832, -0.1017, -1.1864]
+       World: [0.2783, 0.0626, -0.0079]
+[Mean] Macro-Step Reward: 0.29896819591522217
+  4%|4         | 417/10000 [14:14<5:40:26,  2.13s/it][INFO] Env 0: Pixel (Full): (117, 86), Depth: 2.0000
+       Cam: [0.0390, 0.2027, -2.0000]
+       World: [-0.5824, -0.0329, 0.0744]
+[Mean] Macro-Step Reward: 0.07153716683387756
+  4%|4         | 418/10000 [14:16<5:44:25,  2.16s/it][INFO] Env 0: Pixel (Full): (131, 123), Depth: 1.3520
+       Cam: [0.1001, -0.0580, -1.3520]
+       World: [0.1063, 0.0691, -0.0089]
+[Mean] Macro-Step Reward: 0.049880899488925934
+  4%|4         | 419/10000 [14:18<5:44:29,  2.16s/it][INFO] Env 0: Pixel (Full): (127, 117), Depth: 1.4571
+       Cam: [0.0852, -0.0284, -1.4571]
+       World: [-0.0018, 0.0477, -0.0076]
+[Mean] Macro-Step Reward: 0.45500245690345764
+  4%|4         | 420/10000 [14:21<5:42:30,  2.15s/it][INFO] Env 0: Pixel (Full): (118, 76), Depth: 1.3190
+       Cam: [0.0308, 0.1851, -1.3190]
+       World: [0.0789, 0.0000, 0.2349]
+[Mean] Macro-Step Reward: 0.11897963285446167
+  4%|4         | 421/10000 [14:23<5:40:36,  2.13s/it][INFO] Env 0: Pixel (Full): (110, 102), Depth: 2.0000
+       Cam: [-0.0156, 0.0780, -2.0000]
+       World: [-0.5466, -0.0864, -0.0456]
+[Mean] Macro-Step Reward: 0.08565221726894379
+  4%|4         | 422/10000 [14:25<5:39:28,  2.13s/it][INFO] Env 0: Pixel (Full): (110, 74), Depth: 2.0000
+       Cam: [-0.0156, 0.2962, -2.0000]
+       World: [-0.6034, -0.0881, 0.1652]
+[Mean] Macro-Step Reward: 0.10161961615085602
+  4%|4         | 423/10000 [14:27<5:33:39,  2.09s/it][INFO] Env 0: Pixel (Full): (124, 126), Depth: 1.3025
+       Cam: [0.0609, -0.0711, -1.3025]
+       World: [0.1598, 0.0331, -0.0084]
+[Mean] Macro-Step Reward: 0.08360384404659271
+  4%|4         | 424/10000 [14:29<5:30:57,  2.07s/it][INFO] Env 0: Pixel (Full): (114, 111), Depth: 1.2787
+       Cam: [0.0100, 0.0050, -1.2787]
+       World: [0.1660, -0.0170, 0.0717]
+[Mean] Macro-Step Reward: 0.13799048960208893
+  4%|4         | 425/10000 [14:31<5:34:57,  2.10s/it][INFO] Env 0: Pixel (Full): (120, 78), Depth: 2.0000
+       Cam: [0.0624, 0.2651, -2.0000]
+       World: [-0.6000, -0.0101, 0.1344]
+[Mean] Macro-Step Reward: 0.7841581106185913
+  4%|4         | 426/10000 [14:33<5:32:39,  2.08s/it][INFO] Env 0: Pixel (Full): (133, 129), Depth: 1.2563
+       Cam: [0.1028, -0.0832, -1.2563]
+       World: [0.2049, 0.0778, -0.0084]
+[Mean] Macro-Step Reward: 0.3057204484939575
+  4%|4         | 427/10000 [14:35<5:33:21,  2.09s/it][INFO] Env 0: Pixel (Full): (101, 107), Depth: 1.6970
+       Cam: [-0.0728, 0.0331, -1.6970]
+       World: [-0.2394, -0.1249, -0.0095]
+[Mean] Macro-Step Reward: 0.43774712085723877
+  4%|4         | 428/10000 [14:37<5:31:55,  2.08s/it][INFO] Env 0: Pixel (Full): (119, 73), Depth: 1.4500
+       Cam: [0.0396, 0.2204, -1.4500]
+       World: [-0.0570, 0.0006, 0.2348]
+[Mean] Macro-Step Reward: 0.23034951090812683
+  4%|4         | 429/10000 [14:39<5:25:14,  2.04s/it][INFO] Env 0: Pixel (Full): (122, 111), Depth: 1.4194
+       Cam: [0.0553, 0.0055, -1.4194]
+       World: [0.0275, 0.0199, 0.0352]
+[Mean] Macro-Step Reward: 0.111263707280159
+  4%|4         | 430/10000 [14:41<5:21:57,  2.02s/it][INFO] Env 0: Pixel (Full): (121, 97), Depth: 1.3286
+       Cam: [0.0466, 0.0777, -1.3286]
+       World: [0.0968, 0.0160, 0.1286]
+[Mean] Macro-Step Reward: 0.16347737610340118
+  4%|4         | 431/10000 [14:43<5:27:35,  2.05s/it][INFO] Env 0: Pixel (Full): (128, 91), Depth: 2.0000
+       Cam: [0.1247, 0.1637, -2.0000]
+       World: [-0.5774, 0.0530, 0.0361]
+[Mean] Macro-Step Reward: 0.22991247475147247
+  4%|4         | 432/10000 [14:45<5:24:01,  2.03s/it][INFO] Env 0: Pixel (Full): (108, 103), Depth: 2.0000
+       Cam: [-0.0312, 0.0702, -2.0000]
+       World: [-0.5436, -0.1019, -0.0530]
+[Mean] Macro-Step Reward: 0.17775219678878784
+  4%|4         | 433/10000 [14:47<5:26:40,  2.05s/it][INFO] Env 0: Pixel (Full): (106, 75), Depth: 2.0000
+       Cam: [-0.0468, 0.2884, -2.0000]
+       World: [-0.5995, -0.1192, 0.1579]
+[Mean] Macro-Step Reward: 0.4995228350162506
+  4%|4         | 434/10000 [14:49<5:26:32,  2.05s/it][INFO] Env 0: Pixel (Full): (103, 97), Depth: 2.0000
+       Cam: [-0.0702, 0.1169, -2.0000]
+       World: [-0.5535, -0.1412, -0.0075]
+[Mean] Macro-Step Reward: 0.41048115491867065
+  4%|4         | 435/10000 [14:51<5:23:33,  2.03s/it][INFO] Env 0: Pixel (Full): (117, 71), Depth: 2.0000
+       Cam: [0.0390, 0.3196, -2.0000]
+       World: [-0.6128, -0.0339, 0.1873]
+[Mean] Macro-Step Reward: 0.3752604126930237
+  4%|4         | 436/10000 [14:54<5:30:32,  2.07s/it][INFO] Env 0: Pixel (Full): (115, 99), Depth: 2.0000
+       Cam: [0.0234, 0.1013, -2.0000]
+       World: [-0.5550, -0.0477, -0.0233]
+[Mean] Macro-Step Reward: 0.18095961213111877
+  4%|4         | 437/10000 [14:56<5:31:49,  2.08s/it][INFO] Env 0: Pixel (Full): (123, 108), Depth: 1.4146
+       Cam: [0.0607, 0.0221, -1.4146]
+       World: [0.0275, 0.0253, 0.0523]
+[Mean] Macro-Step Reward: 0.15788745880126953
+  4%|4         | 438/10000 [14:58<5:27:51,  2.06s/it][INFO] Env 0: Pixel (Full): (118, 131), Depth: 1.1884
+       Cam: [0.0278, -0.0880, -1.1884]
+       World: [0.2761, 0.0070, 0.0053]
+[Mean] Macro-Step Reward: 1.085015058517456
+  4%|4         | 439/10000 [15:00<5:34:05,  2.10s/it][INFO] Env 0: Pixel (Full): (116, 97), Depth: 1.1534
+       Cam: [0.0180, 0.0674, -1.1534]
+       World: [0.2699, -0.0019, 0.1645]
+[Mean] Macro-Step Reward: 0.37631791830062866
+  4%|4         | 440/10000 [15:02<5:33:49,  2.10s/it][INFO] Env 0: Pixel (Full): (131, 82), Depth: 2.0000
+       Cam: [0.1481, 0.2339, -2.0000]
+       World: [-0.5970, 0.0758, 0.1037]
+[Mean] Macro-Step Reward: 0.17021071910858154
+  4%|4         | 441/10000 [15:04<5:27:43,  2.06s/it][INFO] Env 0: Pixel (Full): (126, 95), Depth: 2.0000
+       Cam: [0.1091, 0.1325, -2.0000]
+       World: [-0.5683, 0.0377, 0.0061]
+[Mean] Macro-Step Reward: 0.6300315260887146
+  4%|4         | 442/10000 [15:06<5:31:22,  2.08s/it][INFO] Env 0: Pixel (Full): (117, 130), Depth: 1.1875
+       Cam: [0.0231, -0.0833, -1.1875]
+       World: [0.2760, 0.0024, 0.0101]
+[Mean] Macro-Step Reward: 0.20841029286384583
+  4%|4         | 443/10000 [15:08<5:35:03,  2.10s/it][INFO] Env 0: Pixel (Full): (107, 88), Depth: 2.0000
+       Cam: [-0.0390, 0.1871, -2.0000]
+       World: [-0.5736, -0.1106, 0.0600]
+[Mean] Macro-Step Reward: 0.11727049946784973
+  4%|4         | 444/10000 [15:10<5:31:20,  2.08s/it][INFO] Env 0: Pixel (Full): (120, 93), Depth: 1.3932
+       Cam: [0.0434, 0.1032, -1.3932]
+       World: [0.0280, 0.0088, 0.1364]
+[Mean] Macro-Step Reward: 0.32351136207580566
+  4%|4         | 445/10000 [15:12<5:34:35,  2.10s/it][INFO] Env 0: Pixel (Full): (129, 113), Depth: 1.5707
+       Cam: [0.1041, -0.0061, -1.5707]
+       World: [-0.1182, 0.0595, -0.0159]
+[Mean] Macro-Step Reward: 0.15917283296585083
+  4%|4         | 446/10000 [15:14<5:34:54,  2.10s/it][INFO] Env 0: Pixel (Full): (126, 83), Depth: 2.0000
+       Cam: [0.1091, 0.2261, -2.0000]
+       World: [-0.5927, 0.0369, 0.0964]
+[Mean] Macro-Step Reward: 0.14337831735610962
+  4%|4         | 447/10000 [15:16<5:30:53,  2.08s/it][INFO] Env 0: Pixel (Full): (104, 101), Depth: 2.0000
+       Cam: [-0.0624, 0.0858, -2.0000]
+       World: [-0.5458, -0.1332, -0.0377]
+[Mean] Macro-Step Reward: 0.376772940158844
+  4%|4         | 448/10000 [15:19<5:30:54,  2.08s/it][INFO] Env 0: Pixel (Full): (113, 117), Depth: 1.4572
+       Cam: [0.0057, -0.0284, -1.4572]
+       World: [0.0028, -0.0317, -0.0070]
+[Mean] Macro-Step Reward: 0.12366129457950592
+  4%|4         | 449/10000 [15:21<5:45:14,  2.17s/it][INFO] Env 0: Pixel (Full): (131, 93), Depth: 1.3410
+       Cam: [0.0993, 0.0993, -1.3410]
+       World: [0.0760, 0.0677, 0.1458]
+[Mean] Macro-Step Reward: 0.28062909841537476
+  4%|4         | 450/10000 [15:23<5:46:31,  2.18s/it][INFO] Env 0: Pixel (Full): (107, 111), Depth: 1.5884
+       Cam: [-0.0310, 0.0062, -1.5884]
+       World: [-0.1304, -0.0764, -0.0075]
+[Mean] Macro-Step Reward: 0.11742515861988068
+  5%|4         | 451/10000 [15:25<5:37:23,  2.12s/it][INFO] Env 0: Pixel (Full): (102, 120), Depth: 1.4058
+       Cam: [-0.0548, -0.0438, -1.4058]
+       World: [0.0601, -0.0888, -0.0081]
+[Mean] Macro-Step Reward: 0.20050141215324402
+  5%|4         | 452/10000 [15:27<5:36:48,  2.12s/it][INFO] Env 0: Pixel (Full): (105, 82), Depth: 1.2396
+       Cam: [-0.0338, 0.1450, -1.2396]
+       World: [0.1698, -0.0594, 0.2173]
+[Mean] Macro-Step Reward: 0.23638617992401123
+  5%|4         | 453/10000 [15:29<5:42:46,  2.15s/it][INFO] Env 0: Pixel (Full): (119, 97), Depth: 1.2865
+       Cam: [0.0351, 0.0752, -1.2865]
+       World: [0.1386, 0.0071, 0.1372]
+[Mean] Macro-Step Reward: 0.6237190365791321
+  5%|4         | 454/10000 [15:32<5:42:48,  2.15s/it][INFO] Env 0: Pixel (Full): (107, 77), Depth: 2.0000
+       Cam: [-0.0390, 0.2729, -2.0000]
+       World: [-0.5959, -0.1113, 0.1428]
+[Mean] Macro-Step Reward: 1.116673231124878
+  5%|4         | 455/10000 [15:34<5:48:19,  2.19s/it][INFO] Env 0: Pixel (Full): (127, 90), Depth: 2.0000
+       Cam: [0.1169, 0.1715, -2.0000]
+       World: [-0.5789, 0.0451, 0.0437]
+[Mean] Macro-Step Reward: 0.4559509754180908
+  5%|4         | 456/10000 [15:36<5:55:18,  2.23s/it][INFO] Env 0: Pixel (Full): (127, 73), Depth: 1.6529
+       Cam: [0.0966, 0.2513, -1.6529]
+       World: [-0.2640, 0.0451, 0.2113]
+[Mean] Macro-Step Reward: 0.33004626631736755
+  5%|4         | 457/10000 [15:38<5:47:10,  2.18s/it][INFO] Env 0: Pixel (Full): (123, 84), Depth: 1.3651
+       Cam: [0.0585, 0.1490, -1.3651]
+       World: [0.0423, 0.0252, 0.1878]
+[Mean] Macro-Step Reward: 0.7092424631118774
+  5%|4         | 458/10000 [15:40<5:46:13,  2.18s/it][INFO] Env 0: Pixel (Full): (117, 128), Depth: 1.1850
+       Cam: [0.0231, -0.0739, -1.1850]
+       World: [0.2759, 0.0024, 0.0198]
+[Mean] Macro-Step Reward: 0.22459062933921814
+  5%|4         | 459/10000 [15:43<5:51:00,  2.21s/it][INFO] Env 0: Pixel (Full): (103, 109), Depth: 1.6445
+       Cam: [-0.0577, 0.0192, -1.6445]
+       World: [-0.1862, -0.1066, -0.0093]
+[Mean] Macro-Step Reward: 0.2529764175415039
+  5%|4         | 460/10000 [15:45<5:44:56,  2.17s/it][INFO] Env 0: Pixel (Full): (123, 125), Depth: 1.1793
+       Cam: [0.0506, -0.0598, -1.1793]
+       World: [0.2761, 0.0301, 0.0347]
+[Mean] Macro-Step Reward: 0.15296140313148499
+  5%|4         | 461/10000 [15:47<5:52:40,  2.22s/it][INFO] Env 0: Pixel (Full): (119, 125), Depth: 1.1812
+       Cam: [0.0322, -0.0599, -1.1812]
+       World: [0.2755, 0.0116, 0.0343]
+[Mean] Macro-Step Reward: 0.07292840629816055
+  5%|4         | 462/10000 [15:49<5:55:06,  2.23s/it][INFO] Env 0: Pixel (Full): (102, 122), Depth: 1.3696
+       Cam: [-0.0534, -0.0534, -1.3696]
+       World: [0.0973, -0.0852, -0.0079]
+[Mean] Macro-Step Reward: 0.23397183418273926
+  5%|4         | 463/10000 [15:52<5:53:22,  2.22s/it][INFO] Env 0: Pixel (Full): (111, 124), Depth: 1.3352
+       Cam: [-0.0052, -0.0625, -1.3352]
+       World: [0.1300, -0.0350, -0.0080]
+[Mean] Macro-Step Reward: 0.23226195573806763
+  5%|4         | 464/10000 [15:54<5:56:31,  2.24s/it][INFO] Env 0: Pixel (Full): (127, 72), Depth: 2.0000
+       Cam: [0.1169, 0.3118, -2.0000]
+       World: [-0.6155, 0.0440, 0.1792]
+[Mean] Macro-Step Reward: 0.23092931509017944
+  5%|4         | 465/10000 [15:56<5:57:15,  2.25s/it][INFO] Env 0: Pixel (Full): (123, 112), Depth: 1.4200
+       Cam: [0.0609, 0.0000, -1.4200]
+       World: [0.0281, 0.0254, 0.0296]
+[Mean] Macro-Step Reward: 0.14296147227287292
+  5%|4         | 466/10000 [15:58<5:51:39,  2.21s/it][INFO] Env 0: Pixel (Full): (112, 129), Depth: 1.2564
+       Cam: [0.0000, -0.0833, -1.2564]
+       World: [0.2110, -0.0249, -0.0077]
+[Mean] Macro-Step Reward: 0.08193285763263702
+  5%|4         | 467/10000 [16:01<5:52:16,  2.22s/it][INFO] Env 0: Pixel (Full): (110, 90), Depth: 2.0000
+       Cam: [-0.0156, 0.1715, -2.0000]
+       World: [-0.5709, -0.0872, 0.0447]
+[Mean] Macro-Step Reward: 0.14281824231147766
+  5%|4         | 468/10000 [16:03<5:53:02,  2.22s/it][INFO] Env 0: Pixel (Full): (103, 74), Depth: 2.0000
+       Cam: [-0.0702, 0.2962, -2.0000]
+       World: [-0.6002, -0.1426, 0.1656]
+[Mean] Macro-Step Reward: 0.07558734714984894
+  5%|4         | 469/10000 [16:05<5:46:36,  2.18s/it][INFO] Env 0: Pixel (Full): (114, 104), Depth: 1.3249
+       Cam: [0.0103, 0.0413, -1.3249]
+       World: [0.1120, -0.0197, 0.0947]
+[Mean] Macro-Step Reward: 0.17538714408874512
+  5%|4         | 470/10000 [16:07<5:45:39,  2.18s/it][INFO] Env 0: Pixel (Full): (100, 75), Depth: 2.0000
+       Cam: [-0.0935, 0.2884, -2.0000]
+       World: [-0.5967, -0.1659, 0.1583]
+[Mean] Macro-Step Reward: 0.0845908373594284
+  5%|4         | 471/10000 [16:09<5:45:14,  2.17s/it][INFO] Env 0: Pixel (Full): (118, 72), Depth: 1.3796
+       Cam: [0.0323, 0.2151, -1.3796]
+       World: [0.0126, -0.0024, 0.2481]
+[Mean] Macro-Step Reward: 0.272519588470459
+  5%|4         | 472/10000 [16:11<5:49:29,  2.20s/it][INFO] Env 0: Pixel (Full): (102, 98), Depth: 2.0000
+       Cam: [-0.0780, 0.1091, -2.0000]
+       World: [-0.5510, -0.1489, -0.0150]
+[Mean] Macro-Step Reward: 0.8593681454658508
+  5%|4         | 473/10000 [16:14<5:53:35,  2.23s/it][INFO] Env 0: Pixel (Full): (107, 85), Depth: 2.0000
+       Cam: [-0.0390, 0.2105, -2.0000]
+       World: [-0.5797, -0.1108, 0.0826]
+[Mean] Macro-Step Reward: 0.5391170382499695
+  5%|4         | 474/10000 [16:16<5:55:00,  2.24s/it][INFO] Env 0: Pixel (Full): (102, 111), Depth: 1.5953
+       Cam: [-0.0622, 0.0062, -1.5953]
+       World: [-0.1351, -0.1080, -0.0090]
+[Mean] Macro-Step Reward: 1.2184240818023682
+  5%|4         | 475/10000 [16:18<5:46:55,  2.19s/it][INFO] Env 0: Pixel (Full): (131, 91), Depth: 2.0000
+       Cam: [0.1481, 0.1637, -2.0000]
+       World: [-0.5788, 0.0763, 0.0359]
+[Mean] Macro-Step Reward: 0.5292484164237976
+  5%|4         | 476/10000 [16:20<5:41:26,  2.15s/it][INFO] Env 0: Pixel (Full): (112, 107), Depth: 1.3354
+       Cam: [0.0000, 0.0260, -1.3354]
+       World: [0.1064, -0.0305, 0.0773]
+[Mean] Macro-Step Reward: 0.5416474938392639
+  5%|4         | 477/10000 [16:22<5:47:16,  2.19s/it][INFO] Env 0: Pixel (Full): (119, 111), Depth: 1.4210
+       Cam: [0.0388, 0.0055, -1.4210]
+       World: [0.0269, 0.0032, 0.0349]
+[Mean] Macro-Step Reward: 0.28408899903297424
+  5%|4         | 478/10000 [16:25<5:55:04,  2.24s/it][INFO] Env 0: Pixel (Full): (110, 120), Depth: 1.4057
+       Cam: [-0.0110, -0.0438, -1.4057]
+       World: [0.0575, -0.0451, -0.0084]
+[Mean] Macro-Step Reward: 0.5084205269813538
+  5%|4         | 479/10000 [16:27<5:55:34,  2.24s/it][INFO] Env 0: Pixel (Full): (115, 72), Depth: 2.0000
+       Cam: [0.0234, 0.3118, -2.0000]
+       World: [-0.6098, -0.0494, 0.1799]
+[Mean] Macro-Step Reward: 0.20178984105587006
+  5%|4         | 480/10000 [16:29<6:01:21,  2.28s/it][INFO] Env 0: Pixel (Full): (125, 90), Depth: 2.0000
+       Cam: [0.1013, 0.1715, -2.0000]
+       World: [-0.5780, 0.0296, 0.0438]
+[Mean] Macro-Step Reward: 0.71800297498703
+  5%|4         | 481/10000 [16:32<6:04:11,  2.30s/it][INFO] Env 0: Pixel (Full): (118, 86), Depth: 1.6277
+       Cam: [0.0381, 0.1650, -1.6277]
+       World: [-0.2138, -0.0112, 0.1350]
+[Mean] Macro-Step Reward: 0.2469511777162552
+  5%|4         | 482/10000 [16:34<5:55:09,  2.24s/it][INFO] Env 0: Pixel (Full): (113, 74), Depth: 2.0000
+       Cam: [0.0078, 0.2962, -2.0000]
+       World: [-0.6048, -0.0648, 0.1650]
+[Mean] Macro-Step Reward: 0.09945769608020782
+  5%|4         | 483/10000 [16:36<5:46:03,  2.18s/it][INFO] Env 0: Pixel (Full): (124, 85), Depth: 1.6245
+       Cam: [0.0760, 0.1710, -1.6245]
+       World: [-0.2145, 0.0268, 0.1413]
+[Mean] Macro-Step Reward: 0.08040368556976318
+  5%|4         | 484/10000 [16:38<5:44:52,  2.17s/it][INFO] Env 0: Pixel (Full): (103, 76), Depth: 2.0000
+       Cam: [-0.0702, 0.2806, -2.0000]
+       World: [-0.5961, -0.1425, 0.1506]
+[Mean] Macro-Step Reward: 0.19167491793632507
+  5%|4         | 485/10000 [16:40<5:41:43,  2.15s/it][INFO] Env 0: Pixel (Full): (123, 118), Depth: 1.4374
+       Cam: [0.0616, -0.0336, -1.4374]
+       World: [0.0200, 0.0254, -0.0074]
+[Mean] Macro-Step Reward: 0.12624946236610413
+  5%|4         | 486/10000 [16:42<5:43:38,  2.17s/it][INFO] Env 0: Pixel (Full): (133, 123), Depth: 1.3520
+       Cam: [0.1107, -0.0580, -1.3520]
+       World: [0.1057, 0.0797, -0.0090]
+[Mean] Macro-Step Reward: 0.1911909431219101
+  5%|4         | 487/10000 [16:44<5:41:15,  2.15s/it][INFO] Env 0: Pixel (Full): (117, 89), Depth: 1.2497
+       Cam: [0.0244, 0.1120, -1.2497]
+       World: [0.1651, -0.0017, 0.1825]
+[Mean] Macro-Step Reward: 0.29539722204208374
+  5%|4         | 488/10000 [16:47<5:38:08,  2.13s/it][INFO] Env 0: Pixel (Full): (117, 86), Depth: 1.1588
+       Cam: [0.0226, 0.1174, -1.1588]
+       World: [0.2514, 0.0020, 0.2114]
+[Mean] Macro-Step Reward: 1.012213110923767
+  5%|4         | 489/10000 [16:49<5:36:48,  2.12s/it][INFO] Env 0: Pixel (Full): (106, 125), Depth: 1.3187
+       Cam: [-0.0308, -0.0668, -1.3187]
+       World: [0.1485, -0.0595, -0.0078]
+[Mean] Macro-Step Reward: 0.6558343172073364
+  5%|4         | 490/10000 [16:51<5:35:15,  2.12s/it][INFO] Env 0: Pixel (Full): (113, 74), Depth: 2.0000
+       Cam: [0.0078, 0.2962, -2.0000]
+       World: [-0.6048, -0.0648, 0.1650]
+[Mean] Macro-Step Reward: 0.4565224051475525
+  5%|4         | 491/10000 [16:53<5:31:12,  2.09s/it][INFO] Env 0: Pixel (Full): (130, 76), Depth: 2.0000
+       Cam: [0.1403, 0.2806, -2.0000]
+       World: [-0.6088, 0.0676, 0.1489]
+[Mean] Macro-Step Reward: 0.2629617154598236
+  5%|4         | 492/10000 [16:55<5:29:39,  2.08s/it][INFO] Env 0: Pixel (Full): (116, 124), Depth: 1.1805
+       Cam: [0.0184, -0.0552, -1.1805]
+       World: [0.2758, -0.0021, 0.0391]
+[Mean] Macro-Step Reward: 0.3643133342266083
+  5%|4         | 493/10000 [16:57<5:32:35,  2.10s/it][INFO] Env 0: Pixel (Full): (100, 122), Depth: 1.3696
+       Cam: [-0.0641, -0.0534, -1.3696]
+       World: [0.0980, -0.0958, -0.0078]
+[Mean] Macro-Step Reward: 0.4923895001411438
+  5%|4         | 494/10000 [16:59<5:40:12,  2.15s/it][INFO] Env 0: Pixel (Full): (116, 109), Depth: 1.6372
+       Cam: [0.0255, 0.0191, -1.6372]
+       World: [-0.1841, -0.0231, -0.0082]
+[Mean] Macro-Step Reward: 0.16619956493377686
+  5%|4         | 495/10000 [17:01<5:44:05,  2.17s/it][INFO] Env 0: Pixel (Full): (101, 79), Depth: 2.0000
+       Cam: [-0.0858, 0.2573, -2.0000]
+       World: [-0.5891, -0.1579, 0.1281]
+[Mean] Macro-Step Reward: 0.16670086979866028
+  5%|4         | 496/10000 [17:04<5:49:00,  2.20s/it][INFO] Env 0: Pixel (Full): (103, 111), Depth: 1.5883
+       Cam: [-0.0557, 0.0062, -1.5883]
+       World: [-0.1288, -0.1011, -0.0073]
+[Mean] Macro-Step Reward: 0.252463698387146
+  5%|4         | 497/10000 [17:06<5:52:51,  2.23s/it][INFO] Env 0: Pixel (Full): (113, 99), Depth: 2.0000
+       Cam: [0.0078, 0.1013, -2.0000]
+       World: [-0.5541, -0.0632, -0.0232]
+[Mean] Macro-Step Reward: 0.23113219439983368
+  5%|4         | 498/10000 [17:08<5:48:06,  2.20s/it][INFO] Env 0: Pixel (Full): (106, 84), Depth: 2.0000
+       Cam: [-0.0468, 0.2183, -2.0000]
+       World: [-0.5813, -0.1186, 0.0902]
+[Mean] Macro-Step Reward: 0.2381581962108612
+  5%|4         | 499/10000 [17:10<5:47:28,  2.19s/it][INFO] Env 0: Pixel (Full): (111, 138), Depth: 1.1359
+       Cam: [-0.0044, -0.1151, -1.1359]
+       World: [0.3357, -0.0218, -0.0070]
+[Mean] Macro-Step Reward: 0.3101678192615509
+  5%|5         | 500/10000 [17:13<5:47:32,  2.19s/it][INFO] Env 0: Pixel (Full): (119, 93), Depth: 1.5160
+       Cam: [0.0414, 0.1123, -1.5160]
+       World: [-0.0925, -0.0007, 0.1132]
+[Mean] Macro-Step Reward: 1.214372158050537
+  5%|5         | 501/10000 [17:15<5:44:28,  2.18s/it][INFO] Env 0: Pixel (Full): (103, 111), Depth: 1.5883
+       Cam: [-0.0557, 0.0062, -1.5883]
+       World: [-0.1288, -0.1011, -0.0073]
+[Mean] Macro-Step Reward: 0.39203590154647827
+  5%|5         | 502/10000 [17:17<5:46:17,  2.19s/it][INFO] Env 0: Pixel (Full): (127, 100), Depth: 2.0000
+       Cam: [0.1169, 0.0935, -2.0000]
+       World: [-0.5586, 0.0458, -0.0316]
+[Mean] Macro-Step Reward: 0.17685221135616302
+  5%|5         | 503/10000 [17:19<5:55:44,  2.25s/it][INFO] Env 0: Pixel (Full): (125, 109), Depth: 1.6371
+       Cam: [0.0830, 0.0191, -1.6371]
+       World: [-0.1875, 0.0342, -0.0086]
+[Mean] Macro-Step Reward: 0.195831298828125
+  5%|5         | 504/10000 [17:21<5:48:51,  2.20s/it][INFO] Env 0: Pixel (Full): (116, 92), Depth: 2.0000
+       Cam: [0.0312, 0.1559, -2.0000]
+       World: [-0.5697, -0.0403, 0.0293]
+[Mean] Macro-Step Reward: 0.18071669340133667
+  5%|5         | 505/10000 [17:24<5:53:16,  2.23s/it][INFO] Env 0: Pixel (Full): (129, 134), Depth: 1.1864
+       Cam: [0.0786, -0.1017, -1.1864]
+       World: [0.2786, 0.0580, -0.0079]
+[Mean] Macro-Step Reward: 0.05416595935821533
+  5%|5         | 506/10000 [17:26<5:48:16,  2.20s/it][INFO] Env 0: Pixel (Full): (124, 111), Depth: 1.6046
+       Cam: [0.0751, 0.0063, -1.6046]
+       World: [-0.1523, 0.0284, -0.0125]
+[Mean] Macro-Step Reward: 0.27508026361465454
+  5%|5         | 507/10000 [17:28<5:39:08,  2.14s/it][INFO] Env 0: Pixel (Full): (108, 121), Depth: 1.3874
+       Cam: [-0.0216, -0.0487, -1.3874]
+       World: [0.0771, -0.0546, -0.0082]
+[Mean] Macro-Step Reward: 0.39496538043022156
+  5%|5         | 508/10000 [17:30<5:38:23,  2.14s/it][INFO] Env 0: Pixel (Full): (108, 115), Depth: 1.4985
+       Cam: [-0.0234, -0.0175, -1.4985]
+       World: [-0.0380, -0.0633, -0.0071]
+[Mean] Macro-Step Reward: 0.6589258909225464
+  5%|5         | 509/10000 [17:32<5:34:00,  2.11s/it][INFO] Env 0: Pixel (Full): (114, 112), Depth: 1.6038
+       Cam: [0.0125, 0.0000, -1.6038]
+       World: [-0.1462, -0.0339, -0.0179]
+[Mean] Macro-Step Reward: 0.17799952626228333
+  5%|5         | 510/10000 [17:34<5:21:40,  2.03s/it][INFO] Env 0: Pixel (Full): (102, 81), Depth: 2.0000
+       Cam: [-0.0780, 0.2417, -2.0000]
+       World: [-0.5855, -0.1500, 0.1130]
+[Mean] Macro-Step Reward: 0.19214856624603271
+  5%|5         | 511/10000 [17:36<5:19:11,  2.02s/it][INFO] Env 0: Pixel (Full): (102, 114), Depth: 1.5200
+       Cam: [-0.0592, -0.0118, -1.5200]
+       World: [-0.0581, -0.1004, -0.0069]
+[Mean] Macro-Step Reward: 0.32322514057159424
+  5%|5         | 512/10000 [17:38<5:17:35,  2.01s/it][INFO] Env 0: Pixel (Full): (128, 87), Depth: 2.0000
+       Cam: [0.1247, 0.1949, -2.0000]
+       World: [-0.5855, 0.0527, 0.0662]
+[Mean] Macro-Step Reward: 0.23193782567977905
+  5%|5         | 513/10000 [17:40<5:11:27,  1.97s/it][INFO] Env 0: Pixel (Full): (118, 97), Depth: 1.3753
+       Cam: [0.0322, 0.0804, -1.3753]
+       World: [0.0519, -0.0012, 0.1191]
+[Mean] Macro-Step Reward: 0.10076592117547989
+  5%|5         | 514/10000 [17:42<5:10:43,  1.97s/it][INFO] Env 0: Pixel (Full): (130, 75), Depth: 2.0000
+       Cam: [0.1403, 0.2884, -2.0000]
+       World: [-0.6108, 0.0675, 0.1564]
+[Mean] Macro-Step Reward: 0.026431450620293617
+  5%|5         | 515/10000 [17:44<5:13:20,  1.98s/it][INFO] Env 0: Pixel (Full): (133, 131), Depth: 1.2273
+       Cam: [0.1005, -0.0909, -1.2273]
+       World: [0.2350, 0.0772, -0.0083]
+[Mean] Macro-Step Reward: 0.24947145581245422
+  5%|5         | 516/10000 [17:46<5:12:15,  1.98s/it][INFO] Env 0: Pixel (Full): (111, 89), Depth: 2.0000
+       Cam: [-0.0078, 0.1793, -2.0000]
+       World: [-0.5734, -0.0794, 0.0522]
+[Mean] Macro-Step Reward: 0.3358684480190277
+  5%|5         | 517/10000 [17:48<5:13:02,  1.98s/it][INFO] Env 0: Pixel (Full): (122, 128), Depth: 1.2541
+       Cam: [0.0489, -0.0782, -1.2541]
+       World: [0.2090, 0.0240, -0.0026]
+[Mean] Macro-Step Reward: 0.3716456890106201
+  5%|5         | 518/10000 [17:50<5:18:14,  2.01s/it][INFO] Env 0: Pixel (Full): (102, 124), Depth: 1.3353
+       Cam: [-0.0520, -0.0625, -1.3353]
+       World: [0.1327, -0.0817, -0.0077]
+[Mean] Macro-Step Reward: 0.3331528306007385
+  5%|5         | 519/10000 [17:52<5:20:53,  2.03s/it][INFO] Env 0: Pixel (Full): (103, 95), Depth: 2.0000
+       Cam: [-0.0702, 0.1325, -2.0000]
+       World: [-0.5575, -0.1413, 0.0076]
+[Mean] Macro-Step Reward: 0.17190825939178467
+  5%|5         | 520/10000 [17:54<5:29:03,  2.08s/it][INFO] Env 0: Pixel (Full): (121, 91), Depth: 1.4634
+       Cam: [0.0513, 0.1198, -1.4634]
+       World: [-0.0444, 0.0123, 0.1341]
+[Mean] Macro-Step Reward: 0.23536226153373718
+  5%|5         | 521/10000 [17:56<5:34:05,  2.11s/it][INFO] Env 0: Pixel (Full): (106, 136), Depth: 1.1606
+       Cam: [-0.0271, -0.1086, -1.1606]
+       World: [0.3115, -0.0460, -0.0069]
+[Mean] Macro-Step Reward: 0.2380015254020691
+  5%|5         | 522/10000 [17:58<5:41:11,  2.16s/it][INFO] Env 0: Pixel (Full): (121, 131), Depth: 1.1874
+       Cam: [0.0417, -0.0879, -1.1874]
+       World: [0.2762, 0.0209, 0.0055]
+[Mean] Macro-Step Reward: 0.32294100522994995
+  5%|5         | 523/10000 [18:01<5:44:40,  2.18s/it][INFO] Env 0: Pixel (Full): (116, 77), Depth: 1.1880
+       Cam: [0.0185, 0.1621, -1.1880]
+       World: [0.2119, -0.0042, 0.2469]
+[Mean] Macro-Step Reward: 0.5543286800384521
+  5%|5         | 524/10000 [18:03<5:46:28,  2.19s/it][INFO] Env 0: Pixel (Full): (117, 121), Depth: 1.2264
+       Cam: [0.0239, -0.0430, -1.2264]
+       World: [0.2280, 0.0005, 0.0388]
+[Mean] Macro-Step Reward: 0.5429726243019104
+  5%|5         | 525/10000 [18:05<5:45:24,  2.19s/it][INFO] Env 0: Pixel (Full): (126, 118), Depth: 1.4374
+       Cam: [0.0784, -0.0336, -1.4374]
+       World: [0.0190, 0.0422, -0.0075]
+[Mean] Macro-Step Reward: 0.2107965350151062
+  5%|5         | 526/10000 [18:07<5:45:26,  2.19s/it][INFO] Env 0: Pixel (Full): (105, 135), Depth: 1.1734
+       Cam: [-0.0320, -0.1052, -1.1734]
+       World: [0.2986, -0.0517, -0.0070]
+[Mean] Macro-Step Reward: 0.23374664783477783
+  5%|5         | 527/10000 [18:09<5:44:36,  2.18s/it][INFO] Env 0: Pixel (Full): (107, 77), Depth: 2.0000
+       Cam: [-0.0390, 0.2729, -2.0000]
+       World: [-0.5959, -0.1113, 0.1428]
+[Mean] Macro-Step Reward: 0.08801432698965073
+  5%|5         | 528/10000 [18:12<5:46:19,  2.19s/it][INFO] Env 0: Pixel (Full): (113, 134), Depth: 1.1700
+       Cam: [0.0046, -0.1003, -1.1700]
+       World: [0.2984, -0.0150, -0.0017]
+[Mean] Macro-Step Reward: 0.3614628314971924
+  5%|5         | 529/10000 [18:14<5:45:06,  2.19s/it][INFO] Env 0: Pixel (Full): (130, 79), Depth: 2.0000
+       Cam: [0.1403, 0.2573, -2.0000]
+       World: [-0.6027, 0.0678, 0.1263]
+[Mean] Macro-Step Reward: 0.24095235764980316
+  5%|5         | 530/10000 [18:16<5:46:59,  2.20s/it][INFO] Env 0: Pixel (Full): (106, 110), Depth: 1.6124
+       Cam: [-0.0377, 0.0126, -1.6124]
+       World: [-0.1548, -0.0847, -0.0076]
+[Mean] Macro-Step Reward: 0.8579903841018677
+  5%|5         | 531/10000 [18:18<5:45:18,  2.19s/it][INFO] Env 0: Pixel (Full): (102, 87), Depth: 2.0000
+       Cam: [-0.0780, 0.1949, -2.0000]
+       World: [-0.5733, -0.1496, 0.0678]
+[Mean] Macro-Step Reward: 0.36594659090042114
+  5%|5         | 532/10000 [18:20<5:40:37,  2.16s/it][INFO] Env 0: Pixel (Full): (111, 112), Depth: 1.5651
+       Cam: [-0.0061, 0.0000, -1.5651]
+       World: [-0.1077, -0.0502, -0.0076]
+[Mean] Macro-Step Reward: 0.34989577531814575
+  5%|5         | 533/10000 [18:22<5:42:29,  2.17s/it][INFO] Env 0: Pixel (Full): (118, 93), Depth: 1.4814
+       Cam: [0.0346, 0.1097, -1.4814]
+       World: [-0.0582, -0.0053, 0.1198]
+[Mean] Macro-Step Reward: 0.5345357656478882
+  5%|5         | 534/10000 [18:24<5:34:36,  2.12s/it][INFO] Env 0: Pixel (Full): (115, 115), Depth: 1.7510
+       Cam: [0.0205, -0.0205, -1.7510]
+       World: [-0.2832, -0.0347, -0.0760]
+[Mean] Macro-Step Reward: 0.2553250789642334
+  5%|5         | 535/10000 [18:26<5:27:50,  2.08s/it][INFO] Env 0: Pixel (Full): (104, 104), Depth: 2.0000
+       Cam: [-0.0624, 0.0624, -2.0000]
+       World: [-0.5397, -0.1330, -0.0602]
+[Mean] Macro-Step Reward: 0.23078276216983795
+  5%|5         | 536/10000 [18:29<5:37:43,  2.14s/it][INFO] Env 0: Pixel (Full): (125, 108), Depth: 1.6873
+       Cam: [0.0855, 0.0263, -1.6873]
+       World: [-0.2379, 0.0337, -0.0148]
+[Mean] Macro-Step Reward: 0.24246788024902344
+  5%|5         | 537/10000 [18:31<5:45:15,  2.19s/it][INFO] Env 0: Pixel (Full): (117, 117), Depth: 1.4572
+       Cam: [0.0284, -0.0284, -1.4572]
+       World: [0.0015, -0.0090, -0.0072]
+[Mean] Macro-Step Reward: 0.3332310914993286
+  5%|5         | 538/10000 [18:33<5:44:24,  2.18s/it][INFO] Env 0: Pixel (Full): (101, 137), Depth: 1.1482
+       Cam: [-0.0492, -0.1119, -1.1482]
+       World: [0.3257, -0.0673, -0.0067]
+[Mean] Macro-Step Reward: 1.1662561893463135
+  5%|5         | 539/10000 [18:35<5:46:20,  2.20s/it][INFO] Env 0: Pixel (Full): (122, 122), Depth: 1.2194
+       Cam: [0.0475, -0.0475, -1.2194]
+       World: [0.2345, 0.0245, 0.0361]
+[Mean] Macro-Step Reward: 0.44845646619796753
+  5%|5         | 540/10000 [18:38<5:45:56,  2.19s/it][INFO] Env 0: Pixel (Full): (112, 116), Depth: 1.1887
+       Cam: [0.0000, -0.0185, -1.1887]
+       World: [0.2594, -0.0213, 0.0725]
+[Mean] Macro-Step Reward: 0.2543804347515106
+  5%|5         | 541/10000 [18:40<5:38:31,  2.15s/it][INFO] Env 0: Pixel (Full): (130, 114), Depth: 1.5402
+       Cam: [0.1081, -0.0120, -1.5402]
+       World: [-0.0875, 0.0654, -0.0136]
+[Mean] Macro-Step Reward: 0.20182523131370544
+  5%|5         | 542/10000 [18:42<5:34:10,  2.12s/it][INFO] Env 0: Pixel (Full): (106, 120), Depth: 1.4057
+       Cam: [-0.0329, -0.0438, -1.4057]
+       World: [0.0588, -0.0670, -0.0082]
+[Mean] Macro-Step Reward: 0.12746448814868927
+  5%|5         | 543/10000 [18:44<5:36:28,  2.13s/it][INFO] Env 0: Pixel (Full): (113, 117), Depth: 1.4182
+       Cam: [0.0055, -0.0276, -1.4182]
+       World: [0.0403, -0.0295, 0.0039]
+[Mean] Macro-Step Reward: 0.0997995063662529
+  5%|5         | 544/10000 [18:46<5:31:36,  2.10s/it][INFO] Env 0: Pixel (Full): (121, 75), Depth: 2.0000
+       Cam: [0.0702, 0.2884, -2.0000]
+       World: [-0.6066, -0.0025, 0.1570]
+[Mean] Macro-Step Reward: 0.3202033042907715
+  5%|5         | 545/10000 [18:48<5:35:18,  2.13s/it][INFO] Env 0: Pixel (Full): (107, 99), Depth: 2.0000
+       Cam: [-0.0390, 0.1013, -2.0000]
+       World: [-0.5513, -0.1099, -0.0228]
+[Mean] Macro-Step Reward: 0.33304744958877563
+  5%|5         | 546/10000 [18:50<5:30:39,  2.10s/it][INFO] Env 0: Pixel (Full): (122, 101), Depth: 1.3367
+       Cam: [0.0521, 0.0573, -1.3367]
+       World: [0.0939, 0.0212, 0.1067]
+[Mean] Macro-Step Reward: 0.11889253556728363
+  5%|5         | 547/10000 [18:52<5:27:39,  2.08s/it][INFO] Env 0: Pixel (Full): (129, 124), Depth: 1.3351
+       Cam: [0.0885, -0.0624, -1.3351]
+       World: [0.1245, 0.0586, -0.0088]
+[Mean] Macro-Step Reward: 0.18424604833126068
+  5%|5         | 548/10000 [18:54<5:23:13,  2.05s/it][INFO] Env 0: Pixel (Full): (117, 90), Depth: 1.2221
+       Cam: [0.0238, 0.1048, -1.2221]
+       World: [0.1937, -0.0005, 0.1827]
+[Mean] Macro-Step Reward: 0.10490988194942474
+  5%|5         | 549/10000 [18:56<5:27:48,  2.08s/it][INFO] Env 0: Pixel (Full): (122, 132), Depth: 1.1644
+       Cam: [0.0454, -0.0908, -1.1644]
+       World: [0.2989, 0.0260, 0.0087]
+[Mean] Macro-Step Reward: 0.46415865421295166
+  6%|5         | 550/10000 [18:58<5:32:33,  2.11s/it][INFO] Env 0: Pixel (Full): (109, 103), Depth: 2.0000
+       Cam: [-0.0234, 0.0702, -2.0000]
+       World: [-0.5441, -0.0941, -0.0530]
+[Mean] Macro-Step Reward: 0.7462558746337891
+  6%|5         | 551/10000 [19:01<5:32:39,  2.11s/it][INFO] Env 0: Pixel (Full): (106, 107), Depth: 1.6969
+       Cam: [-0.0397, 0.0331, -1.6969]
+       World: [-0.2414, -0.0919, -0.0098]
+[Mean] Macro-Step Reward: 0.12431488931179047
+  6%|5         | 552/10000 [19:03<5:24:12,  2.06s/it][INFO] Env 0: Pixel (Full): (112, 91), Depth: 2.0000
+       Cam: [0.0000, 0.1637, -2.0000]
+       World: [-0.5699, -0.0715, 0.0371]
+[Mean] Macro-Step Reward: 0.05934375151991844
+  6%|5         | 553/10000 [19:05<5:27:21,  2.08s/it][INFO] Env 0: Pixel (Full): (113, 132), Depth: 1.1914
+       Cam: [0.0046, -0.0929, -1.1914]
+       World: [0.2759, -0.0162, -0.0000]
+[Mean] Macro-Step Reward: 0.3063122034072876
+  6%|5         | 554/10000 [19:07<5:34:07,  2.12s/it][INFO] Env 0: Pixel (Full): (107, 99), Depth: 2.0000
+       Cam: [-0.0390, 0.1013, -2.0000]
+       World: [-0.5513, -0.1099, -0.0228]
+[Mean] Macro-Step Reward: 0.23550604283809662
+  6%|5         | 555/10000 [19:09<5:37:55,  2.15s/it][INFO] Env 0: Pixel (Full): (123, 113), Depth: 1.7435
+       Cam: [0.0748, -0.0068, -1.7435]
+       World: [-0.2828, 0.0199, -0.0613]
+[Mean] Macro-Step Reward: 0.10922183096408844
+  6%|5         | 556/10000 [19:11<5:29:54,  2.10s/it][INFO] Env 0: Pixel (Full): (130, 102), Depth: 2.0000
+       Cam: [0.1403, 0.0780, -2.0000]
+       World: [-0.5560, 0.0692, -0.0468]
+[Mean] Macro-Step Reward: 0.6676157712936401
+  6%|5         | 557/10000 [19:13<5:26:01,  2.07s/it][INFO] Env 0: Pixel (Full): (133, 110), Depth: 1.6121
+       Cam: [0.1320, 0.0126, -1.6121]
+       World: [-0.1647, 0.0847, -0.0088]
+[Mean] Macro-Step Reward: 0.17492149770259857
+  6%|5         | 558/10000 [19:15<5:25:35,  2.07s/it][INFO] Env 0: Pixel (Full): (118, 79), Depth: 2.0000
+       Cam: [0.0468, 0.2573, -2.0000]
+       World: [-0.5970, -0.0256, 0.1270]
+[Mean] Macro-Step Reward: 0.052805427461862564
+  6%|5         | 559/10000 [19:17<5:25:04,  2.07s/it][INFO] Env 0: Pixel (Full): (101, 84), Depth: 2.0000
+       Cam: [-0.0858, 0.2183, -2.0000]
+       World: [-0.5789, -0.1576, 0.0905]
+[Mean] Macro-Step Reward: 0.2207370102405548
+  6%|5         | 560/10000 [19:19<5:27:13,  2.08s/it][INFO] Env 0: Pixel (Full): (123, 106), Depth: 1.4152
+       Cam: [0.0607, 0.0331, -1.4152]
+       World: [0.0241, 0.0252, 0.0628]
+[Mean] Macro-Step Reward: 0.15017956495285034
+  6%|5         | 561/10000 [19:21<5:31:10,  2.11s/it][INFO] Env 0: Pixel (Full): (129, 110), Depth: 1.3888
+       Cam: [0.0920, 0.0108, -1.3888]
+       World: [0.0534, 0.0583, 0.0480]
+[Mean] Macro-Step Reward: 0.03605574369430542
+  6%|5         | 562/10000 [19:23<5:25:50,  2.07s/it][INFO] Env 0: Pixel (Full): (113, 123), Depth: 1.1953
+       Cam: [0.0047, -0.0513, -1.1953]
+       World: [0.2613, -0.0168, 0.0391]
+[Mean] Macro-Step Reward: 0.2624741792678833
+  6%|5         | 563/10000 [19:26<5:25:50,  2.07s/it][INFO] Env 0: Pixel (Full): (131, 119), Depth: 1.4181
+       Cam: [0.1050, -0.0387, -1.4181]
+       World: [0.0373, 0.0699, -0.0076]
+[Mean] Macro-Step Reward: 0.1613665223121643
+  6%|5         | 564/10000 [19:28<5:27:06,  2.08s/it][INFO] Env 0: Pixel (Full): (106, 106), Depth: 1.7244
+       Cam: [-0.0403, 0.0403, -1.7244]
+       World: [-0.2697, -0.0942, -0.0099]
+[Mean] Macro-Step Reward: 0.06174536421895027
+  6%|5         | 565/10000 [19:30<5:32:12,  2.11s/it][INFO] Env 0: Pixel (Full): (102, 126), Depth: 1.3026
+       Cam: [-0.0508, -0.0711, -1.3026]
+       World: [0.1664, -0.0784, -0.0075]
+[Mean] Macro-Step Reward: 0.22635209560394287
+  6%|5         | 566/10000 [19:32<5:34:19,  2.13s/it][INFO] Env 0: Pixel (Full): (103, 126), Depth: 1.3026
+       Cam: [-0.0457, -0.0711, -1.3026]
+       World: [0.1661, -0.0733, -0.0076]
+[Mean] Macro-Step Reward: 0.18368759751319885
+  6%|5         | 567/10000 [19:34<5:29:43,  2.10s/it][INFO] Env 0: Pixel (Full): (111, 115), Depth: 1.7530
+       Cam: [-0.0068, -0.0205, -1.7530]
+       World: [-0.2834, -0.0620, -0.0763]
+[Mean] Macro-Step Reward: 0.08764451742172241
+  6%|5         | 568/10000 [19:36<5:27:19,  2.08s/it][INFO] Env 0: Pixel (Full): (115, 108), Depth: 1.6912
+       Cam: [0.0198, 0.0264, -1.6912]
+       World: [-0.2378, -0.0321, -0.0152]
+[Mean] Macro-Step Reward: 0.07893804460763931
+  6%|5         | 569/10000 [19:38<5:24:36,  2.07s/it][INFO] Env 0: Pixel (Full): (125, 132), Depth: 1.2134
+       Cam: [0.0615, -0.0946, -1.2134]
+       World: [0.2517, 0.0392, -0.0079]
+[Mean] Macro-Step Reward: 0.6757051348686218
+  6%|5         | 570/10000 [19:40<5:25:57,  2.07s/it][INFO] Env 0: Pixel (Full): (128, 93), Depth: 2.0000
+       Cam: [0.1247, 0.1481, -2.0000]
+       World: [-0.5733, 0.0531, 0.0210]
+[Mean] Macro-Step Reward: 0.13484260439872742
+  6%|5         | 571/10000 [19:42<5:26:30,  2.08s/it][INFO] Env 0: Pixel (Full): (100, 80), Depth: 2.0000
+       Cam: [-0.0935, 0.2495, -2.0000]
+       World: [-0.5866, -0.1656, 0.1206]
+[Mean] Macro-Step Reward: 0.12538982927799225
+  6%|5         | 572/10000 [19:44<5:27:25,  2.08s/it][INFO] Env 0: Pixel (Full): (130, 134), Depth: 1.1864
+       Cam: [0.0832, -0.1017, -1.1864]
+       World: [0.2783, 0.0626, -0.0079]
+[Mean] Macro-Step Reward: 0.18238615989685059
+  6%|5         | 573/10000 [19:46<5:27:49,  2.09s/it][INFO] Env 0: Pixel (Full): (104, 98), Depth: 2.0000
+       Cam: [-0.0624, 0.1091, -2.0000]
+       World: [-0.5519, -0.1333, -0.0151]
+[Mean] Macro-Step Reward: 0.08432323485612869
+  6%|5         | 574/10000 [19:49<5:34:56,  2.13s/it][INFO] Env 0: Pixel (Full): (111, 134), Depth: 1.0882
+       Cam: [-0.0042, -0.0933, -1.0882]
+       World: [0.3760, -0.0189, 0.0265]
+[Mean] Macro-Step Reward: 0.2893054485321045
+  6%|5         | 575/10000 [19:51<5:39:39,  2.16s/it][INFO] Env 0: Pixel (Full): (113, 110), Depth: 1.1799
+       Cam: [0.0046, 0.0092, -1.1799]
+       World: [0.2604, -0.0164, 0.1015]
+[Mean] Macro-Step Reward: 1.3232808113098145
+  6%|5         | 576/10000 [19:53<5:41:10,  2.17s/it][INFO] Env 0: Pixel (Full): (117, 93), Depth: 1.1616
+       Cam: [0.0226, 0.0860, -1.1616]
+       World: [0.2569, 0.0021, 0.1803]
+[Mean] Macro-Step Reward: 1.2648893594741821
+  6%|5         | 577/10000 [19:55<5:46:31,  2.21s/it][INFO] Env 0: Pixel (Full): (124, 105), Depth: 1.1940
+       Cam: [0.0558, 0.0326, -1.1940]
+       World: [0.2376, 0.0337, 0.1200]
+[Mean] Macro-Step Reward: 0.8847527503967285
+  6%|5         | 578/10000 [19:58<5:48:26,  2.22s/it][INFO] Env 0: Pixel (Full): (114, 134), Depth: 1.1864
+       Cam: [0.0092, -0.1017, -1.1864]
+       World: [0.2827, -0.0113, -0.0073]
+[Mean] Macro-Step Reward: 1.649802327156067
+  6%|5         | 579/10000 [20:00<5:46:55,  2.21s/it][INFO] Env 0: Pixel (Full): (110, 98), Depth: 2.0000
+       Cam: [-0.0156, 0.1091, -2.0000]
+       World: [-0.5547, -0.0867, -0.0155]
+[Mean] Macro-Step Reward: 0.4443345069885254
+  6%|5         | 580/10000 [20:02<5:46:15,  2.21s/it][INFO] Env 0: Pixel (Full): (129, 111), Depth: 1.5881
+       Cam: [0.1052, 0.0062, -1.5881]
+       World: [-0.1382, 0.0595, -0.0085]
+[Mean] Macro-Step Reward: 0.5596129894256592
+  6%|5         | 581/10000 [20:04<5:47:45,  2.22s/it][INFO] Env 0: Pixel (Full): (121, 99), Depth: 1.4294
+       Cam: [0.0501, 0.0724, -1.4294]
+       World: [0.0007, 0.0136, 0.0972]
+[Mean] Macro-Step Reward: 0.23172540962696075
+  6%|5         | 582/10000 [20:06<5:42:52,  2.18s/it][INFO] Env 0: Pixel (Full): (115, 97), Depth: 1.3427
+       Cam: [0.0157, 0.0785, -1.3427]
+       World: [0.0848, -0.0157, 0.1259]
+[Mean] Macro-Step Reward: 0.14519916474819183
+  6%|5         | 583/10000 [20:09<5:42:54,  2.18s/it][INFO] Env 0: Pixel (Full): (100, 114), Depth: 1.5267
+       Cam: [-0.0714, -0.0119, -1.5267]
+       World: [-0.0637, -0.1130, -0.0086]
+[Mean] Macro-Step Reward: 0.09139862656593323
+  6%|5         | 584/10000 [20:11<5:41:55,  2.18s/it][INFO] Env 0: Pixel (Full): (122, 136), Depth: 1.1605
+       Cam: [0.0452, -0.1086, -1.1605]
+       World: [0.3073, 0.0263, -0.0075]
+[Mean] Macro-Step Reward: 0.180527001619339
+  6%|5         | 585/10000 [20:13<5:37:27,  2.15s/it][INFO] Env 0: Pixel (Full): (104, 84), Depth: 2.0000
+       Cam: [-0.0624, 0.2183, -2.0000]
+       World: [-0.5803, -0.1342, 0.0903]
+[Mean] Macro-Step Reward: 0.27248427271842957
+  6%|5         | 586/10000 [20:15<5:41:55,  2.18s/it][INFO] Env 0: Pixel (Full): (110, 119), Depth: 1.4183
+       Cam: [-0.0111, -0.0387, -1.4183]
+       World: [0.0441, -0.0460, -0.0067]
+[Mean] Macro-Step Reward: 0.15314477682113647
+  6%|5         | 587/10000 [20:17<5:49:21,  2.23s/it][INFO] Env 0: Pixel (Full): (109, 120), Depth: 1.4057
+       Cam: [-0.0164, -0.0438, -1.4057]
+       World: [0.0579, -0.0506, -0.0083]
+[Mean] Macro-Step Reward: 0.2068074494600296
+  6%|5         | 588/10000 [20:20<5:44:13,  2.19s/it][INFO] Env 0: Pixel (Full): (112, 97), Depth: 1.2993
+       Cam: [0.0000, 0.0760, -1.2993]
+       World: [0.1282, -0.0287, 0.1349]
+[Mean] Macro-Step Reward: 0.22150401771068573
+  6%|5         | 589/10000 [20:22<5:45:23,  2.20s/it][INFO] Env 0: Pixel (Full): (125, 128), Depth: 1.2714
+       Cam: [0.0644, -0.0793, -1.2714]
+       World: [0.1917, 0.0385, -0.0082]
+[Mean] Macro-Step Reward: 0.11003972589969635
+  6%|5         | 590/10000 [20:24<5:45:26,  2.20s/it][INFO] Env 0: Pixel (Full): (111, 135), Depth: 1.1734
+       Cam: [-0.0046, -0.1052, -1.1734]
+       World: [0.2970, -0.0243, -0.0072]
+[Mean] Macro-Step Reward: 0.2712070345878601
+  6%|5         | 591/10000 [20:26<5:47:04,  2.21s/it][INFO] Env 0: Pixel (Full): (129, 128), Depth: 1.2713
+       Cam: [0.0842, -0.0793, -1.2713]
+       World: [0.1905, 0.0583, -0.0084]
+[Mean] Macro-Step Reward: 1.0025713443756104
+  6%|5         | 592/10000 [20:29<5:51:38,  2.24s/it][INFO] Env 0: Pixel (Full): (117, 94), Depth: 1.1516
+       Cam: [0.0224, 0.0808, -1.1516]
+       World: [0.2679, 0.0025, 0.1779]
+[Mean] Macro-Step Reward: 0.8389055728912354
+  6%|5         | 593/10000 [20:31<5:45:21,  2.20s/it][INFO] Env 0: Pixel (Full): (100, 120), Depth: 1.4058
+       Cam: [-0.0658, -0.0438, -1.4058]
+       World: [0.0607, -0.0998, -0.0080]
+[Mean] Macro-Step Reward: 0.30808940529823303
+  6%|5         | 594/10000 [20:33<5:35:10,  2.14s/it][INFO] Env 0: Pixel (Full): (132, 128), Depth: 1.2713
+       Cam: [0.0991, -0.0793, -1.2713]
+       World: [0.1897, 0.0731, -0.0085]
+[Mean] Macro-Step Reward: 0.2299589067697525
+  6%|5         | 595/10000 [20:35<5:32:59,  2.12s/it][INFO] Env 0: Pixel (Full): (104, 78), Depth: 2.0000
+       Cam: [-0.0624, 0.2651, -2.0000]
+       World: [-0.5925, -0.1346, 0.1354]
+[Mean] Macro-Step Reward: 0.22770772874355316
+  6%|5         | 596/10000 [20:37<5:30:56,  2.11s/it][INFO] Env 0: Pixel (Full): (128, 73), Depth: 2.0000
+       Cam: [0.1247, 0.3040, -2.0000]
+       World: [-0.6139, 0.0519, 0.1716]
+[Mean] Macro-Step Reward: 0.13196022808551788
+  6%|5         | 597/10000 [20:39<5:28:17,  2.09s/it][INFO] Env 0: Pixel (Full): (115, 106), Depth: 1.7242
+       Cam: [0.0202, 0.0403, -1.7242]
+       World: [-0.2732, -0.0338, -0.0104]
+[Mean] Macro-Step Reward: 0.13162946701049805
+  6%|5         | 598/10000 [20:41<5:26:50,  2.09s/it][INFO] Env 0: Pixel (Full): (109, 130), Depth: 1.2418
+       Cam: [-0.0145, -0.0871, -1.2418]
+       World: [0.2269, -0.0384, -0.0075]
+[Mean] Macro-Step Reward: 0.10341577231884003
+  6%|5         | 599/10000 [20:43<5:27:02,  2.09s/it][INFO] Env 0: Pixel (Full): (128, 70), Depth: 2.0000
+       Cam: [0.1247, 0.3274, -2.0000]
+       World: [-0.6200, 0.0517, 0.1942]
+[Mean] Macro-Step Reward: 0.0973481833934784
+  6%|6         | 600/10000 [20:45<5:45:23,  2.20s/it][INFO] Env 0: Pixel (Full): (117, 70), Depth: 2.0000
+       Cam: [0.0390, 0.3274, -2.0000]
+       World: [-0.6148, -0.0339, 0.1948]
+[Mean] Macro-Step Reward: 0.49308401346206665
+  6%|6         | 601/10000 [20:48<5:40:55,  2.18s/it][INFO] Env 0: Pixel (Full): (105, 89), Depth: 2.0000
+       Cam: [-0.0546, 0.1793, -2.0000]
+       World: [-0.5706, -0.1261, 0.0526]
+[Mean] Macro-Step Reward: 0.743815541267395
+  6%|6         | 602/10000 [20:50<5:40:24,  2.17s/it][INFO] Env 0: Pixel (Full): (117, 121), Depth: 1.2264
+       Cam: [0.0239, -0.0430, -1.2264]
+       World: [0.2280, 0.0005, 0.0388]
+[Mean] Macro-Step Reward: 0.6706497669219971
+  6%|6         | 603/10000 [20:52<5:39:48,  2.17s/it][INFO] Env 0: Pixel (Full): (107, 97), Depth: 2.0000
+       Cam: [-0.0390, 0.1169, -2.0000]
+       World: [-0.5553, -0.1101, -0.0078]
+[Mean] Macro-Step Reward: 0.2973403334617615
+  6%|6         | 604/10000 [20:54<5:30:11,  2.11s/it][INFO] Env 0: Pixel (Full): (110, 136), Depth: 1.1606
+       Cam: [-0.0090, -0.1086, -1.1606]
+       World: [0.3104, -0.0279, -0.0071]
+[Mean] Macro-Step Reward: 0.7829687595367432
+  6%|6         | 605/10000 [20:56<5:30:41,  2.11s/it][INFO] Env 0: Pixel (Full): (126, 90), Depth: 2.0000
+       Cam: [0.1091, 0.1715, -2.0000]
+       World: [-0.5784, 0.0374, 0.0438]
+[Mean] Macro-Step Reward: 0.30530697107315063
+  6%|6         | 606/10000 [20:58<5:35:58,  2.15s/it][INFO] Env 0: Pixel (Full): (100, 84), Depth: 2.0000
+       Cam: [-0.0935, 0.2183, -2.0000]
+       World: [-0.5784, -0.1653, 0.0905]
+[Mean] Macro-Step Reward: 0.33285146951675415
+  6%|6         | 607/10000 [21:00<5:36:17,  2.15s/it][INFO] Env 0: Pixel (Full): (113, 86), Depth: 2.0000
+       Cam: [0.0078, 0.2027, -2.0000]
+       World: [-0.5805, -0.0641, 0.0747]
+[Mean] Macro-Step Reward: 0.8233399987220764
+  6%|6         | 608/10000 [21:03<5:43:58,  2.20s/it][INFO] Env 0: Pixel (Full): (112, 122), Depth: 1.3695
+       Cam: [0.0000, -0.0534, -1.3695]
+       World: [0.0942, -0.0319, -0.0083]
+[Mean] Macro-Step Reward: 0.5307929515838623
+  6%|6         | 609/10000 [21:05<5:48:37,  2.23s/it][INFO] Env 0: Pixel (Full): (119, 114), Depth: 1.4274
+       Cam: [0.0389, -0.0111, -1.4274]
+       World: [0.0251, 0.0032, 0.0171]
+[Mean] Macro-Step Reward: 0.265868216753006
+  6%|6         | 610/10000 [21:07<5:44:35,  2.20s/it][INFO] Env 0: Pixel (Full): (111, 131), Depth: 1.2275
+       Cam: [-0.0048, -0.0909, -1.2275]
+       World: [0.2412, -0.0278, -0.0075]
+[Mean] Macro-Step Reward: 0.19188080728054047
+  6%|6         | 611/10000 [21:09<5:50:04,  2.24s/it][INFO] Env 0: Pixel (Full): (133, 82), Depth: 2.0000
+       Cam: [0.1637, 0.2339, -2.0000]
+       World: [-0.5980, 0.0913, 0.1035]
+[Mean] Macro-Step Reward: 0.18528205156326294
+  6%|6         | 612/10000 [21:12<5:55:07,  2.27s/it][INFO] Env 0: Pixel (Full): (101, 102), Depth: 2.0000
+       Cam: [-0.0858, 0.0780, -2.0000]
+       World: [-0.5424, -0.1564, -0.0450]
+[Mean] Macro-Step Reward: 0.2536483407020569
+  6%|6         | 613/10000 [21:14<5:47:50,  2.22s/it][INFO] Env 0: Pixel (Full): (127, 102), Depth: 2.0000
+       Cam: [0.1169, 0.0780, -2.0000]
+       World: [-0.5545, 0.0459, -0.0466]
+[Mean] Macro-Step Reward: 0.23792168498039246
+  6%|6         | 614/10000 [21:16<5:44:10,  2.20s/it][INFO] Env 0: Pixel (Full): (132, 103), Depth: 2.0000
+       Cam: [0.1559, 0.0702, -2.0000]
+       World: [-0.5549, 0.0848, -0.0545]
+[Mean] Macro-Step Reward: 0.24645283818244934
+  6%|6         | 615/10000 [21:18<5:44:58,  2.21s/it][INFO] Env 0: Pixel (Full): (126, 84), Depth: 1.6264
+       Cam: [0.0888, 0.1775, -1.6264]
+       World: [-0.2188, 0.0394, 0.1470]
+[Mean] Macro-Step Reward: 0.19600041210651398
+  6%|6         | 616/10000 [21:20<5:41:49,  2.19s/it][INFO] Env 0: Pixel (Full): (103, 95), Depth: 2.0000
+       Cam: [-0.0702, 0.1325, -2.0000]
+       World: [-0.5575, -0.1413, 0.0076]
+[Mean] Macro-Step Reward: 0.11300457268953323
+  6%|6         | 617/10000 [21:23<5:37:45,  2.16s/it][INFO] Env 0: Pixel (Full): (115, 103), Depth: 2.0000
+       Cam: [0.0234, 0.0702, -2.0000]
+       World: [-0.5469, -0.0474, -0.0534]
+[Mean] Macro-Step Reward: 0.500019907951355
+  6%|6         | 618/10000 [21:25<5:42:00,  2.19s/it][INFO] Env 0: Pixel (Full): (121, 110), Depth: 1.4209
+       Cam: [0.0498, 0.0111, -1.4209]
+       World: [0.0250, 0.0143, 0.0402]
+[Mean] Macro-Step Reward: 0.22642582654953003
+  6%|6         | 619/10000 [21:27<5:39:26,  2.17s/it][INFO] Env 0: Pixel (Full): (110, 105), Depth: 2.0000
+       Cam: [-0.0156, 0.0546, -2.0000]
+       World: [-0.5405, -0.0862, -0.0681]
+[Mean] Macro-Step Reward: 0.2663379907608032
+  6%|6         | 620/10000 [21:29<5:38:37,  2.17s/it][INFO] Env 0: Pixel (Full): (105, 98), Depth: 2.0000
+       Cam: [-0.0546, 0.1091, -2.0000]
+       World: [-0.5524, -0.1256, -0.0152]
+[Mean] Macro-Step Reward: 0.6978025436401367
+  6%|6         | 621/10000 [21:31<5:32:03,  2.12s/it][INFO] Env 0: Pixel (Full): (101, 89), Depth: 2.0000
+       Cam: [-0.0858, 0.1793, -2.0000]
+       World: [-0.5688, -0.1572, 0.0528]
+[Mean] Macro-Step Reward: 0.17349791526794434
+  6%|6         | 622/10000 [21:33<5:31:14,  2.12s/it][INFO] Env 0: Pixel (Full): (103, 81), Depth: 2.0000
+       Cam: [-0.0702, 0.2417, -2.0000]
+       World: [-0.5859, -0.1422, 0.1129]
+[Mean] Macro-Step Reward: 0.21952113509178162
+  6%|6         | 623/10000 [21:35<5:33:10,  2.13s/it][INFO] Env 0: Pixel (Full): (133, 130), Depth: 1.2417
+       Cam: [0.1016, -0.0871, -1.2417]
+       World: [0.2201, 0.0775, -0.0083]
+[Mean] Macro-Step Reward: 0.34903478622436523
+  6%|6         | 624/10000 [21:38<5:37:28,  2.16s/it][INFO] Env 0: Pixel (Full): (102, 111), Depth: 1.5953
+       Cam: [-0.0622, 0.0062, -1.5953]
+       World: [-0.1351, -0.1080, -0.0090]
+[Mean] Macro-Step Reward: 0.8309197425842285
+  6%|6         | 625/10000 [21:40<5:42:19,  2.19s/it][INFO] Env 0: Pixel (Full): (130, 102), Depth: 2.0000
+       Cam: [0.1403, 0.0780, -2.0000]
+       World: [-0.5560, 0.0692, -0.0468]
+[Mean] Macro-Step Reward: 0.49135929346084595
+  6%|6         | 626/10000 [21:42<5:43:24,  2.20s/it][INFO] Env 0: Pixel (Full): (104, 92), Depth: 2.0000
+       Cam: [-0.0624, 0.1559, -2.0000]
+       World: [-0.5641, -0.1337, 0.0301]
+[Mean] Macro-Step Reward: 0.275649756193161
+  6%|6         | 627/10000 [21:44<5:45:46,  2.21s/it][INFO] Env 0: Pixel (Full): (101, 87), Depth: 2.0000
+       Cam: [-0.0858, 0.1949, -2.0000]
+       World: [-0.5728, -0.1574, 0.0679]
+[Mean] Macro-Step Reward: 0.13209041953086853
+  6%|6         | 628/10000 [21:46<5:44:44,  2.21s/it][INFO] Env 0: Pixel (Full): (123, 80), Depth: 1.7133
+       Cam: [0.0735, 0.2137, -1.7133]
+       World: [-0.3110, 0.0186, 0.1595]
+[Mean] Macro-Step Reward: 0.7027102708816528
+  6%|6         | 629/10000 [21:49<5:43:44,  2.20s/it][INFO] Env 0: Pixel (Full): (130, 97), Depth: 2.0000
+       Cam: [0.1403, 0.1169, -2.0000]
+       World: [-0.5661, 0.0689, -0.0092]
+[Mean] Macro-Step Reward: 0.21447259187698364
+  6%|6         | 630/10000 [21:51<5:42:34,  2.19s/it][INFO] Env 0: Pixel (Full): (122, 131), Depth: 1.1870
+       Cam: [0.0463, -0.0879, -1.1870]
+       World: [0.2763, 0.0255, 0.0056]
+[Mean] Macro-Step Reward: 0.17909753322601318
+  6%|6         | 631/10000 [21:53<5:45:22,  2.21s/it][INFO] Env 0: Pixel (Full): (117, 131), Depth: 1.1888
+       Cam: [0.0232, -0.0880, -1.1888]
+       World: [0.2761, 0.0024, 0.0052]
+[Mean] Macro-Step Reward: 0.27505630254745483
+  6%|6         | 632/10000 [21:55<5:46:19,  2.22s/it][INFO] Env 0: Pixel (Full): (102, 86), Depth: 2.0000
+       Cam: [-0.0780, 0.2027, -2.0000]
+       World: [-0.5753, -0.1497, 0.0754]
+[Mean] Macro-Step Reward: 0.22839966416358948
+  6%|6         | 633/10000 [21:58<5:43:33,  2.20s/it][INFO] Env 0: Pixel (Full): (100, 114), Depth: 1.5267
+       Cam: [-0.0714, -0.0119, -1.5267]
+       World: [-0.0637, -0.1130, -0.0086]
+[Mean] Macro-Step Reward: 0.06744701415300369
+  6%|6         | 634/10000 [22:00<5:39:33,  2.18s/it][INFO] Env 0: Pixel (Full): (111, 119), Depth: 1.2603
+       Cam: [-0.0049, -0.0344, -1.2603]
+       World: [0.1948, -0.0304, 0.0386]
+[Mean] Macro-Step Reward: 0.46143853664398193
+  6%|6         | 635/10000 [22:02<5:33:44,  2.14s/it][INFO] Env 0: Pixel (Full): (101, 91), Depth: 2.0000
+       Cam: [-0.0858, 0.1637, -2.0000]
+       World: [-0.5647, -0.1571, 0.0378]
+[Mean] Macro-Step Reward: 0.31721293926239014
+  6%|6         | 636/10000 [22:04<5:28:04,  2.10s/it][INFO] Env 0: Pixel (Full): (120, 91), Depth: 1.4620
+       Cam: [0.0456, 0.1197, -1.4620]
+       World: [-0.0427, 0.0067, 0.1344]
+[Mean] Macro-Step Reward: 0.23308047652244568
+  6%|6         | 637/10000 [22:06<5:31:38,  2.13s/it][INFO] Env 0: Pixel (Full): (127, 107), Depth: 1.6966
+       Cam: [0.0992, 0.0331, -1.6966]
+       World: [-0.2495, 0.0468, -0.0108]
+[Mean] Macro-Step Reward: 0.16524837911128998
+  6%|6         | 638/10000 [22:08<5:31:45,  2.13s/it][INFO] Env 0: Pixel (Full): (106, 93), Depth: 2.0000
+       Cam: [-0.0468, 0.1481, -2.0000]
+       World: [-0.5630, -0.1181, 0.0224]
+[Mean] Macro-Step Reward: 0.07062241435050964
+  6%|6         | 639/10000 [22:10<5:32:13,  2.13s/it][INFO] Env 0: Pixel (Full): (106, 91), Depth: 2.0000
+       Cam: [-0.0468, 0.1637, -2.0000]
+       World: [-0.5670, -0.1182, 0.0375]
+[Mean] Macro-Step Reward: 0.019884001463651657
+  6%|6         | 640/10000 [22:12<5:27:15,  2.10s/it][INFO] Env 0: Pixel (Full): (109, 106), Depth: 1.7243
+       Cam: [-0.0202, 0.0403, -1.7243]
+       World: [-0.2709, -0.0741, -0.0101]
+[Mean] Macro-Step Reward: 0.07054222375154495
+  6%|6         | 641/10000 [22:14<5:17:21,  2.03s/it][INFO] Env 0: Pixel (Full): (107, 70), Depth: 2.0000
+       Cam: [-0.0390, 0.3274, -2.0000]
+       World: [-0.6102, -0.1117, 0.1955]
+[Mean] Macro-Step Reward: 0.2682257890701294
+  6%|6         | 642/10000 [22:16<5:19:05,  2.05s/it][INFO] Env 0: Pixel (Full): (117, 97), Depth: 1.5477
+       Cam: [0.0302, 0.0905, -1.5477]
+       World: [-0.1167, -0.0136, 0.0840]
+[Mean] Macro-Step Reward: 0.7248044610023499
+  6%|6         | 643/10000 [22:18<5:19:20,  2.05s/it][INFO] Env 0: Pixel (Full): (111, 95), Depth: 2.0000
+       Cam: [-0.0078, 0.1325, -2.0000]
+       World: [-0.5613, -0.0791, 0.0071]
+[Mean] Macro-Step Reward: 0.14298668503761292
+  6%|6         | 644/10000 [22:20<5:16:51,  2.03s/it][INFO] Env 0: Pixel (Full): (110, 130), Depth: 1.2418
+       Cam: [-0.0097, -0.0871, -1.2418]
+       World: [0.2267, -0.0336, -0.0075]
+[Mean] Macro-Step Reward: 0.672870397567749
+  6%|6         | 645/10000 [22:22<5:18:41,  2.04s/it][INFO] Env 0: Pixel (Full): (105, 90), Depth: 2.0000
+       Cam: [-0.0546, 0.1715, -2.0000]
+       World: [-0.5686, -0.1261, 0.0451]
+[Mean] Macro-Step Reward: 0.31803131103515625
+  6%|6         | 646/10000 [22:24<5:21:35,  2.06s/it][INFO] Env 0: Pixel (Full): (113, 122), Depth: 1.3695
+       Cam: [0.0053, -0.0534, -1.3695]
+       World: [0.0939, -0.0266, -0.0083]
+[Mean] Macro-Step Reward: 0.21104681491851807
+  6%|6         | 647/10000 [22:27<5:29:03,  2.11s/it][INFO] Env 0: Pixel (Full): (132, 119), Depth: 1.4181
+       Cam: [0.1106, -0.0387, -1.4181]
+       World: [0.0369, 0.0754, -0.0076]
+[Mean] Macro-Step Reward: 0.3239360451698303
+  6%|6         | 648/10000 [22:29<5:30:41,  2.12s/it][INFO] Env 0: Pixel (Full): (113, 131), Depth: 1.1901
+       Cam: [0.0046, -0.0881, -1.1901]
+       World: [0.2759, -0.0162, 0.0049]
+[Mean] Macro-Step Reward: 0.8910410404205322
+  6%|6         | 649/10000 [22:31<5:30:18,  2.12s/it][INFO] Env 0: Pixel (Full): (130, 131), Depth: 1.2274
+       Cam: [0.0861, -0.0909, -1.2274]
+       World: [0.2358, 0.0629, -0.0081]
+[Mean] Macro-Step Reward: 0.5100383758544922
+  6%|6         | 650/10000 [22:33<5:27:23,  2.10s/it][INFO] Env 0: Pixel (Full): (115, 100), Depth: 1.1643
+       Cam: [0.0136, 0.0545, -1.1643]
+       World: [0.2631, -0.0068, 0.1492]
+[Mean] Macro-Step Reward: 0.8347562551498413
+  7%|6         | 651/10000 [22:35<5:28:13,  2.11s/it][INFO] Env 0: Pixel (Full): (125, 74), Depth: 2.0000
+       Cam: [0.1013, 0.2962, -2.0000]
+       World: [-0.6105, 0.0286, 0.1642]
+[Mean] Macro-Step Reward: 0.3207526206970215
+  7%|6         | 652/10000 [22:37<5:35:56,  2.16s/it][INFO] Env 0: Pixel (Full): (109, 124), Depth: 1.3352
+       Cam: [-0.0156, -0.0625, -1.3352]
+       World: [0.1306, -0.0453, -0.0080]
+[Mean] Macro-Step Reward: 0.09865685552358627
+  7%|6         | 653/10000 [22:39<5:35:14,  2.15s/it][INFO] Env 0: Pixel (Full): (112, 127), Depth: 1.1714
+       Cam: [0.0000, -0.0685, -1.1714]
+       World: [0.2891, -0.0199, 0.0287]
+[Mean] Macro-Step Reward: 0.6415231823921204
+  7%|6         | 654/10000 [22:42<5:32:44,  2.14s/it][INFO] Env 0: Pixel (Full): (104, 76), Depth: 2.0000
+       Cam: [-0.0624, 0.2806, -2.0000]
+       World: [-0.5966, -0.1347, 0.1505]
+[Mean] Macro-Step Reward: 0.32862329483032227
+  7%|6         | 655/10000 [22:44<5:38:50,  2.18s/it][INFO] Env 0: Pixel (Full): (113, 75), Depth: 2.0000
+       Cam: [0.0078, 0.2884, -2.0000]
+       World: [-0.6028, -0.0647, 0.1575]
+[Mean] Macro-Step Reward: 0.12630324065685272
+  7%|6         | 656/10000 [22:46<5:33:43,  2.14s/it][INFO] Env 0: Pixel (Full): (116, 101), Depth: 1.4186
+       Cam: [0.0221, 0.0608, -1.4186]
+       World: [0.0158, -0.0137, 0.0890]
+[Mean] Macro-Step Reward: 0.2784152626991272
+  7%|6         | 657/10000 [22:48<5:23:57,  2.08s/it][INFO] Env 0: Pixel (Full): (114, 82), Depth: 2.0000
+       Cam: [0.0156, 0.2339, -2.0000]
+       World: [-0.5891, -0.0565, 0.1047]
+[Mean] Macro-Step Reward: 0.30337491631507874
+  7%|6         | 658/10000 [22:50<5:27:31,  2.10s/it][INFO] Env 0: Pixel (Full): (115, 86), Depth: 2.0000
+       Cam: [0.0234, 0.2027, -2.0000]
+       World: [-0.5814, -0.0485, 0.0745]
+[Mean] Macro-Step Reward: 0.21138855814933777
+  7%|6         | 659/10000 [22:52<5:24:06,  2.08s/it][INFO] Env 0: Pixel (Full): (108, 96), Depth: 2.0000
+       Cam: [-0.0312, 0.1247, -2.0000]
+       World: [-0.5578, -0.1023, -0.0003]
+[Mean] Macro-Step Reward: 0.24024420976638794
+  7%|6         | 660/10000 [22:54<5:18:27,  2.05s/it][INFO] Env 0: Pixel (Full): (115, 113), Depth: 1.7474
+       Cam: [0.0204, -0.0068, -1.7474]
+       World: [-0.2833, -0.0346, -0.0619]
+[Mean] Macro-Step Reward: 0.07613421976566315
+  7%|6         | 661/10000 [22:56<5:16:40,  2.03s/it][INFO] Env 0: Pixel (Full): (106, 136), Depth: 1.1606
+       Cam: [-0.0271, -0.1086, -1.1606]
+       World: [0.3115, -0.0460, -0.0069]
+[Mean] Macro-Step Reward: 0.13873881101608276
+  7%|6         | 662/10000 [22:58<5:18:35,  2.05s/it][INFO] Env 0: Pixel (Full): (131, 75), Depth: 2.0000
+       Cam: [0.1481, 0.2884, -2.0000]
+       World: [-0.6113, 0.0753, 0.1563]
+[Mean] Macro-Step Reward: 0.1590440571308136
+  7%|6         | 663/10000 [23:00<5:13:29,  2.01s/it][INFO] Env 0: Pixel (Full): (109, 110), Depth: 1.6125
+       Cam: [-0.0189, 0.0126, -1.6125]
+       World: [-0.1559, -0.0658, -0.0077]
+[Mean] Macro-Step Reward: 0.15421336889266968
+  7%|6         | 664/10000 [23:02<5:13:56,  2.02s/it][INFO] Env 0: Pixel (Full): (106, 98), Depth: 2.0000
+       Cam: [-0.0468, 0.1091, -2.0000]
+       World: [-0.5528, -0.1178, -0.0152]
+[Mean] Macro-Step Reward: 0.18241581320762634
+  7%|6         | 665/10000 [23:04<5:22:35,  2.07s/it][INFO] Env 0: Pixel (Full): (123, 97), Depth: 1.5227
+       Cam: [0.0653, 0.0890, -1.5227]
+       World: [-0.0944, 0.0229, 0.0888]
+[Mean] Macro-Step Reward: 0.19035598635673523
+  7%|6         | 666/10000 [23:06<5:23:25,  2.08s/it][INFO] Env 0: Pixel (Full): (127, 90), Depth: 2.0000
+       Cam: [0.1169, 0.1715, -2.0000]
+       World: [-0.5789, 0.0451, 0.0437]
+[Mean] Macro-Step Reward: 0.6868525147438049
+  7%|6         | 667/10000 [23:08<5:28:56,  2.11s/it][INFO] Env 0: Pixel (Full): (107, 76), Depth: 2.0000
+       Cam: [-0.0390, 0.2806, -2.0000]
+       World: [-0.5980, -0.1114, 0.1503]
+[Mean] Macro-Step Reward: 0.34963923692703247
+  7%|6         | 668/10000 [23:11<5:31:54,  2.13s/it][INFO] Env 0: Pixel (Full): (100, 106), Depth: 1.7244
+       Cam: [-0.0807, 0.0403, -1.7244]
+       World: [-0.2673, -0.1345, -0.0096]
+[Mean] Macro-Step Reward: 0.24375858902931213
+  7%|6         | 669/10000 [23:13<5:29:18,  2.12s/it][INFO] Env 0: Pixel (Full): (108, 95), Depth: 1.3518
+       Cam: [-0.0211, 0.0896, -1.3518]
+       World: [0.0753, -0.0530, 0.1345]
+[Mean] Macro-Step Reward: 0.12866614758968353
+  7%|6         | 670/10000 [23:15<5:22:11,  2.07s/it][INFO] Env 0: Pixel (Full): (118, 89), Depth: 1.2724
+       Cam: [0.0298, 0.1141, -1.2724]
+       World: [0.1424, 0.0023, 0.1785]
+[Mean] Macro-Step Reward: 0.18561312556266785
+  7%|6         | 671/10000 [23:17<5:23:12,  2.08s/it][INFO] Env 0: Pixel (Full): (120, 98), Depth: 1.2251
+       Cam: [0.0382, 0.0669, -1.2251]
+       World: [0.1997, 0.0140, 0.1451]
+[Mean] Macro-Step Reward: 0.2193593531847
+  7%|6         | 672/10000 [23:19<5:18:52,  2.05s/it][INFO] Env 0: Pixel (Full): (133, 109), Depth: 1.6370
+       Cam: [0.1340, 0.0191, -1.6370]
+       World: [-0.1905, 0.0852, -0.0090]
+[Mean] Macro-Step Reward: 0.9760482907295227
+  7%|6         | 673/10000 [23:21<5:18:29,  2.05s/it][INFO] Env 0: Pixel (Full): (116, 118), Depth: 1.4375
+       Cam: [0.0224, -0.0336, -1.4375]
+       World: [0.0223, -0.0138, -0.0071]
+[Mean] Macro-Step Reward: 0.27594417333602905
+  7%|6         | 674/10000 [23:23<5:25:48,  2.10s/it][INFO] Env 0: Pixel (Full): (114, 116), Depth: 1.4775
+       Cam: [0.0115, -0.0230, -1.4775]
+       World: [-0.0185, -0.0271, -0.0072]
+[Mean] Macro-Step Reward: 0.0754992812871933
+  7%|6         | 675/10000 [23:25<5:25:24,  2.09s/it][INFO] Env 0: Pixel (Full): (104, 82), Depth: 2.0000
+       Cam: [-0.0624, 0.2339, -2.0000]
+       World: [-0.5844, -0.1343, 0.1053]
+[Mean] Macro-Step Reward: 0.14521995186805725
+  7%|6         | 676/10000 [23:27<5:18:35,  2.05s/it][INFO] Env 0: Pixel (Full): (119, 89), Depth: 1.4941
+       Cam: [0.0408, 0.1340, -1.4941]
+       World: [-0.0771, -0.0002, 0.1398]
+[Mean] Macro-Step Reward: 0.08971963822841644
+  7%|6         | 677/10000 [23:29<5:23:21,  2.08s/it][INFO] Env 0: Pixel (Full): (131, 121), Depth: 1.3872
+       Cam: [0.1027, -0.0487, -1.3872]
+       World: [0.0698, 0.0695, -0.0091]
+[Mean] Macro-Step Reward: 0.029277967289090157
+  7%|6         | 678/10000 [23:32<5:34:26,  2.15s/it][INFO] Env 0: Pixel (Full): (129, 70), Depth: 2.0000
+       Cam: [0.1325, 0.3274, -2.0000]
+       World: [-0.6205, 0.0595, 0.1941]
+[Mean] Macro-Step Reward: 0.5755731463432312
+  7%|6         | 679/10000 [23:34<5:35:34,  2.16s/it][INFO] Env 0: Pixel (Full): (121, 106), Depth: 1.4027
+       Cam: [0.0492, 0.0328, -1.4027]
+       World: [0.0368, 0.0145, 0.0659]
+[Mean] Macro-Step Reward: 0.16285425424575806
+  7%|6         | 680/10000 [23:36<5:37:36,  2.17s/it][INFO] Env 0: Pixel (Full): (127, 107), Depth: 1.6966
+       Cam: [0.0992, 0.0331, -1.6966]
+       World: [-0.2495, 0.0468, -0.0108]
+[Mean] Macro-Step Reward: 0.12466126680374146
+  7%|6         | 681/10000 [23:38<5:39:11,  2.18s/it][INFO] Env 0: Pixel (Full): (131, 110), Depth: 1.6121
+       Cam: [0.1194, 0.0126, -1.6121]
+       World: [-0.1639, 0.0722, -0.0087]
+[Mean] Macro-Step Reward: 0.1947055160999298
+  7%|6         | 682/10000 [23:40<5:33:02,  2.14s/it][INFO] Env 0: Pixel (Full): (127, 99), Depth: 2.0000
+       Cam: [0.1169, 0.1013, -2.0000]
+       World: [-0.5606, 0.0457, -0.0240]
+[Mean] Macro-Step Reward: 0.5164161920547485
+  7%|6         | 683/10000 [23:42<5:36:00,  2.16s/it][INFO] Env 0: Pixel (Full): (122, 71), Depth: 2.0000
+       Cam: [0.0780, 0.3196, -2.0000]
+       World: [-0.6152, 0.0050, 0.1870]
+[Mean] Macro-Step Reward: 0.307722270488739
+  7%|6         | 684/10000 [23:45<5:36:25,  2.17s/it][INFO] Env 0: Pixel (Full): (113, 109), Depth: 1.6372
+       Cam: [0.0064, 0.0191, -1.6372]
+       World: [-0.1830, -0.0422, -0.0080]
+[Mean] Macro-Step Reward: 0.2053387463092804
+  7%|6         | 685/10000 [23:47<5:32:25,  2.14s/it][INFO] Env 0: Pixel (Full): (100, 77), Depth: 2.0000
+       Cam: [-0.0935, 0.2729, -2.0000]
+       World: [-0.5927, -0.1658, 0.1432]
+[Mean] Macro-Step Reward: 0.2512454390525818
+  7%|6         | 686/10000 [23:49<5:33:24,  2.15s/it][INFO] Env 0: Pixel (Full): (113, 125), Depth: 1.1827
+       Cam: [0.0046, -0.0599, -1.1827]
+       World: [0.2757, -0.0160, 0.0340]
+[Mean] Macro-Step Reward: 0.18586857616901398
+  7%|6         | 687/10000 [23:51<5:36:42,  2.17s/it][INFO] Env 0: Pixel (Full): (119, 73), Depth: 2.0000
+       Cam: [0.0546, 0.3040, -2.0000]
+       World: [-0.6097, -0.0182, 0.1721]
+[Mean] Macro-Step Reward: 0.26594671607017517
+  7%|6         | 688/10000 [23:53<5:35:08,  2.16s/it][INFO] Env 0: Pixel (Full): (107, 117), Depth: 1.4573
+       Cam: [-0.0284, -0.0284, -1.4573]
+       World: [0.0048, -0.0657, -0.0068]
+[Mean] Macro-Step Reward: 0.1274101734161377
+  7%|6         | 689/10000 [23:55<5:30:36,  2.13s/it][INFO] Env 0: Pixel (Full): (126, 130), Depth: 1.2417
+       Cam: [0.0678, -0.0871, -1.2417]
+       World: [0.2221, 0.0437, -0.0081]
+[Mean] Macro-Step Reward: 0.13771724700927734
+  7%|6         | 690/10000 [23:57<5:34:29,  2.16s/it][INFO] Env 0: Pixel (Full): (110, 93), Depth: 2.0000
+       Cam: [-0.0156, 0.1481, -2.0000]
+       World: [-0.5649, -0.0870, 0.0222]
+[Mean] Macro-Step Reward: 0.22649233043193817
+  7%|6         | 691/10000 [24:00<5:32:41,  2.14s/it][INFO] Env 0: Pixel (Full): (118, 128), Depth: 1.1847
+       Cam: [0.0277, -0.0739, -1.1847]
+       World: [0.2760, 0.0070, 0.0199]
+[Mean] Macro-Step Reward: 0.40038591623306274
+  7%|6         | 692/10000 [24:02<5:30:07,  2.13s/it][INFO] Env 0: Pixel (Full): (127, 124), Depth: 1.3351
+       Cam: [0.0781, -0.0624, -1.3351]
+       World: [0.1251, 0.0482, -0.0087]
+[Mean] Macro-Step Reward: 0.1966502070426941
+  7%|6         | 693/10000 [24:04<5:33:29,  2.15s/it][INFO] Env 0: Pixel (Full): (132, 116), Depth: 1.4774
+       Cam: [0.1152, -0.0230, -1.4774]
+       World: [-0.0245, 0.0763, -0.0080]
+[Mean] Macro-Step Reward: 0.23584380745887756
+  7%|6         | 694/10000 [24:06<5:34:05,  2.15s/it][INFO] Env 0: Pixel (Full): (119, 123), Depth: 1.1953
+       Cam: [0.0326, -0.0512, -1.1953]
+       World: [0.2596, 0.0111, 0.0389]
+[Mean] Macro-Step Reward: 0.7322429418563843
+  7%|6         | 695/10000 [24:08<5:36:37,  2.17s/it][INFO] Env 0: Pixel (Full): (118, 84), Depth: 1.1651
+       Cam: [0.0272, 0.1272, -1.1651]
+       World: [0.2425, 0.0061, 0.2191]

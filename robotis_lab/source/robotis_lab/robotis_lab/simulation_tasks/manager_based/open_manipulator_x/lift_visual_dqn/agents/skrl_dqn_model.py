@@ -2,11 +2,36 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 from skrl.models.torch import Model, DeterministicMixin
+import gymnasium as gym
 
-class RGBD_DQN(Model, DeterministicMixin):
+class RGBD_DQN(DeterministicMixin, Model):
     def __init__(self, observation_space, action_space, device, clip_actions=False):
         Model.__init__(self, observation_space, action_space, device)
         DeterministicMixin.__init__(self, clip_actions)
+
+        # [FIX] Detect ROI dimensions from observation space
+        self.H = 69 # Default
+        self.W = 34 # Default
+        
+        # Try to infer from observation space
+        # Expecting Dict with "rgb" or "depth"
+        if isinstance(observation_space, gym.spaces.Dict):
+            # Check for "rgb"
+            if "rgb" in observation_space.spaces:
+                s = observation_space.spaces["rgb"].shape
+                # (H, W, C) or (N, H, W, C)
+                if len(s) == 3:
+                    self.H, self.W = s[0], s[1]
+                elif len(s) == 4:
+                    self.H, self.W = s[1], s[2]
+            elif "depth" in observation_space.spaces:
+                s = observation_space.spaces["depth"].shape
+                if len(s) == 3:
+                    self.H, self.W = s[0], s[1]
+                elif len(s) == 4:
+                    self.H, self.W = s[1], s[2]
+        
+        print(f"[INFO] RGBD_DQN initialized with ROI: {self.W}x{self.H}")
 
         # Load MobileNetV2 backbones
         # We need the features, not the classifier
@@ -48,8 +73,32 @@ class RGBD_DQN(Model, DeterministicMixin):
         if isinstance(states, dict):
             rgb = states.get("rgb")
             depth = states.get("depth")
+        elif isinstance(states, torch.Tensor):
+            # [FIX] Handle flattened tensor from Replay Memory
+            # Skrl flattens Dict observations when storing in memory.
+            # Keys are sorted alphabetically: "depth", "rgb"
+            # Depth: (1, H, W)
+            # RGB:   (3, H, W)
+            
+            N = states.shape[0]
+            H, W = self.H, self.W
+            depth_size = 1 * H * W
+            rgb_size = 3 * H * W
+            expected_size = depth_size + rgb_size
+            
+            if states.shape[1] == expected_size:
+                # Split tensor
+                # Sorted keys: "depth", "rgb" -> Depth comes first
+                depth_flat = states[:, :depth_size]
+                rgb_flat = states[:, depth_size:]
+                
+                # Reshape
+                depth = depth_flat.view(N, 1, H, W)
+                rgb = rgb_flat.view(N, 3, H, W)
+            else:
+                raise ValueError(f"RGBD_DQN received tensor with shape {states.shape}, expected flattened size {expected_size} (Depth+RGB for {W}x{H}).")
         else:
-            raise ValueError("RGBD_DQN model expects a dictionary observation with 'rgb' and 'depth' keys.")
+            raise ValueError(f"RGBD_DQN model expects a dictionary observation or flattened tensor. Received: {type(states)}")
 
         # Handle RGB (N, H, W, C) -> (N, C, H, W)
         if rgb.dim() == 4:
@@ -89,8 +138,17 @@ class RGBD_DQN(Model, DeterministicMixin):
         # (N, 1, 224, 224)
         q_map = self.decoder(combined_features)
         
-        # Flatten to (N, 224*224)
+        # [FIX] Force resize to (H, W) to match action space
+        if q_map.shape[-2:] != (self.H, self.W):
+             q_map = torch.nn.functional.interpolate(q_map, size=(self.H, self.W), mode='bilinear', align_corners=False)
+        
+        # Flatten to (N, H*W)
         q_values = q_map.view(q_map.size(0), -1)
+        
+        # [DEBUG] Print greedy action info (only occasionally to avoid spam)
+        # We can't easily access epsilon here, but we know this is the greedy path
+        if torch.rand(1).item() < 0.01: # 1% chance to print
+             print(f"[DEBUG] Greedy Act (compute): Max Q-value: {q_values.max().item():.4f}")
        
         return q_values, {}
 
@@ -115,9 +173,14 @@ class RGBD_DQN(Model, DeterministicMixin):
             if hasattr(self.action_space, "n"):
                 num_actions = self.action_space.n
             else:
-                num_actions = 50176 # Fallback
+                num_actions = self.H * self.W # Fallback
         else:
-            num_actions = 50176
+            num_actions = self.H * self.W
             
         random_actions = torch.randint(0, num_actions, (batch_size, 1), device=self.device)
+        
+        # [DEBUG] Print random action info
+        if torch.rand(1).item() < 0.01: # 1% chance to print
+             print(f"[DEBUG] Random Act: Generated {batch_size} candidates (SKRL will use these if epsilon check passes)")
+             
         return random_actions, None, None

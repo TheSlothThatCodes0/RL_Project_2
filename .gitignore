@@ -1,1 +1,17 @@
 output/
+logs/
+outputs
+captured_images/
+runs
+*.pt
+
+# Additional Logs and Models
+*.log
+**/*.log
+*.pth
+*.onnx
+checkpoints/
+**/checkpoints/
+**/logs/
+**/outputs/
+**/runs/

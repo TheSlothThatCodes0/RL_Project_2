@@ -1,0 +1,55 @@
+agent:
+  gradient_steps: 1
+  batch_size: 32
+  discount_factor: 0.9
+  polyak: 0.005
+  learning_rate: 0.001
+  learning_rate_scheduler: null
+  learning_rate_scheduler_kwargs: {}
+  state_preprocessor: null
+  state_preprocessor_kwargs: {}
+  random_timesteps: 1000
+  learning_starts: 1000
+  update_interval: 1
+  target_update_interval: 1000
+  exploration:
+    initial_epsilon: 0.9
+    final_epsilon: 0.05
+    timesteps: 200
+  rewards_shaper: null
+  mixed_precision: false
+  experiment:
+    directory: /home/pi0/RL_GOOD/logs/skrl
+    experiment_name: 2025-12-11_01-47-30_ppo_torch
+    write_interval: auto
+    checkpoint_interval: 200
+    store_separately: false
+    wandb: false
+    wandb_kwargs: {}
+  class: DQN
+  models:
+    policy:
+      class: RGBD_DQN
+      clip_actions: false
+    target:
+      class: RGBD_DQN
+      clip_actions: false
+  memory:
+    class: RandomMemory
+    memory_size: 1000
+  optimizer:
+    class: Adam
+    lr: 0.001
+    weight_decay: 0.0008
+seed: 42
+models:
+  policy:
+    class: RGBD_DQN
+    clip_actions: false
+  target:
+    class: RGBD_DQN
+    clip_actions: false
+trainer:
+  timesteps: 10000
+  headless: true
+  close_environment_at_exit: false

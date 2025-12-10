@@ -59,8 +59,8 @@ class OpenManipulatorXCubeLiftEnvCfg(LiftEnvCfg):
         )
 
         # Adjust reset noise to keep object within reach
-        self.events.reset_object_position.params["pose_range"]["x"] = (-0.025, 0.025)
-        self.events.reset_object_position.params["pose_range"]["y"] = (-0.05, 0.05)
+        self.events.reset_object_position.params["pose_range"]["x"] = (0.0, 0.0)
+        self.events.reset_object_position.params["pose_range"]["y"] = (0.0, 0.0)
 
         # EE Frame
         self.scene.ee_frame = FrameTransformerCfg(

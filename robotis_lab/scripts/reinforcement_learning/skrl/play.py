@@ -161,17 +161,97 @@ def main():
     # wrap around environment for skrl
     env = SkrlVecEnvWrapper(env, ml_framework=args_cli.ml_framework)  # same as: `wrap_env(env, wrapper="auto")`
 
+    # [FIX] Detect PixelActionWrapper to get the correct Discrete action space
+    actual_action_space = env.action_space
+    if isinstance(env.action_space, gym.spaces.Box):
+        # Try to find PixelActionWrapper in the chain
+        check_env = env
+        pixel_wrapper_found = False
+        while hasattr(check_env, "env"):
+            if hasattr(check_env, "num_actions"): # PixelActionWrapper has this attribute
+                print(f"[INFO] Found PixelActionWrapper with {check_env.num_actions} actions. Using Discrete action space for Agent.")
+                actual_action_space = gym.spaces.Discrete(check_env.num_actions)
+                
+                # CRITICAL FIX: We must also update the wrapper's action space so it doesn't try to reshape
+                # the single integer action into the original Box shape (8,)
+                try:
+                    env.action_space = actual_action_space
+                except AttributeError:
+                    # If action_space is a property without a setter, try setting the private attribute
+                    # This is common in some wrappers that expose action_space as a property
+                    if hasattr(env, "_action_space"):
+                        env._action_space = actual_action_space
+                    
+                    # Also try to set it on the inner wrapper we found
+                    try:
+                        check_env.action_space = actual_action_space
+                    except:
+                        pass
+                
+                pixel_wrapper_found = True
+                break
+            check_env = check_env.env
+            
+        if not pixel_wrapper_found:
+             print("[WARNING] Could not find PixelActionWrapper. Agent might receive Box action space.")
+
     # configure and instantiate the skrl runner
     # https://skrl.readthedocs.io/en/latest/api/utils/runner.html
     experiment_cfg["trainer"]["close_environment_at_exit"] = False
     experiment_cfg["agent"]["experiment"]["write_interval"] = 0  # don't log to TensorBoard
     experiment_cfg["agent"]["experiment"]["checkpoint_interval"] = 0  # don't generate checkpoints
-    runner = Runner(env, experiment_cfg)
+    
+    # Check if we are using the custom RGBD_DQN
+    if "models" in experiment_cfg and experiment_cfg["models"]["policy"]["class"] == "RGBD_DQN":
+        from robotis_lab.simulation_tasks.manager_based.open_manipulator_x.lift_visual_dqn.agents.skrl_dqn_model import RGBD_DQN
+        from skrl.agents.torch.dqn import DQN
+        from skrl.trainers.torch import SequentialTrainer
+        from skrl.memories.torch import RandomMemory
+        
+        # Update config with actual class for Agent instantiation
+        experiment_cfg["models"]["policy"]["class"] = RGBD_DQN
+        experiment_cfg["models"]["target"]["class"] = RGBD_DQN
+        if "agent" in experiment_cfg and "models" in experiment_cfg["agent"]:
+             experiment_cfg["agent"]["models"]["policy"]["class"] = RGBD_DQN
+             experiment_cfg["agent"]["models"]["target"]["class"] = RGBD_DQN
+             
+        # Initialize models
+        models = {}
+        models["q_network"] = RGBD_DQN(env.observation_space, actual_action_space, env.device)
+        models["target_q_network"] = RGBD_DQN(env.observation_space, actual_action_space, env.device)
+        
+        # Initialize memory (dummy for eval)
+        memory = RandomMemory(memory_size=10, num_envs=env.num_envs, device=env.device)
+        
+        # Initialize agent
+        agent = DQN(models=models,
+                    memory=memory,
+                    cfg=experiment_cfg["agent"],
+                    observation_space=env.observation_space,
+                    action_space=actual_action_space,
+                    device=env.device)
+        
+        # Initialize Trainer manually (used as runner wrapper here)
+        # We can't use SequentialTrainer directly for eval loop below easily without refactoring
+        # But we can just use the agent directly.
+        
+        print(f"[INFO] Loading model checkpoint from: {resume_path}")
+        agent.load(resume_path)
+        agent.set_running_mode("eval")
+        
+        # Create a dummy runner object to satisfy the loop below
+        class DummyRunner:
+            def __init__(self, agent):
+                self.agent = agent
+        runner = DummyRunner(agent)
+        
+    else:
+        runner = Runner(env, experiment_cfg)
 
-    print(f"[INFO] Loading model checkpoint from: {resume_path}")
-    runner.agent.load(resume_path)
-    # set agent to evaluation mode
-    runner.agent.set_running_mode("eval")
+        print(f"[INFO] Loading model checkpoint from: {resume_path}")
+        runner.agent.load(resume_path)
+        # set agent to evaluation mode
+        runner.agent.set_running_mode("eval")
 
     # reset environment
     obs, _ = env.reset()
@@ -189,7 +269,18 @@ def main():
                 actions = {a: outputs[-1][a].get("mean_actions", outputs[0][a]) for a in env.possible_agents}
             # - single-agent (deterministic) actions
             else:
-                actions = outputs[-1].get("mean_actions", outputs[0])
+                # DQN act() returns (actions, None, None)
+                # PPO act() returns (actions, log_prob, outputs) where outputs is a dict
+                if isinstance(outputs, tuple):
+                    # Check if the last element is None (typical for DQN)
+                    if outputs[-1] is None:
+                        actions = outputs[0]
+                    else:
+                        # PPO case
+                        actions = outputs[-1].get("mean_actions", outputs[0])
+                else:
+                    # Fallback
+                    actions = outputs
             # env stepping
             obs, _, _, _, _ = env.step(actions)
         if args_cli.video:

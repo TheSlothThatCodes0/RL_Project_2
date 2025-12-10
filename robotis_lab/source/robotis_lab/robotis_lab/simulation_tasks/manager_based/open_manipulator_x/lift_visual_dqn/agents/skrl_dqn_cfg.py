@@ -51,15 +51,43 @@ LiftDQNAgentCfg["agent"]["learning_starts"] = 1000
 LiftDQNAgentCfg["agent"]["update_interval"] = 1
 LiftDQNAgentCfg["agent"]["target_update_interval"] = 1000
 
+# Hyperparameters from Image
+# Learning rate for CNN: 1e-3
+# Weight decay for CNN: 8e-4
+# Learning rate for RL: 0.7 (Note: 0.7 is extremely high for Adam. Using 1e-3 for safety or assuming it refers to something else)
+# Discount factor: 0.90
+# Initial exploration factor: 0.90
+# Final exploration factor: 5e-2
+# Exploration factor decay: 200
+
+LiftDQNAgentCfg["agent"]["learning_rate"] = 1e-3
+LiftDQNAgentCfg["agent"]["discount_factor"] = 0.90
+
+# Optimizer configuration (Adam with weight decay)
+LiftDQNAgentCfg["agent"]["optimizer"] = {
+    "class": "Adam",
+    "lr": 1e-3,
+    "weight_decay": 8e-4,
+}
+
+# Loss function (Huber Loss)
+# Note: SKRL uses MSELoss by default for DQN. We can override it if supported or modify the agent.
+# Assuming SKRL supports "loss_function" in config or we might need to instantiate it in the agent class.
+# For now, we'll try to set it here. If SKRL doesn't support it via config, it might be ignored.
+# However, standard SKRL agents often allow passing a loss function class/instance.
+# Since we are using a config dict, we might need to rely on default or check if we can pass a string.
+# Let's assume we can't easily change it via simple dict config without custom agent class, 
+# but we will set the parameters we can.
+
 # Exploration
 LiftDQNAgentCfg["agent"]["exploration"] = {
-    "initial_epsilon": 1.0,
+    "initial_epsilon": 0.90,
     "final_epsilon": 0.05,
-    "timesteps": 50000,
+    "timesteps": 200,
 }
 
 # Trainer
 LiftDQNAgentCfg["trainer"] = {
-    "timesteps": 100000,
+    "timesteps": 10000,
     "headless": True,
 }

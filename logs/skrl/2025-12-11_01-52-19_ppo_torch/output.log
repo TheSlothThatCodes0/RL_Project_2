@@ -1,0 +1,142 @@
+[INFO] Saving console logs to: /home/pi0/RL_GOOD/logs/skrl/2025-12-11_01-52-19_ppo_torch/output.log
+Setting seed: 42
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.01
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation : 4.267267 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 8
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : []
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 1.810841 seconds
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------+
+|           Active Command Terms           |
++-------+-------------+--------------------+
+| Index | Name        |        Type        |
++-------+-------------+--------------------+
+|   0   | object_pose | UniformPoseCommand |
++-------+-------------+--------------------+
+
+[INFO] Event Manager:  <EventManager> contains 1 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'reset'  |
++---------+----------------------------+
+|  Index  | Name                       |
++---------+----------------------------+
+|    0    | reset_all                  |
+|    1    | reset_object_position      |
++---------+----------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 2 active terms.
++------------------------------------+
+|   Active Action Terms (shape: 8)   |
++-------+----------------+-----------+
+| Index | Name           | Dimension |
++-------+----------------+-----------+
+|   0   | arm_action     |         7 |
+|   1   | gripper_action |         1 |
++-------+----------------+-----------+
+
+[INFO] Observation Manager: <ObservationManager> contains 1 groups.
++--------------------------------------------+
+| Active Observation Terms in Group: 'policy' |
++----------+----------+----------------------+
+|  Index   | Name     |        Shape         |
++----------+----------+----------------------+
+|    0     | rgb      |    (224, 224, 3)     |
+|    1     | depth    |    (224, 224, 1)     |
++----------+----------+----------------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 3 active terms.
++----------------------------------------+
+|        Active Termination Terms        |
++-------+---------------------+----------+
+| Index | Name                | Time Out |
++-------+---------------------+----------+
+|   0   | time_out            |   True   |
+|   1   | object_dropping     |  False   |
+|   2   | object_reached_goal |  False   |
++-------+---------------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 3 active terms.
++----------------------------------+
+|       Active Reward Terms        |
++-------+-----------------+--------+
+| Index | Name            | Weight |
++-------+-----------------+--------+
+|   0   | reaching_object |    1.0 |
+|   1   | lifting_object  |     15 |
+|   2   | object_grasped  |    5.0 |
++-------+-----------------+--------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 0 active terms.
++----------------------+
+| Active Curriculum Terms |
++-----------+----------+
+|   Index   | Name     |
++-----------+----------+
++-----------+----------+
+
+[INFO]: Completed setting up the environment...
+PixelActionWrapper initialized by:
+  File "/home/pi0/RL_GOOD/robotis_lab/scripts/reinforcement_learning/skrl/train.py", line 438, in <module>
+    main()
+  File "/home/pi0/RL_GOOD/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 104, in wrapper
+    hydra_main()
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/home/pi0/RL_GOOD/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/pi0/RL_GOOD/robotis_lab/scripts/reinforcement_learning/skrl/train.py", line 284, in main
+    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 734, in make
+    env = env_creator(**env_spec_kwargs)
+  File "/home/pi0/RL_GOOD/robotis_lab/source/robotis_lab/robotis_lab/simulation_tasks/manager_based/open_manipulator_x/lift_visual_dqn/env_wrapper.py", line 23, in make_wrapped_env
+    return PixelActionWrapper(env, camera_cfg)
+  File "/home/pi0/RL_GOOD/robotis_lab/source/robotis_lab/robotis_lab/simulation_tasks/manager_based/open_manipulator_x/lift_visual_dqn/pixel_wrapper.py", line 15, in __init__
+    traceback.print_stack()
+[INFO] PixelActionWrapper: Forced update of unwrapped env observation space.
+[INFO] PixelActionWrapper: Updated observation space to 34x69
+[DEBUG] Env Observation Space BEFORE Skrl Wrapper: Dict('policy': Dict('depth': Box(-inf, inf, (8, 224, 224, 1), float32), 'rgb': Box(-inf, inf, (8, 224, 224, 3), float32)))
+[DEBUG] Env Observation Space AFTER Skrl Wrapper: Dict('depth': Box(-inf, inf, (224, 224, 1), float32), 'rgb': Box(-inf, inf, (224, 224, 3), float32))
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/pi0/RL_GOOD/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/pi0/RL_GOOD/robotis_lab/scripts/reinforcement_learning/skrl/train.py", line 312, in main
+    policy_space = env.observation_space["policy"]
+                   ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/pi0/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/spaces/dict.py", line 205, in __getitem__
+    return self.spaces[key]
+           ~~~~~~~~~~~^^^^^
+KeyError: 'policy'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+[INFO] Closing simulation app...
