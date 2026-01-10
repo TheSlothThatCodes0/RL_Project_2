@@ -75,3 +75,4 @@ Comparative analysis indicates that the PPO agent, utilizing full environmental 
 
 * Gomes, Natanael & Martins, Felipe & Lima, José & Wörtche, Heinrich. (2021). Deep Reinforcement Learning Applied to a Robotic Pick-and-Place Application. *Robotics in Smart Manufacturing*, 10.1007/978-3-030-91885-9_18.
 * Isaac Lab: NVIDIA's modular framework for robot learning.
+* Moreover we have borrowed code from Robotis Lab as well for RL integration in our Opem Manipulator X
